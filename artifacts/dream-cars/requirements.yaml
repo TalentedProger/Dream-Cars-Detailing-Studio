@@ -1,0 +1,20 @@
+packages:
+  "framer-motion": "For sophisticated scroll and entrance animations required by the premium design"
+  "lucide-react": "For crisp, modern icons across services, contact, and UI elements"
+  "react-hook-form": "For robust contact form state management"
+  "@hookform/resolvers": "For Zod schema validation in the contact form"
+  "embla-carousel-react": "For the testimonials auto-rotating carousel"
+  "clsx": "Utility for constructing className strings conditionally"
+  "tailwind-merge": "Utility to merge tailwind classes efficiently"
+
+images:
+  - path: "artifacts/dream-cars/public/images/texture-dark.png"
+    description: "Ultra premium dark luxury abstract background, subtle charcoal and black gradient with very faint dark violet/purple cinematic light leaks, matte finish, minimalist"
+    aspect_ratio: "16:9"
+  - path: "artifacts/dream-cars/public/images/car-detail-abstract.png"
+    description: "Macro close up of a polished luxury car surface, deep black paint with a stunning glossy reflection, extremely high end cinematic lighting with a hint of purple neon reflection"
+    aspect_ratio: "16:9"
+
+notes:
+  - "The application is primarily a frontend marketing site. A mock hook is provided for the contact form submission since no real backend exists yet."
+  - "The site uses Inter and Outfit fonts for a modern, luxurious editorial feel."
