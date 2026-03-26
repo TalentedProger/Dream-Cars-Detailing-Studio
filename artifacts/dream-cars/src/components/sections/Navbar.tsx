@@ -2,10 +2,27 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLocation } from "wouter";
+import { useBooking } from "@/contexts/BookingContext";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [, navigate] = useLocation();
+  const { open } = useBooking();
+
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
+    if (mobileMenuOpen) {
+      document.body.classList.add('mobile-menu-open');
+    } else {
+      document.body.classList.remove('mobile-menu-open');
+    }
+    return () => {
+      document.body.style.overflow = "";
+      document.body.classList.remove('mobile-menu-open');
+    };
+  }, [mobileMenuOpen]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,19 +33,17 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Услуги", href: "#services" },
-    { name: "О нас", href: "#about" },
-    { name: "Работы", href: "#portfolio" },
-    { name: "Цены", href: "#pricing" },
-    { name: "Контакты", href: "#contact" },
+    { name: "Услуги", route: "/services" },
+    { name: "О нас", route: "/about" },
+    { name: "Работы", route: "/portfolio" },
+    { name: "Цены", route: "/pricing" },
+    { name: "Контакты", route: "/contact" },
   ];
 
-  const scrollTo = (id: string) => {
+  const handleNav = (route: string) => {
     setMobileMenuOpen(false);
-    const element = document.querySelector(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    navigate(route);
+    window.scrollTo({ top: 0 });
   };
 
   return (
@@ -37,12 +52,12 @@ export function Navbar() {
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled ? "py-4 glass-panel shadow-2xl shadow-black/50" : "py-6 bg-transparent"
+        isScrolled ? "py-3 md:py-4 glass-panel shadow-2xl shadow-black/50" : "py-3 md:py-4 lg:py-6 bg-transparent"
       }`}
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
-          <div className="flex-shrink-0 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+          <div className="flex-shrink-0 cursor-pointer" onClick={() => { navigate("/"); window.scrollTo({ top: 0 }); }}>
             <h1 className="font-display font-bold text-2xl md:text-3xl tracking-wider text-white">
               DREAM<span className="text-primary ml-1">CARS</span>
             </h1>
@@ -53,7 +68,7 @@ export function Navbar() {
             {navLinks.map((link) => (
               <button
                 key={link.name}
-                onClick={() => scrollTo(link.href)}
+                onClick={() => handleNav(link.route)}
                 className="text-sm font-medium text-white/80 hover:text-white hover:text-glow transition-all duration-300"
               >
                 {link.name}
@@ -65,7 +80,7 @@ export function Navbar() {
             <div className="flex items-center space-x-3">
               <a href="https://t.me/dreamcars" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-[#0088CC] transition-colors" aria-label="Telegram">
                 <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.99 1.25-5.61 3.67-.53.36-1.01.54-1.44.53-.48-.01-1.42-.27-2.11-.5-.83-.27-1.49-.42-1.43-.89.03-.23.36-.47 1-.72 3.92-1.7 6.53-2.82 7.82-3.36 3.73-1.56 4.5-1.83 5.01-1.84.11 0 .36.03.49.15.11.1.15.24.16.37-.02.04-.02.11-.03.19z" />
+                  <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.895-1.056-.688-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.664 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.381 4.025-1.627 4.476-1.635z" />
                 </svg>
               </a>
               <a href="https://wa.me/79991234567" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-[#25D366] transition-colors" aria-label="WhatsApp">
@@ -75,11 +90,11 @@ export function Navbar() {
               </a>
               <a href="https://vk.com/dreamcars" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-[#0077FF] transition-colors" aria-label="VK">
                 <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current">
-                  <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm6.91 16.516c-.035.154-.112.296-.22.417a2.27 2.27 0 0 1-.365.31c-.347.26-.745.452-1.168.56-.475.122-1.042.148-1.603.13-1.73-.058-3.418-.685-4.832-1.803-1.632-1.29-2.91-3.045-3.69-5.07-.373-.966-.612-1.99-.714-3.044-.047-.487-.042-.98.016-1.464.03-.25.07-.497.126-.742.062-.264.156-.514.28-.745.18-.337.45-.615.786-.81a2.128 2.128 0 0 1 .525-.213c.2-.053.41-.068.614-.044.385.044.75.19 1.066.425.228.17.427.378.586.615l1.644 2.454c.264.394.464.823.593 1.272.068.238.106.485.112.735a2.05 2.05 0 0 1-.168.86 2.032 2.032 0 0 1-.415.65c-.172.193-.362.37-.565.534-.143.115-.297.218-.456.308.15.297.32.585.508.86.353.518.76 1.002 1.213 1.442.454.44.95.835 1.48 1.173.342.218.702.41 1.077.575.29-.317.595-.62.913-.913.313-.288.648-.553 1.004-.792.213-.142.443-.257.685-.34a2.068 2.068 0 0 1 .84-.075c.294.03.58.12.842.264l2.84 1.572c.42.232.795.532 1.112.888.22.247.397.528.524.832.062.152.11.312.14.475Z" />
+                  <path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .423-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.779.678.864 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.736c-.068-1.186-.695-1.287-.695-1.71 0-.204.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.762-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.745-.576.745z" />
                 </svg>
               </a>
             </div>
-            <Button variant="glow" onClick={() => scrollTo("#contact")}>
+            <Button variant="glow" onClick={open}>
               Записаться
             </Button>
           </div>
@@ -101,7 +116,7 @@ export function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "100vh" }}
             exit={{ opacity: 0, height: 0 }}
-            className="fixed inset-0 top-[72px] bg-background/95 backdrop-blur-xl z-40 flex flex-col items-center pt-20 px-6"
+            className="fixed inset-0 top-[60px] bg-background/95 backdrop-blur-xl z-40 flex flex-col items-center pt-20 px-6 overflow-hidden"
           >
             <div className="flex flex-col space-y-8 text-center w-full">
               {navLinks.map((link, i) => (
@@ -110,7 +125,7 @@ export function Navbar() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
-                  onClick={() => scrollTo(link.href)}
+                  onClick={() => handleNav(link.route)}
                   className="text-2xl font-display font-medium text-white"
                 >
                   {link.name}
@@ -125,7 +140,7 @@ export function Navbar() {
                 <div className="flex justify-center gap-6 mb-4">
                   <a href="https://t.me/dreamcars" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-[#0088CC] transition-colors" aria-label="Telegram">
                     <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current">
-                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.99 1.25-5.61 3.67-.53.36-1.01.54-1.44.53-.48-.01-1.42-.27-2.11-.5-.83-.27-1.49-.42-1.43-.89.03-.23.36-.47 1-.72 3.92-1.7 6.53-2.82 7.82-3.36 3.73-1.56 4.5-1.83 5.01-1.84.11 0 .36.03.49.15.11.1.15.24.16.37-.02.04-.02.11-.03.19z" />
+                      <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.895-1.056-.688-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.664 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.381 4.025-1.627 4.476-1.635z" />
                     </svg>
                   </a>
                   <a href="https://wa.me/79991234567" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-[#25D366] transition-colors" aria-label="WhatsApp">
@@ -135,11 +150,11 @@ export function Navbar() {
                   </a>
                   <a href="https://vk.com/dreamcars" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-[#0077FF] transition-colors" aria-label="VK">
                     <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current">
-                      <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm6.91 16.516c-.035.154-.112.296-.22.417a2.27 2.27 0 0 1-.365.31c-.347.26-.745.452-1.168.56-.475.122-1.042.148-1.603.13-1.73-.058-3.418-.685-4.832-1.803-1.632-1.29-2.91-3.045-3.69-5.07-.373-.966-.612-1.99-.714-3.044-.047-.487-.042-.98.016-1.464.03-.25.07-.497.126-.742.062-.264.156-.514.28-.745.18-.337.45-.615.786-.81a2.128 2.128 0 0 1 .525-.213c.2-.053.41-.068.614-.044.385.044.75.19 1.066.425.228.17.427.378.586.615l1.644 2.454c.264.394.464.823.593 1.272.068.238.106.485.112.735a2.05 2.05 0 0 1-.168.86 2.032 2.032 0 0 1-.415.65c-.172.193-.362.37-.565.534-.143.115-.297.218-.456.308.15.297.32.585.508.86.353.518.76 1.002 1.213 1.442.454.44.95.835 1.48 1.173.342.218.702.41 1.077.575.29-.317.595-.62.913-.913.313-.288.648-.553 1.004-.792.213-.142.443-.257.685-.34a2.068 2.068 0 0 1 .84-.075c.294.03.58.12.842.264l2.84 1.572c.42.232.795.532 1.112.888.22.247.397.528.524.832.062.152.11.312.14.475Z" />
+                      <path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .423-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.779.678.864 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.736c-.068-1.186-.695-1.287-.695-1.71 0-.204.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.762-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.745-.576.745z" />
                     </svg>
                   </a>
                 </div>
-                <Button variant="glow" size="lg" className="w-full max-w-sm" onClick={() => scrollTo("#contact")}>
+                <Button variant="glow" size="lg" className="w-full max-w-sm" onClick={() => { setMobileMenuOpen(false); open(); }}>
                   Записаться
                 </Button>
               </motion.div>

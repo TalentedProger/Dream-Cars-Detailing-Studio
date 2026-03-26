@@ -33,7 +33,7 @@ export function Pricing() {
   };
 
   return (
-    <section id="pricing" className="py-24 bg-[#080808] relative">
+    <section id="pricing" className="py-24 bg-[#080808] relative" style={{background: "radial-gradient(ellipse 80% 60% at 50% 50%, rgba(124,58,237,0.08) 0%, #080808 70%)"}}>
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[400px] bg-[#7C3AED]/10 rounded-full blur-[120px] z-0 pointer-events-none" />
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <motion.div 
@@ -54,10 +54,10 @@ export function Pricing() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className={`relative bg-[#121212] rounded-3xl p-8 border flex flex-col transition-all duration-300 ${
+              className={`relative rounded-3xl p-8 border flex flex-col transition-all duration-300 backdrop-blur-xl ${
                 plan.popular 
-                ? "border-[#7C3AED] shadow-[0_0_30px_rgba(124,58,237,0.2)] scale-100 md:scale-105 z-10" 
-                : "border-[#1E1E1E] hover:border-[#7C3AED]/40"
+                ? "bg-white/10 border-[#7C3AED]/70 shadow-[0_0_40px_rgba(124,58,237,0.25)] scale-100 md:scale-105 z-10" 
+                : "bg-white/5 border-white/10 hover:border-[#7C3AED]/40 hover:bg-white/8"
               }`}
             >
               {plan.popular && (
@@ -69,7 +69,7 @@ export function Pricing() {
               <div className="mb-8">
                 <h3 className="text-2xl font-display font-bold mb-2 text-white">{plan.name}</h3>
                 <p className="text-white/50 text-sm mb-6 h-10">{plan.desc}</p>
-                <div className="text-4xl font-display font-bold text-white">{plan.price}</div>
+                <div className="font-display font-bold text-white whitespace-nowrap" style={{ fontSize: 'clamp(1.1rem, 2.5vw, 2.25rem)' }}>{plan.price}</div>
               </div>
               
               <ul className="space-y-4 mb-8 flex-grow">

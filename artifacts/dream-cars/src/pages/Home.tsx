@@ -1,29 +1,36 @@
 import { Navbar } from "@/components/sections/Navbar";
 import { Hero } from "@/components/sections/Hero";
-import { Services } from "@/components/sections/Services";
-import { WhyUs } from "@/components/sections/WhyUs";
-import { Portfolio } from "@/components/sections/Portfolio";
-import { HowItWorks } from "@/components/sections/HowItWorks";
-import { Testimonials } from "@/components/sections/Testimonials";
-import { Pricing } from "@/components/sections/Pricing";
-import { Contact } from "@/components/sections/Contact";
-import { Footer } from "@/components/sections/Footer";
-import { FloatingSocials } from "@/components/FloatingSocials";
+import { Suspense, lazy } from "react";
+
+// Lazy load non-critical sections to improve initial load time
+const Services = lazy(() => import("@/components/sections/Services").then(module => ({ default: module.Services })));
+const WhyUs = lazy(() => import("@/components/sections/WhyUs").then(module => ({ default: module.WhyUs })));
+const Portfolio = lazy(() => import("@/components/sections/Portfolio").then(module => ({ default: module.Portfolio })));
+const HowItWorks = lazy(() => import("@/components/sections/HowItWorks").then(module => ({ default: module.HowItWorks })));
+const Testimonials = lazy(() => import("@/components/sections/Testimonials").then(module => ({ default: module.Testimonials })));
+const Pricing = lazy(() => import("@/components/sections/Pricing").then(module => ({ default: module.Pricing })));
+const Contact = lazy(() => import("@/components/sections/Contact").then(module => ({ default: module.Contact })));
+const Footer = lazy(() => import("@/components/sections/Footer").then(module => ({ default: module.Footer })));
+const FloatingSocials = lazy(() => import("@/components/FloatingSocials").then(module => ({ default: module.FloatingSocials })));
+const BookingModal = lazy(() => import("@/components/BookingModal").then(module => ({ default: module.BookingModal })));
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-background text-foreground selection:bg-primary/30">
       <Navbar />
       <Hero />
-      <Services />
-      <WhyUs />
-      <Portfolio />
-      <HowItWorks />
-      <Testimonials />
-      <Pricing />
-      <Contact />
-      <Footer />
-      <FloatingSocials />
+      <Suspense fallback={<div className="min-h-[50vh]" />}>
+        <Services />
+        <WhyUs />
+        <Portfolio />
+        <HowItWorks />
+        <Testimonials />
+        <Pricing />
+        <Contact />
+        <Footer />
+        <FloatingSocials />
+        <BookingModal />
+      </Suspense>
     </main>
   );
 }
