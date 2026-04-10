@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowDown } from "lucide-react";
 
 export function Hero() {
   const scrollTo = (id: string) => {
@@ -126,22 +125,7 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2 cursor-pointer"
-        onClick={() => scrollTo("#services")}
-      >
-        <span className="text-white/50 text-xs tracking-widest uppercase font-medium">Прокрутить</span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-        >
-          <ArrowDown className="text-white/50 w-5 h-5" />
-        </motion.div>
-      </motion.div>
+
     </section>
   );
 }

@@ -6,6 +6,7 @@ import { Footer } from "@/components/sections/Footer";
 import { FloatingSocials } from "@/components/FloatingSocials";
 import { BookingModal } from "@/components/BookingModal";
 import { useBooking } from "@/contexts/BookingContext";
+import { usePageMeta } from "@/hooks/use-page-meta";
 
 const plans = [
   {
@@ -122,6 +123,12 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 
 export default function PricingPage() {
   const { open } = useBooking();
+  usePageMeta({
+    title: "Цены на детейлинг — Dream Cars Studio",
+    description: "Цены на детейлинг: до 35 000 ₽ — Полировка, до 70 000 ₽ — Керамика, до 140 000 ₽ — PPF+Керамика. Бесплатная консультация. Car detailing prices: ceramic coating, PPF, polishing.",
+    keywords: "цены детейлинг, стоимость полировки, цена керамики, PPF цена, car detailing cost, ceramic coating price, PPF price",
+    canonicalPath: "/pricing",
+  });
   return (
     <main className="min-h-screen bg-[#080808] text-white">
       <Navbar />
@@ -154,7 +161,7 @@ export default function PricingPage() {
       {/* Plans */}
       <section className="pb-24">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 lg:gap-14 xl:gap-20 max-w-6xl mx-auto">
             {plans.map((plan, i) => (
               <motion.div
                 key={i}
@@ -239,12 +246,29 @@ export default function PricingPage() {
             <h2 className="text-4xl font-display font-bold text-white mb-3">Часто задаваемые <span className="text-[#7C3AED]">вопросы</span></h2>
             <p className="text-white/50">Всё, что вам нужно знать перед записью.</p>
           </motion.div>
-          <div className="max-w-3xl space-y-3">
-            {faqs.map((f, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }}>
-                <FaqItem q={f.q} a={f.a} />
-              </motion.div>
-            ))}
+          <div className="flex flex-col lg:flex-row gap-16 items-start">
+            {/* FAQ list */}
+            <div className="flex-1 min-w-0 space-y-3 lg:max-w-[55%]">
+              {faqs.map((f, i) => (
+                <motion.div key={i} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }}>
+                  <FaqItem q={f.q} a={f.a} />
+                </motion.div>
+              ))}
+            </div>
+            {/* FAQ image */}
+            <motion.div
+              initial={{ opacity: 0, x: 80 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="hidden lg:block lg:w-[40%] shrink-0 sticky top-28 z-[1]"
+            >
+              <img
+                src={`${import.meta.env.BASE_URL}images/faq.png`}
+                alt="FAQ"
+                className="w-full object-contain mix-blend-screen"
+              />
+            </motion.div>
           </div>
         </div>
       </section>
@@ -258,7 +282,7 @@ export default function PricingPage() {
             <p className="text-white/50 mb-10 max-w-lg mx-auto">Оставьте заявку — мы бесплатно проконсультируем и подберём услугу под ваш автомобиль и бюджет.</p>
             <button
               onClick={open}
-              className="inline-flex items-center gap-3 px-10 py-4 rounded-xl font-bold text-white text-sm uppercase tracking-wider transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_0_40px_rgba(124,58,237,0.5)]"
+              className="inline-flex items-center gap-3 px-10 py-4 rounded-xl font-bold text-white text-sm uppercase tracking-wider transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_0_40px_rgba(124,58,237,0.5)] mt-8"
               style={{ background: "linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%)", boxShadow: "0 4px 20px rgba(124,58,237,0.35)" }}
             >
               Получить консультацию <ArrowRight className="w-4 h-4" />

@@ -5,6 +5,7 @@ import { Footer } from "@/components/sections/Footer";
 import { FloatingSocials } from "@/components/FloatingSocials";
 import { BookingModal } from "@/components/BookingModal";
 import { useBooking } from "@/contexts/BookingContext";
+import { usePageMeta } from "@/hooks/use-page-meta";
 
 const services = [
   {
@@ -91,6 +92,12 @@ const services = [
 
 export default function ServicesPage() {
   const { open } = useBooking();
+  usePageMeta({
+    title: "Услуги детейлинга — Dream Cars Studio",
+    description: "Полировка кузова, керамическое покрытие, PPF-плёнка, химчистка салона, лакокрасочные работы. Car detailing services: ceramic coating, PPF film, paint polishing, interior detailing.",
+    keywords: "услуги детейлинга, полировка кузова, керамическое покрытие, PPF, химчистка, car detailing services, ceramic coating, paint protection",
+    canonicalPath: "/services",
+  });
   return (
     <main className="min-h-screen bg-[#080808] text-white">
       <Navbar />
@@ -184,6 +191,11 @@ export default function ServicesPage() {
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 className="text-4xl md:text-5xl font-display font-black text-white mb-4">Готовы начать?</h2>
             <p className="text-white/50 mb-10 max-w-lg mx-auto">Запишитесь на бесплатную консультацию и мы подберём оптимальный пакет услуг для вашего автомобиля.</p>
+            <img
+              src={`${import.meta.env.BASE_URL}images/faq.png`}
+              alt="Dream Cars"
+              className="mx-auto mb-10 w-full max-w-xl object-contain select-none pointer-events-none mix-blend-screen"
+            />
             <button
               onClick={open}
               className="inline-flex items-center gap-3 px-10 py-4 rounded-xl font-bold text-white text-sm uppercase tracking-wider transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_0_40px_rgba(124,58,237,0.5)] active:scale-[0.98]"

@@ -46,7 +46,7 @@ export function Pricing() {
           <p className="text-white/60 max-w-2xl mx-auto text-lg">Инвестиции в безупречный вид вашего автомобиля. Окончательная стоимость зависит от класса авто.</p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 lg:gap-14 xl:gap-20 max-w-6xl mx-auto">
           {plans.map((plan, i) => (
             <motion.div
               key={i}

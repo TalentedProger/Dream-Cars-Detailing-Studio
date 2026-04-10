@@ -7,12 +7,13 @@ import { FloatingSocials } from "@/components/FloatingSocials";
 import { BookingModal } from "@/components/BookingModal";
 import { useBooking } from "@/contexts/BookingContext";
 import { OptimizedImage } from "@/components/ui/optimized-image";
+import { usePageMeta } from "@/hooks/use-page-meta";
 
 const filters = ["Все работы", "Полировка", "Керамика", "Химчистка", "PPF", "Комплекс"];
 
 const works = [
   {
-    img: `${import.meta.env.BASE_URL}ref1.png`,
+    img: `${import.meta.env.BASE_URL}car-aston-martin-db11.jpg`,
     model: "BMW M5 Competition",
     year: "2022",
     service: "Полировка + Керамика",
@@ -20,7 +21,7 @@ const works = [
     desc: "Двухшаговая абразивная полировка + нанесение Ceramic Pro 9H на весь кузов.",
   },
   {
-    img: `${import.meta.env.BASE_URL}ref2.png`,
+    img: `${import.meta.env.BASE_URL}car-porsche-911-gt3.jpg`,
     model: "Porsche 911 GT3",
     year: "2021",
     service: "Химчистка + Антидождь",
@@ -28,7 +29,7 @@ const works = [
     desc: "Глубокая химчистка салона из алькантары, озонирование, антидождь на все стёкла.",
   },
   {
-    img: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&q=80",
+    img: `${import.meta.env.BASE_URL}car-mercedes-amg-gt.jpg`,
     model: "Mercedes-AMG GT",
     year: "2023",
     service: "Керамическое покрытие",
@@ -36,7 +37,7 @@ const works = [
     desc: "Нанесение Gyeon Quartz Mohs+ на весь кузов, обработка дисков и стёкол.",
   },
   {
-    img: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&q=80",
+    img: `${import.meta.env.BASE_URL}car-lamborghini-urus.jpg`,
     model: "Lamborghini Urus",
     year: "2023",
     service: "Полный детейлинг",
@@ -44,7 +45,7 @@ const works = [
     desc: "Полировка, PPF на зоны риска, керамика на кузов, химчистка кожаного салона.",
   },
   {
-    img: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80",
+    img: `${import.meta.env.BASE_URL}car-aston-martin-db11-new.jpg`,
     model: "Aston Martin DB11",
     year: "2024",
     service: "PPF полный кузов",
@@ -52,7 +53,7 @@ const works = [
     desc: "Оклейка полного кузова матовой антигравийной плёнкой STEK с гарантией 5 лет.",
   },
   {
-    img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80",
+    img: `${import.meta.env.BASE_URL}car-ferrari-f8-new.jpg`,
     model: "Ferrari F8",
     year: "2024",
     service: "Химчистка салона + Озон",
@@ -60,7 +61,7 @@ const works = [
     desc: "Полная химчистка интерьера с обработкой алькантары и карбоновых вставок. Озонация.",
   },
   {
-    img: "https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=800&q=80",
+    img: `${import.meta.env.BASE_URL}car-rolls-royce-cullinan.jpg`,
     model: "Rolls-Royce Cullinan",
     year: "2024",
     service: "Комплексный детейлинг",
@@ -68,7 +69,7 @@ const works = [
     desc: "Подготовка, полировка, Ceramic Pro Elite, PPF, химчистка кожи Nappa. 7 дней работ.",
   },
   {
-    img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    img: `${import.meta.env.BASE_URL}car-tesla-model-s.jpg`,
     model: "Tesla Model S Plaid",
     year: "2023",
     service: "Полировка + Ceramiq",
@@ -80,6 +81,12 @@ const works = [
 export default function PortfolioPage() {
   const { open } = useBooking();
   const [activeFilter, setActiveFilter] = useState("Все работы");
+  usePageMeta({
+    title: "Наши работы — Dream Cars Studio",
+    description: "Портфолио детейлинга: BMW M5, Porsche 911, Ferrari F8, Aston Martin, Lamborghini, Rolls-Royce. Реальные результаты до и после. Car detailing portfolio: real results before and after.",
+    keywords: "портфолио детейлинга, работы до и после, car detailing portfolio, detailing results",
+    canonicalPath: "/portfolio",
+  });
 
   const filtered = activeFilter === "Все работы"
     ? works
@@ -153,7 +160,7 @@ export default function PortfolioPage() {
                 className="group relative rounded-3xl overflow-hidden border border-white/8 hover:border-[#7C3AED]/50 transition-all duration-400 cursor-pointer"
               >
                 {/* Image */}
-                <div className="relative aspect-[4/3]">
+                <div className="relative aspect-[4/3] overflow-hidden">
                   <OptimizedImage
                     src={work.img}
                     alt={work.model}
@@ -194,6 +201,11 @@ export default function PortfolioPage() {
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 className="text-4xl md:text-5xl font-display font-black text-white mb-4">Ваш автомобиль — следующий</h2>
             <p className="text-white/50 mb-10 max-w-lg mx-auto">Запишитесь уже сегодня и получите бесплатную диагностику состояния лака вашего автомобиля.</p>
+            <img
+              src={`${import.meta.env.BASE_URL}images/faq.png`}
+              alt="Dream Cars"
+              className="mx-auto mb-10 w-full max-w-xl object-contain select-none pointer-events-none mix-blend-screen"
+            />
             <button
               onClick={open}
               className="inline-flex items-center gap-3 px-10 py-4 rounded-xl font-bold text-white text-sm uppercase tracking-wider transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_0_40px_rgba(124,58,237,0.5)]"

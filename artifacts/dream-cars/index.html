@@ -1,16 +1,105 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>Dream Cars — Детейлинг студия</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5" />
+
+    <!-- Primary Meta -->
+    <title>Dream Cars Studio — Профессиональный детейлинг автомобилей</title>
+    <meta name="description" content="Dream Cars Studio — премиум детейлинг студия. Полировка кузова, керамическое покрытие, PPF-плёнка, химчистка салона. Гарантия качества. Professional car detailing: ceramic coating, PPF, paint polishing, interior cleaning." />
+    <meta name="keywords" content="детейлинг, детейлинг студия, полировка автомобиля, керамическое покрытие, PPF плёнка, химчистка салона, защита кузова, car detailing, ceramic coating, paint protection film, auto detailing studio, car polishing" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Dream Cars Studio" />
+    <link rel="canonical" href="https://dreamcars.studio/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://dreamcars.studio/" />
+    <meta property="og:site_name" content="Dream Cars Studio" />
+    <meta property="og:title" content="Dream Cars Studio — Профессиональный детейлинг" />
+    <meta property="og:description" content="Премиум детейлинг студия. Полировка, керамика, PPF, химчистка. Premium car detailing: ceramic coating, PPF, polishing, interior cleaning." />
+    <meta property="og:image" content="https://dreamcars.studio/images/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:locale:alternate" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Dream Cars Studio — Профессиональный детейлинг" />
+    <meta name="twitter:description" content="Премиум детейлинг студия. Полировка, керамика, PPF, химчистка." />
+    <meta name="twitter:image" content="https://dreamcars.studio/images/og-image.jpg" />
+
+    <!-- Theme color -->
+    <meta name="theme-color" content="#080808" />
+    <meta name="msapplication-TileColor" content="#080808" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="%BASE_URL%favicon-32x32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="%BASE_URL%apple-touch-icon.png" />
+
     <!-- Preload Critical Assets -->
-    <link rel="preload" href="%BASE_URL%images/fon.jpg" as="image" type="image/jpeg">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preload" href="%BASE_URL%images/fon.jpg" as="image" type="image/jpeg" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "AutoBodyShop",
+      "name": "Dream Cars Studio",
+      "alternateName": "Dream Cars Detailing",
+      "description": "Профессиональная детейлинг студия. Полировка кузова, керамическое покрытие, PPF-плёнка, химчистка салона. Professional car detailing studio offering ceramic coating, PPF, paint polishing and interior cleaning.",
+      "url": "https://dreamcars.studio",
+      "logo": "https://dreamcars.studio/images/logo.png",
+      "image": "https://dreamcars.studio/images/og-image.jpg",
+      "telephone": "+7-900-000-00-00",
+      "priceRange": "₽₽₽",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "ул. Детейлинг, 12, ТЦ AutoPro, бокс №4",
+        "addressLocality": "Москва",
+        "addressCountry": "RU"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "55.7558",
+        "longitude": "37.6173"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+          "opens": "09:00",
+          "closes": "21:00"
+        }
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Услуги детейлинга",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Полировка кузова", "description": "Восстановительная и защитная полировка автомобиля" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Керамическое покрытие", "description": "Нанозащита SiO₂, гарантия до 5 лет" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Антигравийная плёнка PPF", "description": "Полиуретановая защита кузова от сколов и царапин" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Химчистка салона", "description": "Глубокая биообработка интерьера автомобиля" } }
+        ]
+      },
+      "sameAs": [
+        "https://t.me/dreamcars",
+        "https://vk.com/dreamcars"
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "reviewCount": "127"
+      }
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>

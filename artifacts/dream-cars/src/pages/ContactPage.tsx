@@ -6,6 +6,7 @@ import { Footer } from "@/components/sections/Footer";
 import { FloatingSocials } from "@/components/FloatingSocials";
 import { BookingModal } from "@/components/BookingModal";
 import { useBooking } from "@/contexts/BookingContext";
+import { usePageMeta } from "@/hooks/use-page-meta";
 
 const info = [
   {
@@ -70,6 +71,11 @@ export default function ContactPage() {
   const { open } = useBooking();
   const [form, setForm] = useState({ name: "", phone: "", service: "", message: "" });
   const [sent, setSent] = useState(false);
+  usePageMeta({
+    title: "Контакты — Dream Cars Studio",
+    description: "Свяжитесь с Dream Cars Studio. Тел: +7 (900) 000-00-00. Адрес: ул. Детейлинг, 12, ТЦ AutoPro, бокс №4. Работаем ежедневно 9:00–21:00. Contact Dream Cars Studio for professional car detailing.",
+    canonicalPath: "/contact",
+  });
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -139,19 +145,19 @@ export default function ContactPage() {
       {/* Form + map */}
       <section className="py-16 border-t border-white/5">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-36 max-w-6xl items-stretch">
             {/* Form */}
-            <motion.div initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
+            <motion.div initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="flex flex-col">
               <h2 className="text-3xl font-display font-bold text-white mb-2">Оставьте заявку</h2>
               <p className="text-white/40 text-sm mb-8">Заполните форму — мы перезвоним в удобное время</p>
 
               {sent ? (
-                <div className="rounded-2xl border border-green-500/30 bg-green-500/10 p-8 text-center">
+                <div className="rounded-2xl border border-green-500/30 bg-green-500/10 p-8 text-center flex-1 flex flex-col items-center justify-center">
                   <div className="text-green-400 text-2xl font-bold mb-2">Отправлено!</div>
                   <p className="text-white/60 text-sm">Мы свяжемся с вами в течение 15 минут</p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-4 flex flex-col flex-1">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-white/40 text-xs mb-1.5 tracking-wider uppercase">Ваше имя</label>
@@ -212,15 +218,22 @@ export default function ContactPage() {
                   >
                     Отправить заявку <ArrowRight className="w-4 h-4" />
                   </button>
+                  <button
+                    type="button"
+                    onClick={open}
+                    className="w-full py-4 rounded-xl text-white text-sm font-bold uppercase tracking-wider border border-[#7C3AED]/30 bg-[#7C3AED]/5 hover:bg-[#7C3AED]/10 hover:border-[#7C3AED]/60 transition-all duration-200 flex items-center justify-center gap-2"
+                  >
+                    <MessageCircle className="w-4 h-4" /> Быстрая запись онлайн
+                  </button>
                   <p className="text-white/25 text-xs text-center">Нажимая кнопку, вы соглашаетесь с обработкой персональных данных</p>
                 </form>
               )}
             </motion.div>
 
             {/* Map + socials */}
-            <motion.div initial={{ opacity: 0, x: 24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
+            <motion.div initial={{ opacity: 0, x: 24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="flex flex-col">
               {/* Map placeholder */}
-              <div className="relative rounded-3xl overflow-hidden mb-8 h-72">
+              <div className="relative rounded-3xl overflow-hidden mb-8 flex-1 min-h-64">
                 <img
                   src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&q=80"
                   alt="Location"
@@ -254,14 +267,6 @@ export default function ContactPage() {
                   </a>
                 ))}
               </div>
-
-              {/* Quick call */}
-              <button
-                onClick={open}
-                className="mt-6 w-full py-4 rounded-xl text-white text-sm font-bold uppercase tracking-wider border border-[#7C3AED]/30 bg-[#7C3AED]/5 hover:bg-[#7C3AED]/10 hover:border-[#7C3AED]/60 transition-all duration-200 flex items-center justify-center gap-2"
-              >
-                <MessageCircle className="w-4 h-4" /> Быстрая запись онлайн
-              </button>
             </motion.div>
           </div>
         </div>

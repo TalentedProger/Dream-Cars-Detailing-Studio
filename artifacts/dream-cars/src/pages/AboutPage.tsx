@@ -6,6 +6,7 @@ import { FloatingSocials } from "@/components/FloatingSocials";
 import { BookingModal } from "@/components/BookingModal";
 import { useBooking } from "@/contexts/BookingContext";
 import { OptimizedImage } from "@/components/ui/optimized-image";
+import { usePageMeta } from "@/hooks/use-page-meta";
 
 const stats = [
   { num: "500+", label: "Довольных клиентов", icon: <Users className="w-5 h-5" /> },
@@ -48,6 +49,12 @@ const timeline = [
 
 export default function AboutPage() {
   const { open } = useBooking();
+  usePageMeta({
+    title: "О нас — Dream Cars Studio",
+    description: "Узнайте больше о команде Dream Cars Studio. 5 лет опыта, 500+ довольных клиентов, сертификаты брендов Ceramic Pro и Gyeon. Professional car detailing team with 5 years of experience.",
+    keywords: "детейлинг студия, профессиональный детейлинг, о нас, about detailing studio, professional car care",
+    canonicalPath: "/about",
+  });
   return (
     <main className="min-h-screen bg-[#080808] text-white">
       <Navbar />
@@ -128,7 +135,7 @@ export default function AboutPage() {
             >
               <div className="relative rounded-3xl overflow-hidden aspect-[4/3]">
                 <OptimizedImage
-                  src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80"
+                  src={`${import.meta.env.BASE_URL}about-detailing-worker.jpg`}
                   alt="Детейлинг процесс"
                   className="w-full h-full object-cover"
                   width={900}
@@ -217,6 +224,11 @@ export default function AboutPage() {
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 className="text-4xl md:text-5xl font-display font-black text-white mb-4">Доверьте нам свой автомобиль</h2>
             <p className="text-white/50 mb-10 max-w-lg mx-auto">Запишитесь на бесплатную консультацию и убедитесь, что детейлинг мирового уровня — доступен.</p>
+            <img
+              src={`${import.meta.env.BASE_URL}images/faq.png`}
+              alt="Dream Cars"
+              className="mx-auto mb-10 w-full max-w-xl object-contain select-none pointer-events-none mix-blend-screen"
+            />
             <button
               onClick={open}
               className="inline-flex items-center gap-3 px-10 py-4 rounded-xl font-bold text-white text-sm uppercase tracking-wider transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_0_40px_rgba(124,58,237,0.5)]"

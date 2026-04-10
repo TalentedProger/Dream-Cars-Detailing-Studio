@@ -66,11 +66,7 @@ export function HowItWorks() {
         </motion.div>
 
         {/* Steps grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-16 relative">
-          {/* Connector line desktop */}
-          <div className="absolute top-[3.25rem] left-[14%] right-[14%] h-px hidden lg:block pointer-events-none">
-            <div className="h-full bg-gradient-to-r from-transparent via-[#7C3AED]/30 to-transparent" />
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-16">
 
           {steps.map((step, i) => (
             <motion.div
@@ -101,15 +97,6 @@ export function HowItWorks() {
                   >
                     {step.icon}
                   </div>
-                </div>
-
-                {/* Connector dot */}
-                <div className="hidden lg:block absolute top-[3.25rem] -right-2.5 w-5 h-5 z-20">
-                  {i < steps.length - 1 && (
-                    <div className="w-full h-full rounded-full border-2 border-[#7C3AED]/40 bg-[#080808] flex items-center justify-center">
-                      <div className="w-2 h-2 rounded-full bg-[#7C3AED]/60" />
-                    </div>
-                  )}
                 </div>
 
                 {/* Content */}

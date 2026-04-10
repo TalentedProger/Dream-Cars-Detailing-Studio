@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/sections/Navbar";
 import { Hero } from "@/components/sections/Hero";
 import { Suspense, lazy } from "react";
+import { usePageMeta } from "@/hooks/use-page-meta";
 
 // Lazy load non-critical sections to improve initial load time
 const Services = lazy(() => import("@/components/sections/Services").then(module => ({ default: module.Services })));
@@ -15,6 +16,12 @@ const FloatingSocials = lazy(() => import("@/components/FloatingSocials").then(m
 const BookingModal = lazy(() => import("@/components/BookingModal").then(module => ({ default: module.BookingModal })));
 
 export default function Home() {
+  usePageMeta({
+    title: "Dream Cars Studio — Профессиональный детейлинг автомобилей",
+    description: "Dream Cars Studio — премиум детейлинг студия. Полировка кузова, керамическое покрытие, PPF-плёнка, химчистка салона. Professional car detailing: ceramic coating, PPF, paint polishing.",
+    keywords: "детейлинг студия, полировка автомобиля, керамическое покрытие, PPF плёнка, химчистка салона, car detailing studio, ceramic coating",
+    canonicalPath: "/",
+  });
   return (
     <main className="min-h-screen bg-background text-foreground selection:bg-primary/30">
       <Navbar />
