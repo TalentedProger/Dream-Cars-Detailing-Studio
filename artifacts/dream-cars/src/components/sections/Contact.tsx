@@ -1,7 +1,6 @@
+import { useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { MapPin, Phone, Clock, Mail } from "lucide-react";
+import { MapPin, Phone, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
@@ -11,19 +10,38 @@ import { contactFormSchema, type ContactFormInput, useSubmitContact } from "@/ho
 export function Contact() {
   const { toast } = useToast();
   const mutation = useSubmitContact();
-  
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<ContactFormInput>({
-    resolver: zodResolver(contactFormSchema)
-  });
 
-  const onSubmit = (data: ContactFormInput) => {
-    mutation.mutate(data, {
+  const [form, setForm] = useState({ name: "", phone: "", service: "" });
+  const [errors, setErrors] = useState<Partial<Record<keyof ContactFormInput, string>>>({});
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+    if (errors[name as keyof ContactFormInput]) {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
+  };
+
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const result = contactFormSchema.safeParse(form);
+    if (!result.success) {
+      const fieldErrors: typeof errors = {};
+      for (const issue of result.error.issues) {
+        const key = issue.path[0] as keyof ContactFormInput;
+        if (!fieldErrors[key]) fieldErrors[key] = issue.message;
+      }
+      setErrors(fieldErrors);
+      return;
+    }
+    mutation.mutate(result.data, {
       onSuccess: () => {
         toast({
           title: "Заявка отправлена!",
           description: "Наш менеджер свяжется с вами в ближайшее время.",
         });
-        reset();
+        setForm({ name: "", phone: "", service: "" });
+        setErrors({});
       },
       onError: () => {
         toast({
@@ -107,30 +125,35 @@ export function Contact() {
             
             <h3 className="text-2xl font-bold mb-8 text-white">Оставить заявку</h3>
             
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 relative z-10">
+            <form onSubmit={onSubmit} className="space-y-6 relative z-10">
               <div>
                 <Input 
-                  placeholder="Ваше Имя" 
-                  {...register("name")}
+                  placeholder="Ваше Имя"
+                  name="name"
+                  value={form.name}
+                  onChange={handleChange}
                   className={`bg-[#080808] border-[#1E1E1E] focus:border-[#7C3AED] ${errors.name ? "border-destructive" : ""}`}
                 />
-                {errors.name && <p className="text-destructive text-sm mt-1">{errors.name.message}</p>}
+                {errors.name && <p className="text-destructive text-sm mt-1">{errors.name}</p>}
               </div>
               
               <div>
                 <Input 
                   placeholder="Телефон (+7...)" 
                   type="tel"
-                  {...register("phone")}
+                  name="phone"
+                  value={form.phone}
+                  onChange={handleChange}
                   className={`bg-[#080808] border-[#1E1E1E] focus:border-[#7C3AED] ${errors.phone ? "border-destructive" : ""}`}
                 />
-                {errors.phone && <p className="text-destructive text-sm mt-1">{errors.phone.message}</p>}
+                {errors.phone && <p className="text-destructive text-sm mt-1">{errors.phone}</p>}
               </div>
               
               <div>
                 <Select 
-                  {...register("service")}
-                  defaultValue=""
+                  name="service"
+                  value={form.service}
+                  onChange={handleChange}
                   style={{ colorScheme: 'dark' }}
                   className={`bg-[#080808] border-[#1E1E1E] focus:border-[#7C3AED] text-white ${errors.service ? "border-destructive" : ""}`}
                 >
@@ -141,7 +164,7 @@ export function Contact() {
                   <option value="complex" style={{ background: '#121212', color: '#fff' }}>Комплексный детейлинг</option>
                   <option value="other" style={{ background: '#121212', color: '#fff' }}>Другое / Консультация</option>
                 </Select>
-                {errors.service && <p className="text-destructive text-sm mt-1">{errors.service.message}</p>}
+                {errors.service && <p className="text-destructive text-sm mt-1">{errors.service}</p>}
               </div>
 
               <Button 
