@@ -1,7 +1,7 @@
 {
-  "buildCommand": "cd artifacts/dream-cars && npm run build",
+  "installCommand": "npm install -g pnpm@10.18.0 && pnpm install --no-frozen-lockfile",
+  "buildCommand": "cd artifacts/dream-cars && pnpm run build",
   "outputDirectory": "artifacts/dream-cars/dist/public",
-  "installCommand": "npm install -g pnpm && pnpm install --frozen-lockfile",
   "framework": null,
   "rewrites": [
     {

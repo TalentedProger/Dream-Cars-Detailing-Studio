@@ -40,9 +40,9 @@
 |------|----------|
 | **Framework Preset** | `Other` |
 | **Root Directory** | *(оставь пустым — корень репозитория)* |
-| **Build Command** | `npm install -g pnpm@10 && pnpm install --frozen-lockfile && cd artifacts/dream-cars && pnpm run build` |
+| **Build Command** | `cd artifacts/dream-cars && pnpm run build` |
 | **Output Directory** | `artifacts/dream-cars/dist/public` |
-| **Install Command** | *(оставь пустым — выполняется в Build Command)* |
+| **Install Command** | `npm install -g pnpm@10.18.0 && pnpm install --no-frozen-lockfile` |
 
 > **Альтернатива**: Если хочешь более простую конфигурацию:
 > - **Root Directory**: `artifacts/dream-cars`
@@ -155,13 +155,10 @@ git push origin main
 
 ## Решение частых проблем
 
-### ❌ Build failed: Cannot find module '@workspace/api-client-react'
-Эта зависимость удалена из `package.json`. Если ошибка всё ещё появляется:
-```bash
-cd artifacts/dream-cars
-grep -r "api-client-react" src/
-```
-Ищи и удаляй импорты.
+### ❌ Build failed: ERR_PNPM_OUTDATED_LOCKFILE
+Причина: Windows-специфичные пакеты (`@rollup/rollup-win32-x64-msvc` и др.) попали в `package.json` как `optionalDependencies` при запуске `pnpm install` на Windows, но в `pnpm-lock.yaml` они были записаны в `devDependencies`. Это несоответствие ломает `--frozen-lockfile` на Linux.
+
+**Уже исправлено** — `optionalDependencies` удалены из root `package.json`, lockfile очищен, `vercel.json` использует `--no-frozen-lockfile`.
 
 ### ❌ 404 на прямых ссылках типа `/services`
 `vercel.json` уже содержит `rewrites`. Убедись, что файл `vercel.json` находится в **корне репозитория**.
