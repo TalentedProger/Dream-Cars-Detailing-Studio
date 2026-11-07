@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 48" role="img" aria-label="Land Rover">
+  <ellipse cx="40" cy="24" rx="37" ry="20" fill="#005A2B" stroke="#E8EEE9" stroke-width="2"/>
+  <ellipse cx="40" cy="24" rx="33" ry="16" fill="none" stroke="#FFFFFF" stroke-opacity=".72" stroke-width=".9"/>
+  <text x="40" y="21" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="1">LAND</text>
+  <text x="40" y="33" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="1">ROVER</text>
+</svg>

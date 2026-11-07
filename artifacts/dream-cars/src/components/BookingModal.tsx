@@ -164,7 +164,7 @@ export function BookingModal() {
                     <button
                       type="submit"
                       disabled={!agreed || !name || !phone}
-                      className="w-full py-4 rounded-xl font-bold text-white uppercase tracking-widest text-sm transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
+                      className="premium-cta w-full py-4 font-bold text-white uppercase tracking-widest text-sm transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
                       style={{
                         background: "linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%)",
                         boxShadow: agreed && name && phone ? "0 6px 28px rgba(124,58,237,0.45)" : "none",

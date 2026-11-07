@@ -98,7 +98,7 @@ export function Navbar() {
                 </svg>
               </a>
             </div>
-            <Button variant="glow" size="sm" onClick={open}>
+            <Button variant="glow" size="sm" className="!rounded-none [clip-path:none]" onClick={open}>
               Записаться
             </Button>
           </div>
@@ -186,7 +186,7 @@ export function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
               >
-                <Button variant="glow" size="sm" className="px-10" onClick={() => { setMobileMenuOpen(false); open(); }}>
+                <Button variant="glow" size="sm" className="!rounded-none px-10 [clip-path:none]" onClick={() => { setMobileMenuOpen(false); open(); }}>
                   Записаться
                 </Button>
               </motion.div>

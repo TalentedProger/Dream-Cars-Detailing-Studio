@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Mercedes-Benz">
+  <defs><linearGradient id="silver" x1="8" y1="6" x2="39" y2="42" gradientUnits="userSpaceOnUse"><stop stop-color="#F4F6F8"/><stop offset=".42" stop-color="#AEB6BF"/><stop offset="1" stop-color="#66717D"/></linearGradient></defs>
+  <circle cx="24" cy="24" r="20" fill="#11161B" stroke="url(#silver)" stroke-width="2.6"/>
+  <path d="M24 5.2v18.7M24 23.9 8.3 34.7M24 23.9l15.7 10.8" fill="none" stroke="url(#silver)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.8"/>
+</svg>

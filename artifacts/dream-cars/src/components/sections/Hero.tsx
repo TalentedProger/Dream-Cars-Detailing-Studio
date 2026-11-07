@@ -49,9 +49,9 @@ export function Hero() {
       <div className="container relative z-30 mx-auto px-4 md:px-8 lg:px-12 flex flex-col justify-center h-full">
         <div className="max-w-2xl lg:max-w-3xl">
           {/* Overline */}
-          <div className="flex items-center gap-3 mb-6 animate-hero-up delay-100">
-            <div className="w-8 h-[2px] bg-[#8B5CF6]" />
-            <span className="text-[#8B5CF6] font-semibold tracking-[0.25em] uppercase text-xs md:text-sm">
+          <div className="mb-6 flex items-center gap-3 animate-hero-up delay-100">
+            <div className="h-[2px] w-8 bg-[#8B5CF6]" />
+            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-[#8B5CF6] md:text-sm">
               Премиум детейлинг
             </span>
           </div>
@@ -85,7 +85,7 @@ export function Hero() {
           <div className="flex flex-col sm:flex-row gap-4 mb-16 animate-hero-up delay-650">
             <button
               onClick={() => scrollTo("#contact")}
-              className="px-8 py-4 rounded-xl font-semibold text-white text-sm md:text-base transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_30px_rgba(139,92,246,0.5)] active:scale-[0.98]"
+              className="premium-cta px-8 py-4 font-semibold text-white text-sm md:text-base transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_30px_rgba(139,92,246,0.5)] active:scale-[0.98]"
               style={{
                 background: "linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%)",
                 boxShadow: "0 4px 20px rgba(124,58,237,0.35)",
@@ -95,9 +95,11 @@ export function Hero() {
             </button>
             <button
               onClick={() => scrollTo("#portfolio")}
-              className="px-8 py-4 rounded-xl font-semibold text-white/80 text-sm md:text-base border border-white/20 hover:border-[#8B5CF6]/60 hover:text-white hover:bg-white/5 transition-all duration-300 backdrop-blur-sm"
+              className="premium-cta group bg-white/65 p-px text-sm font-semibold text-white/80 backdrop-blur-sm transition-all duration-300 hover:bg-[#8B5CF6]/80 hover:text-white md:text-base"
             >
-              Посмотреть работы
+              <span className="premium-cta flex h-full w-full items-center justify-center bg-[#030305]/95 px-[31px] py-[15px] transition-colors duration-300 group-hover:bg-[#09070d]">
+                Посмотреть работы
+              </span>
             </button>
           </div>
 

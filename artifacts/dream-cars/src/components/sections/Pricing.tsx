@@ -83,7 +83,7 @@ export function Pricing() {
               
               <Button 
                 variant={plan.popular ? "glow" : "outline"} 
-                className={`w-full ${!plan.popular && "border-[#1E1E1E] hover:bg-white/5"}`}
+                className={`premium-cta w-full ${!plan.popular && "border-[#1E1E1E] hover:bg-white/5"}`}
                 onClick={scrollToContact}
               >
                 Выбрать

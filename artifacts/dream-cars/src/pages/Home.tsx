@@ -9,7 +9,6 @@ const WhyUs = lazy(() => import("@/components/sections/WhyUs").then(module => ({
 const Portfolio = lazy(() => import("@/components/sections/Portfolio").then(module => ({ default: module.Portfolio })));
 const HowItWorks = lazy(() => import("@/components/sections/HowItWorks").then(module => ({ default: module.HowItWorks })));
 const Testimonials = lazy(() => import("@/components/sections/Testimonials").then(module => ({ default: module.Testimonials })));
-const Pricing = lazy(() => import("@/components/sections/Pricing").then(module => ({ default: module.Pricing })));
 const Contact = lazy(() => import("@/components/sections/Contact").then(module => ({ default: module.Contact })));
 const Footer = lazy(() => import("@/components/sections/Footer").then(module => ({ default: module.Footer })));
 const FloatingSocials = lazy(() => import("@/components/FloatingSocials").then(module => ({ default: module.FloatingSocials })));
@@ -32,7 +31,6 @@ export default function Home() {
         <Portfolio />
         <HowItWorks />
         <Testimonials />
-        <Pricing />
         <Contact />
         <Footer />
         <FloatingSocials />
