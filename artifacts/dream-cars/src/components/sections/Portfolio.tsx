@@ -134,7 +134,7 @@ export function Portfolio() {
 
                     <div aria-hidden="true" className="portfolio-diagonal-divider pointer-events-none" />
 
-                    <div className="relative z-10 flex flex-col border-t border-white/10 bg-[radial-gradient(circle_at_18%_18%,rgba(124,58,237,0.24),transparent_38%),radial-gradient(circle_at_92%_86%,rgba(91,33,182,0.18),transparent_42%),linear-gradient(145deg,#030205_0%,#08050c_50%,#11081c_100%)] p-6 text-white backdrop-blur-[24px] sm:p-9 lg:border-t-0 lg:py-10 lg:pr-10 lg:pl-20 xl:py-12 xl:pr-12 xl:pl-24">
+                    <div className="relative z-10 flex flex-col border-t border-white/15 bg-[radial-gradient(circle_at_18%_18%,rgba(196,153,255,0.3),transparent_40%),radial-gradient(circle_at_92%_86%,rgba(142,78,225,0.28),transparent_44%),linear-gradient(145deg,#321a47_0%,#4b2468_50%,#281237_100%)] p-6 text-white backdrop-blur-[24px] sm:p-9 lg:border-t-0 lg:py-10 lg:pr-10 lg:pl-20 xl:py-12 xl:pr-12 xl:pl-24">
                       <div className="flex items-center justify-between gap-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#c6a4ec]">
                         <span>История проекта</span>
                         <button type="button" onClick={() => setExpandedIndex(index)} className="flex h-11 w-16 items-center justify-center transition-transform duration-300 hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#cba7f2]" aria-label={`Развернуть фотографию ${project.model}`}>

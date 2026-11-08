@@ -235,6 +235,74 @@
   to { transform: translate3d(-50%, 0, 0); }
 }
 
+@keyframes service-polish-sweep {
+  0%, 18% { transform: skewX(-18deg) translateX(0); opacity: 0; }
+  30% { opacity: 0.8; }
+  62% { transform: skewX(-18deg) translateX(450%); opacity: 0; }
+  100% { transform: skewX(-18deg) translateX(450%); opacity: 0; }
+}
+
+@keyframes service-float {
+  0%, 100% { transform: translateY(4px); }
+  50% { transform: translateY(-9px); }
+}
+
+@keyframes service-film-shift {
+  0%, 100% { transform: translateX(-7%) rotate(18deg); }
+  50% { transform: translateX(15%) rotate(18deg); }
+}
+
+@keyframes service-ceramic-sheen {
+  0%, 18% { transform: skewX(-18deg) translateX(0); opacity: 0; }
+  38% { opacity: 0.78; }
+  70% { transform: skewX(-18deg) translateX(430%); opacity: 0; }
+  100% { transform: skewX(-18deg) translateX(430%); opacity: 0; }
+}
+
+@keyframes service-ceramic-wave {
+  0%, 100% { transform: scaleX(0.92) translateY(3px); opacity: 0.32; }
+  50% { transform: scaleX(1.06) translateY(-4px); opacity: 0.8; }
+}
+
+@keyframes service-ceramic-saturation {
+  0%, 100% { opacity: 0.18; backdrop-filter: saturate(1.05); }
+  50% { opacity: 0.95; backdrop-filter: saturate(1.58); }
+}
+
+@keyframes service-glint {
+  0%, 100% { transform: scale(0.72) rotate(0deg); opacity: 0.28; }
+  50% { transform: scale(1.08) rotate(42deg); opacity: 0.92; }
+}
+
+@keyframes service-clean-line {
+  0%, 100% { opacity: 0.12; transform: scaleX(0.45); }
+  50% { opacity: 0.72; transform: scaleX(1); }
+}
+
+@keyframes service-steam {
+  0% { transform: translateY(22px) scale(0.76); opacity: 0; }
+  28% { opacity: 0.72; }
+  72% { transform: translateY(-34px) scale(1.08); opacity: 0.78; }
+  100% { transform: translateY(-56px) scale(1.16); opacity: 0; }
+}
+
+@keyframes service-headlight-pulse {
+  0%, 100% { opacity: 0.52; transform: scale(0.88); }
+  50% { opacity: 0.92; transform: scale(1.08); }
+}
+
+.service-polish-effect { animation: service-polish-sweep 5.2s ease-in-out infinite; }
+.service-float-effect { animation: service-float 3.8s ease-in-out infinite; }
+.service-film-effect { animation: service-film-shift 6.2s ease-in-out infinite; }
+.service-ceramic-sheen { animation: service-ceramic-sheen 5.8s ease-in-out infinite; }
+.service-ceramic-wave { animation: service-ceramic-wave 4.6s ease-in-out infinite; transform-origin: center; }
+.service-ceramic-saturation { animation: service-ceramic-saturation 4.8s ease-in-out infinite; }
+.service-glint-effect { animation: service-glint 3.4s ease-in-out infinite; }
+.service-clean-line { animation: service-clean-line 4.6s ease-in-out infinite; transform-origin: center; }
+.service-steam-effect { animation: service-steam 4.4s ease-in-out infinite; }
+.service-headlight-effect { animation: service-headlight-pulse 3.3s ease-in-out infinite; }
+.service-headlight-beam { animation: service-headlight-pulse 4.2s ease-in-out infinite reverse; }
+
 .services-marquee {
   position: relative;
 }
@@ -252,12 +320,12 @@
 
 .services-marquee::before {
   left: 0;
-  background: linear-gradient(90deg, #ffffff, transparent);
+  background: linear-gradient(90deg, rgba(10, 6, 16, 0.96), transparent);
 }
 
 .services-marquee::after {
   right: 0;
-  background: linear-gradient(-90deg, #ffffff, transparent);
+  background: linear-gradient(-90deg, rgba(10, 6, 16, 0.96), transparent);
 }
 
 .services-marquee-track {
@@ -271,6 +339,20 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .service-polish-effect,
+  .service-float-effect,
+  .service-film-effect,
+  .service-ceramic-sheen,
+  .service-ceramic-wave,
+  .service-ceramic-saturation,
+  .service-glint-effect,
+  .service-clean-line,
+  .service-steam-effect,
+  .service-headlight-effect,
+  .service-headlight-beam {
+    animation: none !important;
+  }
+
   .services-marquee {
     overflow-x: auto;
     scrollbar-width: none;

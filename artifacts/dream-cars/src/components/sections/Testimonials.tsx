@@ -91,7 +91,7 @@ export function Testimonials() {
                     <div className="flex gap-1 text-[#b78ae8]" aria-label="Оценка: 5 из 5">
                       {Array.from({ length: 5 }, (_, star) => <Star key={star} className="h-4 w-4 fill-current" aria-hidden="true" />)}
                     </div>
-                    <a href={yandexReviewsUrl} target="_blank" rel="noopener noreferrer" aria-label="Открыть отзывы Dream Cars в Яндекс Картах" className="group flex h-9 w-9 items-center justify-center rounded-xl border border-[#9f75ff]/35 bg-black/80 text-[#a875ff] shadow-[0_8px_24px_rgba(0,0,0,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#b78ae8]/65 hover:bg-black hover:text-[#c5a7ff] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#cba7f2]">
+                    <a href={yandexReviewsUrl} target="_blank" rel="noopener noreferrer" aria-label="Открыть отзывы Dream Cars в Яндекс Картах" className="group flex h-9 w-9 items-center justify-center rounded-xl border border-white/35 bg-black/80 text-white shadow-[0_8px_24px_rgba(0,0,0,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:border-white/70 hover:bg-black hover:text-white focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#cba7f2]">
                       <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
                     </a>
                   </div>
