@@ -51,6 +51,7 @@ export default function AboutPage() {
   const [activeValueIndex, setActiveValueIndex] = useState(values.length - 1);
   const [activeTimelineIndex, setActiveTimelineIndex] = useState(0);
   const ctaVideoRef = useRef<HTMLVideoElement>(null);
+  const mobileOptimized = typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
 
   useEffect(() => {
     const video = ctaVideoRef.current;
@@ -86,7 +87,7 @@ export default function AboutPage() {
     canonicalPath: "/about",
   });
   return (
-    <main className="min-h-screen bg-[#080808] text-white">
+    <main className="min-h-screen w-full overflow-x-clip bg-[#080808] text-white">
       <Navbar />
 
       {/* Hero */}
@@ -100,10 +101,6 @@ export default function AboutPage() {
         <div className="container relative z-10 mx-auto px-4 md:px-6">
           <div className="max-w-4xl">
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
-              <div className="mb-7 flex items-center gap-4">
-                <div className="h-[2px] w-11 bg-[#8B5CF6]" />
-                <span className="text-sm font-semibold uppercase tracking-[0.25em] text-[#9f75ff]">История и ценности</span>
-              </div>
               <h1 className="mb-9 font-display text-[4.25rem] font-black leading-none tracking-[-0.055em] text-white md:text-[7rem] lg:text-[7.5rem]">
                 О нас
               </h1>
@@ -133,14 +130,14 @@ export default function AboutPage() {
           aria-hidden="true"
           loading="lazy"
           decoding="async"
-          initial={{ opacity: 0, x: 35 }}
+          initial={{ opacity: 0, x: mobileOptimized ? 0 : 35 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           className="pointer-events-none absolute bottom-[-16%] right-0 z-[5] hidden h-[125%] w-[68vw] max-w-none select-none object-contain object-right-bottom lg:block"
         />
         <div className="container relative z-10 mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+            <motion.div initial={{ opacity: 0, x: mobileOptimized ? 0 : -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
               <div className="premium-cta mb-8 inline-flex items-center border border-[#7c3aed]/18 bg-[#17131d] px-4 py-3 text-white shadow-[0_14px_38px_-22px_rgba(35,20,50,0.45)]">
                 <Star className="mr-3 h-5 w-5 fill-[#9f75ff] text-[#9f75ff]" aria-hidden="true" />
                 <strong className="font-display text-xl font-semibold tracking-[-0.04em] text-white">4.9/5</strong>
@@ -162,12 +159,12 @@ export default function AboutPage() {
               </p>
             </motion.div>
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0, x: mobileOptimized ? 0 : 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               className="relative min-h-[400px] lg:min-h-[520px]"
             >
-              <img src={`${import.meta.env.BASE_URL}about/mission-car.webp`} alt="Автомобиль Dream Cars" loading="lazy" decoding="async" className="pointer-events-none absolute -bottom-44 right-[-1rem] z-[5] h-[140%] w-[125%] max-w-none select-none object-contain object-right-bottom lg:hidden" />
+              <img src={`${import.meta.env.BASE_URL}about/mission-car.webp`} alt="Автомобиль Dream Cars" loading="lazy" decoding="async" className="pointer-events-none absolute -bottom-44 right-0 z-[5] h-[140%] w-[125%] max-w-none select-none object-contain object-right-bottom lg:hidden" />
             </motion.div>
           </div>
         </div>
@@ -225,7 +222,6 @@ export default function AboutPage() {
         <div className="container mx-auto px-4 md:px-6">
           <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="flex items-center justify-between gap-6">
             <div>
-              <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#7c3aed]">Dream Cars / развитие</p>
               <h2 className="font-display text-4xl font-semibold tracking-[-0.05em] md:text-5xl">Наш путь</h2>
             </div>
             <div className="flex items-center gap-2" aria-hidden="true">
@@ -275,7 +271,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="relative min-h-[744px] overflow-hidden border-t border-white/10 bg-black">
+      <section className="relative min-h-[558px] overflow-hidden border-t border-white/10 bg-black md:min-h-[744px]">
         <video
           ref={ctaVideoRef}
           className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
@@ -292,9 +288,8 @@ export default function AboutPage() {
         </video>
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(4,3,6,0.94)_0%,rgba(7,4,11,0.78)_38%,rgba(8,5,12,0.34)_72%,rgba(6,4,9,0.18)_100%)]" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20" />
-        <div className="container relative z-10 mx-auto flex min-h-[744px] items-center px-4 py-24 md:px-6">
-          <motion.div initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="max-w-2xl text-left">
-            <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.24em] text-[#c6a4ec]">Dream Cars Studio</p>
+        <div className="container relative z-10 mx-auto flex min-h-[558px] items-center px-4 py-16 md:min-h-[744px] md:px-6 md:py-24">
+          <motion.div initial={{ opacity: 0, x: mobileOptimized ? 0 : -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="max-w-2xl text-left">
             <h2 className="mb-6 font-display text-4xl font-black leading-[1.02] tracking-[-0.05em] text-white md:text-6xl">Доверьте нам свой автомобиль</h2>
             <p className="mb-10 max-w-xl text-base leading-7 text-white/65 md:text-lg">Запишитесь на бесплатную консультацию и убедитесь, что детейлинг мирового уровня — доступен.</p>
             <button

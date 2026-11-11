@@ -41,11 +41,11 @@ export function WhyUs() {
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-70px" }} variants={{ hidden: {}, visible: { transition: { staggerChildren: reduceMotion ? 0 : 0.08 } } }} className="grid gap-3 md:grid-cols-2 lg:grid-cols-[repeat(11,minmax(0,1fr))] lg:grid-rows-[303px_303px]">
             <motion.article variants={reveal} transition={{ duration: reduceMotion ? 0 : 0.65 }} className="group relative flex min-h-[289px] flex-col overflow-hidden bg-[linear-gradient(145deg,#6840b5,#431b86)] p-6 shadow-[0_18px_50px_rgba(67,27,134,0.24)] lg:col-span-4 lg:min-h-0">
               <img src={w140Image} alt="Чёрный Mercedes-Benz W140" loading="lazy" decoding="async" className="pointer-events-none absolute -bottom-[8%] right-0 h-[133%] w-auto max-w-none object-contain object-right drop-shadow-[0_18px_24px_rgba(0,0,0,0.3)]" />
-              <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 z-[5] h-[46%] bg-[linear-gradient(to_top,rgba(0,0,0,0.88)_0%,rgba(0,0,0,0.62)_38%,rgba(0,0,0,0.18)_72%,transparent_100%)]" />
+              <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 z-[5] h-[58%] bg-[linear-gradient(to_top,rgba(0,0,0,0.96)_0%,rgba(0,0,0,0.76)_38%,rgba(0,0,0,0.3)_72%,transparent_100%)] md:h-[46%]" />
               <strong className="relative z-10 font-display text-5xl font-semibold tracking-[-0.055em] text-white md:text-6xl">500+</strong>
               <div className="relative z-10 mt-auto max-w-full md:max-w-[58%]">
-                <p className="whitespace-nowrap text-[12px] font-semibold text-white sm:text-sm">Автомобилей доверили нам</p>
-                <p className="mt-1 whitespace-nowrap text-[10px] leading-5 text-white/65 sm:text-xs">Опыт, собранный на разных марках и задачах.</p>
+                <p className="whitespace-nowrap text-sm font-semibold text-white">Автомобилей доверили нам</p>
+                <p className="mt-1 whitespace-nowrap text-xs leading-5 text-white/70">Опыт, собранный на разных марках и задачах.</p>
               </div>
             </motion.article>
 

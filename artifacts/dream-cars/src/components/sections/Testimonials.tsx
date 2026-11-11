@@ -64,7 +64,7 @@ export function Testimonials() {
             <p className="mt-5 max-w-md text-sm leading-6 text-white/55 md:text-base">Что говорят владельцы автомобилей после работы нашей команды.</p>
           </motion.div>
 
-          <div className="flex items-center gap-2 self-end md:self-auto">
+          <div className="hidden items-center gap-2 self-end md:flex md:self-auto">
             <button type="button" onClick={scrollPrev} aria-label="Предыдущий отзыв" className="flex h-10 w-10 items-center justify-center border border-white/15 bg-white/[0.035] text-white/70 transition-colors hover:border-[#b78ae8]/70 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#cba7f2] md:h-11 md:w-11"><ArrowLeft className="h-5 w-5" aria-hidden="true" /></button>
             <button type="button" onClick={scrollNext} aria-label="Следующий отзыв" className="flex h-10 w-10 items-center justify-center border border-white/15 bg-white/[0.035] text-white/70 transition-colors hover:border-[#b78ae8]/70 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#cba7f2] md:h-11 md:w-11"><ArrowRight className="h-5 w-5" aria-hidden="true" /></button>
           </div>
@@ -91,7 +91,7 @@ export function Testimonials() {
                     <div className="flex gap-1 text-[#b78ae8]" aria-label="Оценка: 5 из 5">
                       {Array.from({ length: 5 }, (_, star) => <Star key={star} className="h-4 w-4 fill-current" aria-hidden="true" />)}
                     </div>
-                    <a href={yandexReviewsUrl} target="_blank" rel="noopener noreferrer" aria-label="Открыть отзывы Dream Cars в Яндекс Картах" className="group flex h-9 w-9 items-center justify-center rounded-xl border border-white/35 bg-black/80 text-white shadow-[0_8px_24px_rgba(0,0,0,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:border-white/70 hover:bg-black hover:text-white focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#cba7f2]">
+                    <a href={yandexReviewsUrl} target="_blank" rel="noopener noreferrer" aria-label="Открыть отзывы Dream Cars в Яндекс Картах" className="group flex h-9 w-9 items-center justify-center rounded-xl border border-[#b78ae8]/70 bg-[#8b5cf6] text-white shadow-[0_8px_24px_rgba(86,36,150,0.24)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#d8bdf7] hover:bg-[#9f75ff] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#cba7f2]">
                       <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
                     </a>
                   </div>
@@ -113,6 +113,11 @@ export function Testimonials() {
             ))}
           </div>
         </motion.div>
+
+        <div className="mt-5 flex items-center justify-end gap-2 md:hidden">
+          <button type="button" onClick={scrollPrev} aria-label="Предыдущий отзыв" className="flex h-11 w-11 items-center justify-center border border-white/15 bg-white/[0.035] text-white/70 transition-colors active:border-[#b78ae8]/70 active:text-white"><ArrowLeft className="h-5 w-5" aria-hidden="true" /></button>
+          <button type="button" onClick={scrollNext} aria-label="Следующий отзыв" className="flex h-11 w-11 items-center justify-center border border-white/15 bg-white/[0.035] text-white/70 transition-colors active:border-[#b78ae8]/70 active:text-white"><ArrowRight className="h-5 w-5" aria-hidden="true" /></button>
+        </div>
 
       </div>
     </section>

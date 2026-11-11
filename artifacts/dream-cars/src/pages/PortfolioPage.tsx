@@ -95,7 +95,7 @@ export default function PortfolioPage() {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative pt-40 pb-32 md:pb-44 overflow-hidden">
+      <section className="relative overflow-hidden pb-16 pt-40 md:pb-20">
         <div className="absolute inset-0 bg-[#080808]" />
         <div className="performance-glow absolute top-1/2 right-0 w-[700px] h-[700px] bg-[#7C3AED]/10 rounded-full blur-[150px] translate-x-1/3 -translate-y-1/2 pointer-events-none" />
         <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
@@ -103,10 +103,6 @@ export default function PortfolioPage() {
         <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-[#080808] to-transparent pointer-events-none z-10" />
         <div className="container relative z-10 mx-auto px-4 md:px-6">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-[2px] bg-[#8B5CF6]" />
-              <span className="text-[#8B5CF6] font-semibold tracking-[0.25em] uppercase text-xs">Результаты нашей работы</span>
-            </div>
             <h1 className="text-6xl md:text-8xl font-display font-black leading-none mb-6 text-white">
               Наши<br />
               <span style={{ background: "linear-gradient(135deg, #ffffff 0%, #a78bfa 50%, #7c3aed 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>работы</span>

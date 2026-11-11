@@ -100,7 +100,7 @@ export function Contact() {
                 {errors.service && <p className="mt-1 text-xs text-red-400">{errors.service}</p>}
               </div>
 
-              <button type="submit" className="premium-cta group mx-auto mt-2 flex min-h-14 w-full items-center justify-center gap-5 bg-gradient-to-r from-[#8b5cf6] to-[#6d28d9] px-6 py-4 text-xs font-bold uppercase tracking-[0.1em] text-white shadow-[0_12px_36px_-12px_rgba(139,92,246,0.7)] transition-all duration-300 hover:-translate-y-0.5 hover:from-[#9f75ff] hover:to-[#7c3aed] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c5a7ff] sm:w-fit">
+              <button type="submit" className="group inline-flex min-h-14 w-full items-center justify-center gap-5 rounded-[5px] bg-gradient-to-r from-[#8b5cf6] to-[#6d28d9] px-6 py-4 text-xs font-bold uppercase tracking-[0.1em] text-white transition-all duration-300 hover:-translate-y-0.5 hover:from-[#9f75ff] hover:to-[#7c3aed] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c5a7ff] sm:w-auto">
                 Отправить заявку<span className="border-l border-white/35 pl-4"><ArrowUpRight className="h-5 w-5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" /></span>
               </button>
               <p className="max-w-md text-xs leading-5 text-white/35">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности.</p>

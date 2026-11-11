@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { Menu, X } from "lucide-react";
+import { ChevronRight, Menu, X } from "lucide-react";
 import { useLocation } from "wouter";
 import { useBooking } from "@/contexts/BookingContext";
 
@@ -69,15 +69,17 @@ export function Navbar() {
   return (
     <header
       className={`animate-navbar-in fixed top-0 left-0 right-0 ${mobileMenuOpen ? "z-[70]" : "z-50"} transition-all duration-500 ${
-        isScrolled
-          ? "py-3 md:py-4 glass-panel shadow-2xl shadow-black/50"
+        mobileMenuOpen
+          ? "bg-[#070609] py-3 md:py-4"
+          : isScrolled
+          ? "navbar-scrolled py-3 md:py-4 shadow-2xl shadow-black/40"
           : "py-3 md:py-4 lg:py-6 bg-transparent"
       }`}
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
           <div className={`flex-shrink-0 cursor-pointer transition-opacity duration-300`} onClick={() => { navigate("/"); window.scrollTo({ top: 0 }); }}>
-            <h1 className="font-display font-bold text-2xl md:text-3xl tracking-wider text-white">
+            <h1 className="font-display text-2xl font-bold tracking-wider text-white md:text-3xl">
               DREAM<span className="text-primary ml-1">CARS</span>
             </h1>
           </div>
@@ -136,30 +138,27 @@ export function Navbar() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && createPortal(
-          <div className="animate-menu-fade fixed inset-0 z-[60] flex h-[100dvh] w-screen flex-col overflow-hidden bg-[#08070a]/90 backdrop-blur-[7px]">
-            <div aria-hidden="true" className="pointer-events-none absolute -right-28 top-[12%] h-72 w-72 rounded-full bg-[#7c3aed]/20 blur-[90px]" />
-            <div aria-hidden="true" className="pointer-events-none absolute -bottom-28 -left-24 h-80 w-80 rounded-full bg-[#a875ff]/10 blur-[100px]" />
-
+          <div className="animate-menu-fade fixed inset-0 z-[60] flex h-[100dvh] w-screen flex-col overflow-hidden bg-[#070609]">
             <div className="h-[68px] shrink-0 md:h-[76px]" aria-hidden="true" />
 
-            <nav className="relative flex w-full flex-1 flex-col items-center justify-center px-6 pb-[8vh] text-center" aria-label="Мобильная навигация">
-              <p className="mb-8 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#b995e4]">Навигация</p>
-              <div className="flex flex-col items-center gap-5">
+            <nav className="relative mx-auto flex w-full flex-1 flex-col items-stretch justify-between px-4 pb-5 pt-8 text-left" aria-label="Мобильная навигация">
+              <div className="flex w-full flex-col gap-1">
               {navLinks.map((link, i) => (
                 <button
                   key={link.name}
                   onClick={() => handleNav(link.route)}
                   onTouchStart={() => prefetchRoute(link.route)}
-                  className="animate-menu-item font-display text-[2rem] font-semibold leading-none tracking-[-0.045em] text-white transition-colors hover:text-[#c8a7ee]"
+                  className="group animate-menu-item flex w-full items-center justify-between py-3.5 text-left font-display text-[1.5625rem] font-medium tracking-[-0.025em] text-white transition-colors hover:text-[#c6a4ec]"
                   style={{ animationDelay: `${40 + i * 45}ms` }}
                 >
-                  {link.name}
+                  <span>{link.name}</span>
+                  <ChevronRight className="h-6 w-6 shrink-0 text-current" strokeWidth={1.55} aria-hidden="true" />
                 </button>
               ))}
               </div>
 
-              <div className="animate-menu-item mt-10 [animation-delay:280ms]">
-                <button type="button" className="premium-cta inline-flex min-h-14 items-center justify-center bg-gradient-to-r from-[#8b5cf6] to-[#6d28d9] px-12 py-4 text-sm font-bold uppercase tracking-[0.11em] text-white shadow-[0_14px_38px_-15px_rgba(139,92,246,0.75)] transition-colors hover:from-[#9f75ff] hover:to-[#7c3aed]" onClick={() => { setMobileMenuOpen(false); open(); }}>
+              <div className="animate-menu-item mt-12 w-full [animation-delay:280ms]">
+                <button type="button" className="inline-flex min-h-14 w-full items-center justify-center rounded-[5px] bg-gradient-to-r from-[#8b5cf6] to-[#6d28d9] px-12 py-4 text-sm font-semibold text-white shadow-[0_12px_30px_-18px_rgba(91,33,182,0.65)] transition-colors hover:from-[#9f75ff] hover:to-[#7c3aed]" onClick={() => { setMobileMenuOpen(false); open(); }}>
                   Записаться
                 </button>
               </div>

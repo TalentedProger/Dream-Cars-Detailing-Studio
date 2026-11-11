@@ -119,6 +119,19 @@ export function Portfolio() {
         </div>
 
         <motion.div initial={{ opacity: 0, y: 26 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.75 }}>
+          <div className="mb-5 grid grid-cols-[1fr_auto_1fr] items-center gap-3 md:hidden">
+            <div className="flex items-center gap-2 justify-self-start" aria-label="Выбрать проект">
+              {cases.map((project, index) => (
+                <button key={project.model} type="button" onClick={() => emblaApi?.scrollTo(index)} aria-label={`Показать проект ${project.model}`} aria-current={selectedIndex === index ? "true" : undefined} className={`h-1.5 transition-all duration-300 ${selectedIndex === index ? "w-9 bg-[#8b5cf6]" : "w-4 bg-[#1b1722]/15"}`} />
+              ))}
+            </div>
+            <span className="justify-self-center font-display text-sm font-semibold text-[#1b1722]/45">{String(selectedIndex + 1).padStart(2, "0")} <span className="text-[#1b1722]/25">/ {String(cases.length).padStart(2, "0")}</span></span>
+            <div className="flex items-center gap-2 justify-self-end">
+              <button type="button" onClick={scrollPrev} aria-label="Предыдущая работа" className="flex h-11 w-11 items-center justify-center border border-[#1b1722]/15 text-[#1b1722]"><ArrowLeft className="h-5 w-5" /></button>
+              <button type="button" onClick={scrollNext} aria-label="Следующая работа" className="flex h-11 w-11 items-center justify-center border border-[#1b1722]/15 text-[#1b1722]"><ArrowRight className="h-5 w-5" /></button>
+            </div>
+          </div>
+
           <div ref={emblaRef} className="overflow-hidden" role="region" aria-roledescription="карусель" aria-label="Примеры наших работ">
             <div className="flex touch-pan-y">
               {cases.map((project, index) => (
@@ -164,7 +177,7 @@ export function Portfolio() {
             </div>
           </div>
 
-          <div className="mt-4 grid grid-cols-[1fr_auto_1fr] items-center gap-3 sm:mt-7 sm:gap-6">
+          <div className="mt-7 hidden grid-cols-[1fr_auto_1fr] items-center gap-6 md:grid">
             <div className="flex items-center gap-2 justify-self-start" aria-label="Выбрать проект">
               {cases.map((project, index) => (
                 <button key={project.model} type="button" onClick={() => emblaApi?.scrollTo(index)} aria-label={`Показать проект ${project.model}`} aria-current={selectedIndex === index ? "true" : undefined} className={`h-1.5 transition-all duration-300 ${selectedIndex === index ? "w-12 bg-[#8b5cf6]" : "w-6 bg-[#1b1722]/15 hover:bg-[#1b1722]/35"}`} />
