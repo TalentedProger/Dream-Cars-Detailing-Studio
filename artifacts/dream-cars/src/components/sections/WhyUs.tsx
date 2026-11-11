@@ -75,10 +75,10 @@ export function WhyUs() {
               </div>
             </motion.article>
 
-            <motion.figure variants={reveal} transition={{ duration: reduceMotion ? 0 : 0.7 }} className="relative min-h-[591px] overflow-hidden border border-white/10 bg-[#151019] md:col-span-2 lg:col-span-3 lg:row-span-2 lg:min-h-0">
+            <motion.figure variants={reveal} transition={{ duration: reduceMotion ? 0 : 0.7 }} className="relative min-h-[473px] overflow-hidden border border-white/10 bg-[#151019] md:col-span-2 md:min-h-[591px] lg:col-span-3 lg:row-span-2 lg:min-h-0">
               <img src={polishingImage} alt="Мастер Dream Cars полирует кузов автомобиля" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-1000 hover:scale-[1.035]" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/[0.08] to-black/25" />
-              <p className="absolute right-6 top-6 text-right text-[10px] font-semibold uppercase tracking-[0.2em] text-[#c6a4ec] md:right-7 md:top-7">Команда Dream Cars</p>
+              <p className="absolute right-6 top-6 hidden text-right text-[10px] font-semibold uppercase tracking-[0.2em] text-[#c6a4ec] md:right-7 md:top-7 md:block">Команда Dream Cars</p>
               <figcaption className="absolute inset-x-0 bottom-0 p-6 md:p-7">
                 <p className="max-w-sm font-display text-[2rem] font-semibold leading-[1.05] tracking-[-0.035em] text-white">
                   <span className="block">Один стандарт</span>

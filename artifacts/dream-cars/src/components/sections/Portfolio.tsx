@@ -113,7 +113,7 @@ export function Portfolio() {
             <h2 className="font-display text-5xl font-semibold tracking-[-0.055em] text-[#1b1722] md:text-6xl lg:text-7xl">Наши работы</h2>
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#1b1722]/55 md:text-lg">Каждый автомобиль приходит со своей задачей. Показываем, что меняем и из чего складывается результат.</p>
           </motion.div>
-          <Link href="/portfolio" className="premium-cta inline-flex min-h-14 w-fit shrink-0 items-center gap-5 bg-gradient-to-r from-[#8b5cf6] to-[#6d28d9] px-6 py-4 text-xs font-bold uppercase tracking-[0.12em] text-white shadow-[0_12px_36px_-12px_rgba(139,92,246,0.65)] transition-all hover:-translate-y-0.5 hover:from-[#9f75ff] hover:to-[#7c3aed]">
+          <Link href="/portfolio" className="premium-cta hidden min-h-14 w-fit shrink-0 items-center gap-5 bg-gradient-to-r from-[#8b5cf6] to-[#6d28d9] px-6 py-4 text-xs font-bold uppercase tracking-[0.12em] text-white shadow-[0_12px_36px_-12px_rgba(139,92,246,0.65)] transition-all hover:-translate-y-0.5 hover:from-[#9f75ff] hover:to-[#7c3aed] lg:inline-flex">
             Все проекты <span className="border-l border-white/35 pl-4"><ArrowUpRight className="h-5 w-5" aria-hidden="true" /></span>
           </Link>
         </div>
@@ -123,8 +123,8 @@ export function Portfolio() {
             <div className="flex touch-pan-y">
               {cases.map((project, index) => (
                 <div key={project.model} className="min-w-0 flex-[0_0_100%]" role="group" aria-roledescription="слайд" aria-label={`${index + 1} из ${cases.length}: ${project.model}`}>
-                  <article className="portfolio-case-shape relative grid overflow-hidden border border-[#1b1722]/10 bg-[radial-gradient(circle_at_82%_20%,rgba(168,117,255,0.22),transparent_44%),linear-gradient(135deg,rgba(255,255,255,0.72),rgba(242,235,250,0.62))] shadow-[0_24px_70px_rgba(55,33,79,0.1)] lg:min-h-[616px] lg:grid-cols-[0.99fr_1.01fr]">
-                    <div className="portfolio-photo-panel relative z-10 min-h-[290px] overflow-hidden bg-[#0a080d] sm:min-h-[390px] lg:min-h-full">
+                  <article className="portfolio-case-shape relative grid h-[620px] grid-rows-[210px_minmax(0,1fr)] overflow-hidden border border-[#1b1722]/10 bg-[radial-gradient(circle_at_82%_20%,rgba(168,117,255,0.22),transparent_44%),linear-gradient(135deg,rgba(255,255,255,0.72),rgba(242,235,250,0.62))] shadow-[0_24px_70px_rgba(55,33,79,0.1)] sm:h-auto sm:grid-rows-none lg:min-h-[616px] lg:grid-cols-[0.99fr_1.01fr]">
+                    <div className="portfolio-photo-panel relative z-10 min-h-0 overflow-hidden bg-[#0a080d] sm:min-h-[390px] lg:min-h-full">
                       {expandedIndex !== index && (
                         <motion.div layoutId={`portfolio-photo-${index}`} className="absolute inset-0" transition={{ type: "spring", stiffness: 150, damping: 24, mass: 0.9 }}>
                           <ProjectPhoto project={project} eager={index === 0} />
@@ -134,26 +134,26 @@ export function Portfolio() {
 
                     <div aria-hidden="true" className="portfolio-diagonal-divider pointer-events-none" />
 
-                    <div className="relative z-10 flex flex-col border-t border-white/15 bg-[radial-gradient(circle_at_18%_18%,rgba(196,153,255,0.3),transparent_40%),radial-gradient(circle_at_92%_86%,rgba(142,78,225,0.28),transparent_44%),linear-gradient(145deg,#321a47_0%,#4b2468_50%,#281237_100%)] p-6 text-white backdrop-blur-[24px] sm:p-9 lg:border-t-0 lg:py-10 lg:pr-10 lg:pl-20 xl:py-12 xl:pr-12 xl:pl-24">
+                    <div className="relative z-10 flex flex-col border-t border-white/15 bg-[radial-gradient(circle_at_18%_18%,rgba(196,153,255,0.3),transparent_40%),radial-gradient(circle_at_92%_86%,rgba(142,78,225,0.28),transparent_44%),linear-gradient(145deg,#321a47_0%,#4b2468_50%,#281237_100%)] p-5 text-white backdrop-blur-[24px] sm:p-9 lg:border-t-0 lg:py-10 lg:pr-10 lg:pl-20 xl:py-12 xl:pr-12 xl:pl-24">
                       <div className="flex items-center justify-between gap-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#c6a4ec]">
                         <span>История проекта</span>
                         <button type="button" onClick={() => setExpandedIndex(index)} className="flex h-11 w-16 items-center justify-center transition-transform duration-300 hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#cba7f2]" aria-label={`Развернуть фотографию ${project.model}`}>
                           <img src={project.brandLogo} alt="" aria-hidden="true" loading="lazy" className="h-full w-full object-contain drop-shadow-[0_7px_16px_rgba(0,0,0,0.3)]" />
                         </button>
                       </div>
-                      <h3 className="mt-6 font-display text-4xl font-semibold tracking-[-0.05em] text-white sm:text-5xl">{project.model}</h3>
+                      <h3 className="mt-3 font-display text-3xl font-semibold tracking-[-0.05em] text-white sm:mt-6 sm:text-5xl">{project.model}</h3>
 
-                      <div className="mt-7 grid gap-2 border-t border-white/10 pt-5 sm:grid-cols-[115px_1fr] sm:gap-5">
+                      <div className="mt-4 grid gap-1.5 border-t border-white/10 pt-3 sm:mt-7 sm:grid-cols-[115px_1fr] sm:gap-5 sm:pt-5">
                         <span className="text-xs font-semibold uppercase tracking-[0.13em] text-white/40">Задача</span>
                         <p className="text-sm leading-relaxed text-white/[0.72]">{project.request}</p>
                       </div>
-                      <div className="mt-5 grid gap-2 border-t border-white/10 pt-5 sm:grid-cols-[115px_1fr] sm:gap-5">
+                      <div className="mt-3 grid gap-1.5 border-t border-white/10 pt-3 sm:mt-5 sm:grid-cols-[115px_1fr] sm:gap-5 sm:pt-5">
                         <span className="text-xs font-semibold uppercase tracking-[0.13em] text-white/40">Выполнено</span>
                         <ul className="space-y-2 text-sm text-white/85">
                           {project.work.map((item) => <li key={item} className="flex items-start gap-2"><span className="mt-2 h-1 w-1 shrink-0 rotate-45 bg-[#b78ae8]" />{item}</li>)}
                         </ul>
                       </div>
-                      <div className="mt-6 border-t border-[#a875ff]/35 pt-5 lg:mt-auto">
+                      <div className="mt-6 hidden border-t border-[#a875ff]/35 pt-5 sm:block lg:mt-auto">
                         <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#c6a4ec]">Результат</span>
                         <p className="mt-2 text-sm leading-relaxed text-white/[0.78]">{project.result}</p>
                       </div>
@@ -164,7 +164,7 @@ export function Portfolio() {
             </div>
           </div>
 
-          <div className="mt-7 grid grid-cols-[1fr_auto_1fr] items-center gap-4 sm:gap-6">
+          <div className="mt-4 grid grid-cols-[1fr_auto_1fr] items-center gap-3 sm:mt-7 sm:gap-6">
             <div className="flex items-center gap-2 justify-self-start" aria-label="Выбрать проект">
               {cases.map((project, index) => (
                 <button key={project.model} type="button" onClick={() => emblaApi?.scrollTo(index)} aria-label={`Показать проект ${project.model}`} aria-current={selectedIndex === index ? "true" : undefined} className={`h-1.5 transition-all duration-300 ${selectedIndex === index ? "w-12 bg-[#8b5cf6]" : "w-6 bg-[#1b1722]/15 hover:bg-[#1b1722]/35"}`} />
@@ -175,6 +175,11 @@ export function Portfolio() {
               <button type="button" onClick={scrollPrev} aria-label="Предыдущая работа" className="flex h-12 w-12 items-center justify-center border border-[#1b1722]/15 text-[#1b1722] transition-colors hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/10"><ArrowLeft className="h-5 w-5" /></button>
               <button type="button" onClick={scrollNext} aria-label="Следующая работа" className="flex h-12 w-12 items-center justify-center border border-[#1b1722]/15 text-[#1b1722] transition-colors hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/10"><ArrowRight className="h-5 w-5" /></button>
             </div>
+          </div>
+          <div className="mt-7 flex justify-center lg:hidden">
+            <Link href="/portfolio" className="premium-cta inline-flex min-h-14 items-center gap-5 bg-gradient-to-r from-[#8b5cf6] to-[#6d28d9] px-6 py-4 text-xs font-bold uppercase tracking-[0.12em] text-white shadow-[0_12px_36px_-12px_rgba(139,92,246,0.65)]">
+              Все проекты <span className="border-l border-white/35 pl-4"><ArrowUpRight className="h-5 w-5" aria-hidden="true" /></span>
+            </Link>
           </div>
         </motion.div>
       </div>

@@ -74,7 +74,7 @@ export function HowItWorks() {
             </p>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, y: reduceMotion ? 0 : 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: reduceMotion ? 0 : 0.7, delay: reduceMotion ? 0 : 0.12 }} className="lg:self-center lg:justify-self-end">
+          <motion.div initial={{ opacity: 0, y: reduceMotion ? 0 : 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: reduceMotion ? 0 : 0.7, delay: reduceMotion ? 0 : 0.12 }} className="hidden lg:block lg:self-center lg:justify-self-end">
             <button type="button" onClick={open} className="premium-cta inline-flex min-h-14 items-center gap-5 bg-gradient-to-r from-[#8b5cf6] to-[#6d28d9] px-6 py-4 text-xs font-bold uppercase tracking-[0.1em] text-white shadow-[0_12px_36px_-12px_rgba(139,92,246,0.7)] transition-all duration-300 hover:-translate-y-0.5 hover:from-[#9f75ff] hover:to-[#7c3aed] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c5a7ff]">
               Обсудить задачу <span className="border-l border-white/35 pl-4"><ArrowUpRight className="h-5 w-5" aria-hidden="true" /></span>
             </button>
@@ -115,6 +115,11 @@ export function HowItWorks() {
               </motion.article>
             );
           })}
+        </div>
+        <div className="mt-10 flex justify-center lg:hidden">
+          <button type="button" onClick={open} className="premium-cta inline-flex min-h-14 items-center gap-5 bg-gradient-to-r from-[#8b5cf6] to-[#6d28d9] px-6 py-4 text-xs font-bold uppercase tracking-[0.1em] text-white shadow-[0_12px_36px_-12px_rgba(139,92,246,0.7)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c5a7ff]">
+            Обсудить задачу <span className="border-l border-white/35 pl-4"><ArrowUpRight className="h-5 w-5" aria-hidden="true" /></span>
+          </button>
         </div>
       </div>
     </section>

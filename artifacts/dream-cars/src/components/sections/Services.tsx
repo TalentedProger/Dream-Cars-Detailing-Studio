@@ -112,7 +112,7 @@ export function Services() {
             <motion.p initial={{ opacity: 0, y: reduceMotion ? 0 : 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: reduceMotion ? 0 : 0.75, delay: reduceMotion ? 0 : 0.5 }} className="mt-7 max-w-md text-lg font-medium leading-relaxed text-[#1b1722]/70 md:text-xl">
               От защиты кузова до ухода за салоном: подбираем решение под состояние автомобиля и отвечаем за каждую деталь результата.
             </motion.p>
-            <motion.div initial={{ opacity: 0, y: reduceMotion ? 0 : 18, scale: reduceMotion ? 1 : 0.96 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true }} transition={{ duration: reduceMotion ? 0 : 0.7, delay: reduceMotion ? 0 : 0.64, ease: [0.22, 1, 0.36, 1] }} className="mt-12 md:mt-14">
+            <motion.div initial={{ opacity: 0, y: reduceMotion ? 0 : 18, scale: reduceMotion ? 1 : 0.96 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true }} transition={{ duration: reduceMotion ? 0 : 0.7, delay: reduceMotion ? 0 : 0.64, ease: [0.22, 1, 0.36, 1] }} className="mt-12 hidden md:mt-14 lg:block">
               <Link href="/services" className="premium-cta inline-flex min-h-14 items-center gap-5 bg-gradient-to-r from-[#8b5cf6] to-[#6d28d9] px-6 py-4 text-sm font-bold uppercase tracking-[0.1em] text-white shadow-[0_12px_36px_-12px_rgba(139,92,246,0.7)] transition-all duration-300 hover:-translate-y-0.5 hover:from-[#9f75ff] hover:to-[#7c3aed] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c5a7ff]">
                 Смотреть все услуги <span className="border-l border-white/35 pl-4"><ArrowUpRight className="h-5 w-5" aria-hidden="true" /></span>
               </Link>
@@ -133,6 +133,11 @@ export function Services() {
               </motion.div>
             ))}
           </div>
+          <div className="flex justify-center lg:hidden">
+            <Link href="/services" className="premium-cta inline-flex min-h-14 items-center gap-5 bg-gradient-to-r from-[#8b5cf6] to-[#6d28d9] px-6 py-4 text-sm font-bold uppercase tracking-[0.1em] text-white shadow-[0_12px_36px_-12px_rgba(139,92,246,0.7)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c5a7ff]">
+              Смотреть все услуги <span className="border-l border-white/35 pl-4"><ArrowUpRight className="h-5 w-5" aria-hidden="true" /></span>
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -147,13 +152,13 @@ export function Services() {
         >
           <div className="services-marquee-track flex w-max">
             {[0, 1].map((copyIndex) => (
-              <div key={copyIndex} className="flex shrink-0 gap-[22px] pr-[22px]" aria-hidden={copyIndex === 1 ? "true" : undefined}>
+              <div key={copyIndex} className="flex shrink-0 gap-4 pr-4 sm:gap-[22px] sm:pr-[22px]" aria-hidden={copyIndex === 1 ? "true" : undefined}>
                 {services.map((service) => (
-                  <div key={`${copyIndex}-${service.title}`} className="w-[70vw] max-w-[297px] shrink-0 sm:w-[288px] lg:w-[315px] lg:max-w-none">
+                  <div key={`${copyIndex}-${service.title}`} className="w-[52.5vw] max-w-[223px] shrink-0 sm:w-[288px] sm:max-w-[297px] lg:w-[315px] lg:max-w-none">
                     <Link
                       href="/services"
                       tabIndex={copyIndex === 1 ? -1 : undefined}
-                      className="service-marquee-card group relative block h-[350px] overflow-hidden rounded-[24px] border border-white/[0.12] bg-white/[0.06] transition-colors duration-500 hover:border-white/25 hover:bg-white/[0.075] sm:h-[385px] md:backdrop-blur-[24px] lg:h-[420px]"
+                      className="service-marquee-card group relative block h-[263px] overflow-hidden rounded-[18px] border border-white/[0.12] bg-white/[0.06] transition-colors duration-500 hover:border-white/25 hover:bg-white/[0.075] sm:h-[385px] sm:rounded-[24px] md:backdrop-blur-[24px] lg:h-[420px]"
                       aria-label={`${service.title}, ${service.price}. Подробнее об услуге`}
                     >
                       <span className={service.edgeAligned ? "absolute bottom-0 left-0 block h-[79%] w-[110%]" : "absolute left-1/2 top-1/2 block h-[58%] w-[84%] -translate-x-1/2 -translate-y-1/2"}>

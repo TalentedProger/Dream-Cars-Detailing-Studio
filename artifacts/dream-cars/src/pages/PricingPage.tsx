@@ -3,7 +3,6 @@ import { Check, HelpCircle, ArrowRight, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
-import { FloatingSocials } from "@/components/FloatingSocials";
 import { useBooking } from "@/contexts/BookingContext";
 import { usePageMeta } from "@/hooks/use-page-meta";
 
@@ -294,7 +293,6 @@ export default function PricingPage() {
       </section>
 
       <Footer />
-      <FloatingSocials />
     </main>
   );
 }

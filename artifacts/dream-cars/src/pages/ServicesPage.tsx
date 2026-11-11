@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { Sparkles, Shield, Droplets, CloudRain, Wrench, Layers, Star, ArrowRight, Zap } from "lucide-react";
 import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
-import { FloatingSocials } from "@/components/FloatingSocials";
 import { useBooking } from "@/contexts/BookingContext";
 import { usePageMeta } from "@/hooks/use-page-meta";
 
@@ -210,7 +209,6 @@ export default function ServicesPage() {
       </section>
 
       <Footer />
-      <FloatingSocials />
     </main>
   );
 }

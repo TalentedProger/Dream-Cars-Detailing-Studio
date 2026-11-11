@@ -11,7 +11,6 @@ const HowItWorks = lazy(() => import("@/components/sections/HowItWorks").then(mo
 const Testimonials = lazy(() => import("@/components/sections/Testimonials").then(module => ({ default: module.Testimonials })));
 const Contact = lazy(() => import("@/components/sections/Contact").then(module => ({ default: module.Contact })));
 const Footer = lazy(() => import("@/components/sections/Footer").then(module => ({ default: module.Footer })));
-const FloatingSocials = lazy(() => import("@/components/FloatingSocials").then(module => ({ default: module.FloatingSocials })));
 
 function DeferredSection({ name, minHeight, children }: { name: string; minHeight: string; children: ReactNode }) {
   const anchorRef = useRef<HTMLDivElement>(null);
@@ -58,7 +57,6 @@ export default function Home() {
       <DeferredSection name="testimonials" minHeight="850px"><Testimonials /></DeferredSection>
       <DeferredSection name="contact" minHeight="850px"><Contact /></DeferredSection>
       <Suspense fallback={<div className="min-h-[420px] bg-[#080808]" aria-hidden="true" />}><Footer /></Suspense>
-      <Suspense fallback={null}><FloatingSocials /></Suspense>
     </main>
   );
 }

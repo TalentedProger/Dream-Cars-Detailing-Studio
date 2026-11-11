@@ -108,20 +108,28 @@ export function Hero() {
           {/* Stats */}
           <div className="grid grid-cols-3 gap-6 md:gap-10 backdrop-blur-sm bg-[#080808]/30 p-4 rounded-2xl animate-hero-up delay-800">
             {[
-              { number: "500+", text: "Довольных клиентов", delay: "delay-900" },
-              { number: "5 лет", text: "Опыта работы", delay: "delay-1000" },
-              { number: "100%", text: "Гарантия качества", delay: "delay-1100" },
+              { number: "500+", text: "Довольных клиентов" },
+              { number: "5 лет", text: "Опыта работы" },
+              { number: "100%", text: "Гарантия качества" },
             ].map((stat, i) => (
               <div
                 key={i}
-                className={`relative animate-hero-up ${stat.delay}`}
+                className="relative"
               >
                 <div className="absolute left-0 top-0 bottom-0 w-[2px] rounded-full bg-gradient-to-b from-[#7C3AED] to-transparent" />
                 <div className="pl-4">
                   <div className="text-xl md:text-2xl lg:text-3xl font-display font-bold text-white mb-1 drop-shadow-md">
-                    {stat.number}
+                    {Array.from(stat.number).map((character, characterIndex) => (
+                      <span
+                        key={`${character}-${characterIndex}`}
+                        className="animate-stat-character"
+                        style={{ animationDelay: `${900 + i * 150 + characterIndex * 80}ms` }}
+                      >
+                        {character === " " ? "\u00A0" : character}
+                      </span>
+                    ))}
                   </div>
-                  <div className="text-xs md:text-sm text-white/70 font-light">{stat.text}</div>
+                  <div className="animate-stat-caption text-xs md:text-sm text-white/70 font-light" style={{ animationDelay: `${1250 + i * 150}ms` }}>{stat.text}</div>
                 </div>
               </div>
             ))}

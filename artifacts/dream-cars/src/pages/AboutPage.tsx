@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Award, Users, Clock, ShieldCheck, Heart, Target, Eye, Gem, Star } from "lucide-react";
 import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
-import { FloatingSocials } from "@/components/FloatingSocials";
 import { useBooking } from "@/contexts/BookingContext";
 import { usePageMeta } from "@/hooks/use-page-meta";
 
@@ -310,7 +309,6 @@ export default function AboutPage() {
       </section>
 
       <Footer />
-      <FloatingSocials />
     </main>
   );
 }

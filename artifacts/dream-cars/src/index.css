@@ -114,8 +114,36 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes statCharacterIn {
+  0% { opacity: 0; transform: translateY(0.28em) scale(0.96); }
+  55% { opacity: 1; }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes statCaptionIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-stat-character {
+  display: inline-block;
+  opacity: 0;
+  animation: statCharacterIn 0.34s steps(3, end) forwards;
+}
+
+.animate-stat-caption {
+  opacity: 0;
+  animation: statCaptionIn 0.45s ease-out forwards;
+}
+
 .animate-navbar-in {
-  animation: navbarIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: none;
+}
+
+@media (min-width: 768px) {
+  .animate-navbar-in {
+    animation: navbarIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
 }
 
 .animate-menu-fade {
@@ -427,9 +455,11 @@
   animation-play-state: running;
 }
 
-.services-marquee:hover .services-marquee-track,
-.services-marquee:focus-within .services-marquee-track {
-  animation-play-state: paused;
+@media (hover: hover) and (pointer: fine) {
+  .services-marquee:hover .services-marquee-track,
+  .services-marquee:focus-within .services-marquee-track {
+    animation-play-state: paused;
+  }
 }
 
 @supports (content-visibility: auto) {
@@ -451,6 +481,16 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .animate-navbar-in,
+  .animate-menu-fade,
+  .animate-menu-item,
+  .animate-stat-character,
+  .animate-stat-caption {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
   .service-polish-effect,
   .service-float-effect,
   .service-film-effect,

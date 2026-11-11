@@ -3,7 +3,6 @@ import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
-import { FloatingSocials } from "@/components/FloatingSocials";
 import { useBooking } from "@/contexts/BookingContext";
 import { OptimizedImage } from "@/components/ui/optimized-image";
 import { usePageMeta } from "@/hooks/use-page-meta";
@@ -220,7 +219,6 @@ export default function PortfolioPage() {
       </section>
 
       <Footer />
-      <FloatingSocials />
     </main>
   );
 }

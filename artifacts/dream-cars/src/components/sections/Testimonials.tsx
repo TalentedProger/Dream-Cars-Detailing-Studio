@@ -64,9 +64,9 @@ export function Testimonials() {
             <p className="mt-5 max-w-md text-sm leading-6 text-white/55 md:text-base">Что говорят владельцы автомобилей после работы нашей команды.</p>
           </motion.div>
 
-          <div className="hidden items-center gap-2 md:flex">
-            <button type="button" onClick={scrollPrev} aria-label="Предыдущий отзыв" className="flex h-11 w-11 items-center justify-center border border-white/15 bg-white/[0.035] text-white/70 transition-colors hover:border-[#b78ae8]/70 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#cba7f2]"><ArrowLeft className="h-5 w-5" aria-hidden="true" /></button>
-            <button type="button" onClick={scrollNext} aria-label="Следующий отзыв" className="flex h-11 w-11 items-center justify-center border border-white/15 bg-white/[0.035] text-white/70 transition-colors hover:border-[#b78ae8]/70 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#cba7f2]"><ArrowRight className="h-5 w-5" aria-hidden="true" /></button>
+          <div className="flex items-center gap-2 self-end md:self-auto">
+            <button type="button" onClick={scrollPrev} aria-label="Предыдущий отзыв" className="flex h-10 w-10 items-center justify-center border border-white/15 bg-white/[0.035] text-white/70 transition-colors hover:border-[#b78ae8]/70 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#cba7f2] md:h-11 md:w-11"><ArrowLeft className="h-5 w-5" aria-hidden="true" /></button>
+            <button type="button" onClick={scrollNext} aria-label="Следующий отзыв" className="flex h-10 w-10 items-center justify-center border border-white/15 bg-white/[0.035] text-white/70 transition-colors hover:border-[#b78ae8]/70 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#cba7f2] md:h-11 md:w-11"><ArrowRight className="h-5 w-5" aria-hidden="true" /></button>
           </div>
         </div>
 
@@ -114,12 +114,6 @@ export function Testimonials() {
           </div>
         </motion.div>
 
-        <div className="mt-8 flex justify-end md:hidden">
-          <div className="flex items-center gap-2">
-            <button type="button" onClick={scrollPrev} aria-label="Предыдущий отзыв" className="flex h-10 w-10 items-center justify-center border border-white/15 text-white/75 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#cba7f2]"><ArrowLeft className="h-4 w-4" aria-hidden="true" /></button>
-            <button type="button" onClick={scrollNext} aria-label="Следующий отзыв" className="flex h-10 w-10 items-center justify-center border border-white/15 text-white/75 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#cba7f2]"><ArrowRight className="h-4 w-4" aria-hidden="true" /></button>
-          </div>
-        </div>
       </div>
     </section>
   );
