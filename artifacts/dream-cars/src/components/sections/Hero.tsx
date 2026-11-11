@@ -119,17 +119,9 @@ export function Hero() {
                 <div className="absolute left-0 top-0 bottom-0 w-[2px] rounded-full bg-gradient-to-b from-[#7C3AED] to-transparent" />
                 <div className="pl-4">
                   <div className="text-xl md:text-2xl lg:text-3xl font-display font-bold text-white mb-1 drop-shadow-md">
-                    {Array.from(stat.number).map((character, characterIndex) => (
-                      <span
-                        key={`${character}-${characterIndex}`}
-                        className="animate-stat-character"
-                        style={{ animationDelay: `${900 + i * 150 + characterIndex * 80}ms` }}
-                      >
-                        {character === " " ? "\u00A0" : character}
-                      </span>
-                    ))}
+                    <span className="animate-stat-value" style={{ animationDelay: `${720 + i * 90}ms` }}>{stat.number}</span>
                   </div>
-                  <div className="animate-stat-caption text-xs md:text-sm text-white/70 font-light" style={{ animationDelay: `${1250 + i * 150}ms` }}>{stat.text}</div>
+                  <div className="animate-stat-caption text-xs md:text-sm text-white/70 font-light" style={{ animationDelay: `${820 + i * 90}ms` }}>{stat.text}</div>
                 </div>
               </div>
             ))}

@@ -1,4 +1,6 @@
 import { motion, useReducedMotion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import { Link } from "wouter";
 
 const sectionBackgroundImage = `${import.meta.env.BASE_URL}why-us/section-background.webp`;
 const polishingImage = `${import.meta.env.BASE_URL}why-us/polishing-is-the-key.webp`;
@@ -39,11 +41,11 @@ export function WhyUs() {
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-70px" }} variants={{ hidden: {}, visible: { transition: { staggerChildren: reduceMotion ? 0 : 0.08 } } }} className="grid gap-3 md:grid-cols-2 lg:grid-cols-[repeat(11,minmax(0,1fr))] lg:grid-rows-[303px_303px]">
             <motion.article variants={reveal} transition={{ duration: reduceMotion ? 0 : 0.65 }} className="group relative flex min-h-[289px] flex-col overflow-hidden bg-[linear-gradient(145deg,#6840b5,#431b86)] p-6 shadow-[0_18px_50px_rgba(67,27,134,0.24)] lg:col-span-4 lg:min-h-0">
               <img src={w140Image} alt="Чёрный Mercedes-Benz W140" loading="lazy" decoding="async" className="pointer-events-none absolute -bottom-[8%] right-0 h-[133%] w-auto max-w-none object-contain object-right drop-shadow-[0_18px_24px_rgba(0,0,0,0.3)]" />
-              <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 z-[5] h-24 bg-gradient-to-t from-black/55 via-black/30 to-transparent" />
+              <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 z-[5] h-[46%] bg-[linear-gradient(to_top,rgba(0,0,0,0.88)_0%,rgba(0,0,0,0.62)_38%,rgba(0,0,0,0.18)_72%,transparent_100%)]" />
               <strong className="relative z-10 font-display text-5xl font-semibold tracking-[-0.055em] text-white md:text-6xl">500+</strong>
-              <div className="relative z-10 mt-auto max-w-[58%]">
-                <p className="text-sm font-semibold text-white">Автомобилей доверили нам</p>
-                <p className="mt-1 text-xs leading-5 text-white/60">Опыт, собранный на разных марках и задачах.</p>
+              <div className="relative z-10 mt-auto max-w-full md:max-w-[58%]">
+                <p className="whitespace-nowrap text-[12px] font-semibold text-white sm:text-sm">Автомобилей доверили нам</p>
+                <p className="mt-1 whitespace-nowrap text-[10px] leading-5 text-white/65 sm:text-xs">Опыт, собранный на разных марках и задачах.</p>
               </div>
             </motion.article>
 
@@ -109,6 +111,12 @@ export function WhyUs() {
               <img src={agreementImage} alt="" aria-hidden="true" loading="lazy" className="pointer-events-none absolute left-1/2 top-1/2 h-[106px] w-[106px] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_12px_26px_rgba(36,88,255,0.28)]" />
               <p className="mt-auto text-sm font-semibold leading-snug text-white"><span className="block">Гарантия</span><span className="block">качества</span></p>
             </motion.article>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: reduceMotion ? 0 : 0.55, delay: reduceMotion ? 0 : 0.12 }} className="mt-10 flex justify-center md:mt-12">
+            <Link href="/about" className="premium-cta inline-flex min-h-14 items-center gap-5 bg-gradient-to-r from-[#8b5cf6] to-[#6d28d9] px-7 py-4 text-sm font-bold uppercase tracking-[0.1em] text-white shadow-[0_12px_36px_-12px_rgba(139,92,246,0.7)] transition-colors hover:from-[#9f75ff] hover:to-[#7c3aed] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c5a7ff]">
+              Подробнее о студии <span className="border-l border-white/35 pl-4"><ArrowUpRight className="h-5 w-5" aria-hidden="true" /></span>
+            </Link>
           </motion.div>
         </div>
       </div>

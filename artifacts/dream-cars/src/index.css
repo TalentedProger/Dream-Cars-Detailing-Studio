@@ -114,26 +114,25 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes statCharacterIn {
-  0% { opacity: 0; transform: translateY(0.28em) scale(0.96); }
-  55% { opacity: 1; }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
+@keyframes statValueIn {
+  from { opacity: 0; filter: blur(5px); }
+  to { opacity: 1; filter: blur(0); }
 }
 
 @keyframes statCaptionIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-.animate-stat-character {
+.animate-stat-value {
   display: inline-block;
   opacity: 0;
-  animation: statCharacterIn 0.34s steps(3, end) forwards;
+  animation: statValueIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .animate-stat-caption {
   opacity: 0;
-  animation: statCaptionIn 0.45s ease-out forwards;
+  animation: statCaptionIn 0.38s ease-out forwards;
 }
 
 .animate-navbar-in {
@@ -484,7 +483,7 @@
   .animate-navbar-in,
   .animate-menu-fade,
   .animate-menu-item,
-  .animate-stat-character,
+  .animate-stat-value,
   .animate-stat-caption {
     animation: none !important;
     opacity: 1 !important;

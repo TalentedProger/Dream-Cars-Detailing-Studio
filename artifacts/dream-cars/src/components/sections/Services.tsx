@@ -127,7 +127,9 @@ export function Services() {
                 <figure className="relative h-full w-full overflow-hidden bg-[#eeeaf3]" style={{ clipPath: photoClipPath }}>
                   <motion.img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" initial={{ scale: reduceMotion ? 1 : 1.12 }} whileInView={{ scale: 1 }} whileHover={{ scale: reduceMotion ? 1 : 1.04 }} viewport={{ once: true }} transition={{ duration: reduceMotion ? 0 : 1.2, delay: reduceMotion ? 0 : 0.15 + index * 0.15, ease: [0.22, 1, 0.36, 1] }} className="h-full w-full object-cover" />
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                  <figcaption className="premium-cta absolute bottom-3 left-3 max-w-[calc(100%-1.5rem)] border border-white/30 bg-black/25 px-2.5 py-2 text-[9px] font-bold uppercase leading-snug tracking-[0.12em] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_8px_24px_rgba(0,0,0,0.25)] backdrop-blur-[4px] sm:bottom-5 sm:left-5 sm:max-w-[calc(100%-2.5rem)] sm:px-3.5 sm:py-2.5 sm:text-[11px]">{photo.label}</figcaption>
+                  <figcaption className="premium-cta absolute bottom-3 left-3 max-w-[calc(100%-1.5rem)] bg-white/45 p-px shadow-[0_8px_24px_rgba(0,0,0,0.25)] sm:bottom-5 sm:left-5 sm:max-w-[calc(100%-2.5rem)]">
+                    <span className="premium-cta block bg-black/45 px-2.5 py-2 text-[9px] font-bold uppercase leading-snug tracking-[0.12em] text-white backdrop-blur-[4px] sm:px-3.5 sm:py-2.5 sm:text-[11px]">{photo.label}</span>
+                  </figcaption>
                   {!reduceMotion && <motion.div aria-hidden="true" className="pointer-events-none absolute inset-0 z-20 bg-white" style={{ clipPath: "polygon(0 0, 100% 0, 92% 100%, 0 100%)" }} initial={{ x: "0%" }} whileInView={{ x: "115%" }} viewport={{ once: true }} transition={{ duration: 1.15, delay: 0.14 + index * 0.15, ease: [0.22, 1, 0.36, 1] }} />}
                 </figure>
               </motion.div>
