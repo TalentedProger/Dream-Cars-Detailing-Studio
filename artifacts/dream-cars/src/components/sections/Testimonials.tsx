@@ -7,10 +7,10 @@ const base = import.meta.env.BASE_URL;
 const yandexReviewsUrl = "https://yandex.ru/maps/213/moscow/search/Dream%20Cars%20Studio%20%D0%B4%D0%B5%D1%82%D0%B5%D0%B9%D0%BB%D0%B8%D0%BD%D0%B3%20%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0/";
 
 const reviews = [
-  { name: "Александр Волков", car: "Mercedes-Benz S-Class", brand: "Mercedes-Benz", brandIcon: "mercedes.png", photo: "mercedes-s-class.png", photoAlt: "Mercedes-Benz S-Class в детейлинг-студии", photoPosition: "center 56%", text: "Отдавал машину на керамику и химчистку. Результат превзошел все ожидания. Цвет стал глубже, салон как из салона. Отличный сервис!" },
-  { name: "Елена Морозова", car: "Range Rover Sport", brand: "Land Rover", brandIcon: "land-rover.png", photo: "range-rover-sport.png", photoAlt: "Range Rover Sport в детейлинг-студии", photoPosition: "center 58%", text: "Делали антихром и бронирование морды. Пленку вообще не видно, края заправлены идеально. Ребята настоящие профессионалы своего дела." },
-  { name: "Дмитрий Ковалёв", car: "BMW X5", brand: "BMW", brandIcon: "bmw.png", photo: "bmw-x5.png", photoAlt: "BMW X5 в детейлинг-студии", photoPosition: "center 54%", text: "Спас мою машину после неудачной мойки. Вернули заводской блеск, убрали все паутинки. Теперь только к вам на обслуживание." },
-  { name: "Игорь Тихонов", car: "Porsche Cayenne", brand: "Porsche", brandIcon: "porsche.png", photo: "porsche-cayenne.png", photoAlt: "Porsche Cayenne в детейлинг-студии", photoPosition: "center 56%", text: "Атмосфера в студии шикарная, подход к клиенту на высшем уровне. Делал комплексный детейлинг — машина выглядит лучше новой." },
+  { name: "Александр Волков", car: "Mercedes-Benz S-Class", brand: "Mercedes-Benz", brandIcon: "mercedes.webp", photo: "mercedes-s-class.webp", photoAlt: "Mercedes-Benz S-Class в детейлинг-студии", photoPosition: "center 56%", text: "Отдавал машину на керамику и химчистку. Результат превзошел все ожидания. Цвет стал глубже, салон как из салона. Отличный сервис!" },
+  { name: "Елена Морозова", car: "Range Rover Sport", brand: "Land Rover", brandIcon: "land-rover.webp", photo: "range-rover-sport.webp", photoAlt: "Range Rover Sport в детейлинг-студии", photoPosition: "center 58%", text: "Делали антихром и бронирование морды. Пленку вообще не видно, края заправлены идеально. Ребята настоящие профессионалы своего дела." },
+  { name: "Дмитрий Ковалёв", car: "BMW X5", brand: "BMW", brandIcon: "bmw.webp", photo: "bmw-x5.webp", photoAlt: "BMW X5 в детейлинг-студии", photoPosition: "center 54%", text: "Спас мою машину после неудачной мойки. Вернули заводской блеск, убрали все паутинки. Теперь только к вам на обслуживание." },
+  { name: "Игорь Тихонов", car: "Porsche Cayenne", brand: "Porsche", brandIcon: "porsche.webp", photo: "porsche-cayenne.webp", photoAlt: "Porsche Cayenne в детейлинг-студии", photoPosition: "center 56%", text: "Атмосфера в студии шикарная, подход к клиенту на высшем уровне. Делал комплексный детейлинг — машина выглядит лучше новой." },
 ];
 
 export function Testimonials() {
@@ -54,8 +54,8 @@ export function Testimonials() {
       onPointerDown={(event) => { if (event.pointerType !== "mouse") isInteracting.current = true; }}
       onPointerUp={(event) => { if (event.pointerType !== "mouse") { isInteracting.current = false; pauseUntil.current = Date.now() + 7000; } }}
     >
-      <div aria-hidden="true" className="pointer-events-none absolute -left-40 top-12 h-[570px] w-[570px] rounded-full bg-[#a56dd7]/[0.08] blur-[125px]" />
-      <div aria-hidden="true" className="pointer-events-none absolute -right-40 bottom-0 h-[620px] w-[620px] rounded-full bg-[#7460c8]/[0.1] blur-[145px]" />
+      <div aria-hidden="true" className="performance-glow pointer-events-none absolute -left-40 top-12 h-[570px] w-[570px] rounded-full bg-[#a56dd7]/[0.08] blur-[125px]" />
+      <div aria-hidden="true" className="performance-glow pointer-events-none absolute -right-40 bottom-0 h-[620px] w-[620px] rounded-full bg-[#7460c8]/[0.1] blur-[145px]" />
 
       <div className="container relative mx-auto px-4 md:px-6">
         <div className="mb-11 flex flex-col justify-between gap-7 md:mb-14 md:flex-row md:items-end">

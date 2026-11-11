@@ -28,8 +28,6 @@ export default defineConfig({
         manualChunks: {
           vendor: ["react", "react-dom", "wouter"],
           utils: ["clsx", "tailwind-merge"],
-          radix: ["@radix-ui/react-select", "@radix-ui/react-slot", "@radix-ui/react-toast", "@radix-ui/react-tooltip"],
-          motion: ["framer-motion"],
           icons: ["lucide-react"],
         },
       },

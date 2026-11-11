@@ -77,7 +77,9 @@ export function BookingModal() {
             {/* ——— Left: Car photo ——— */}
             <div className="hidden md:block relative w-[44%] shrink-0 overflow-hidden">
               <img
-                src={`${import.meta.env.BASE_URL}images/fon.jpg`}
+                src={`${import.meta.env.BASE_URL}images/fon.webp`}
+                loading="lazy"
+                decoding="async"
                 alt=""
                 aria-hidden="true"
                 className="absolute inset-0 w-full h-full object-cover object-center scale-105"

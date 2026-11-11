@@ -4,7 +4,6 @@ import { ArrowRight } from "lucide-react";
 import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { FloatingSocials } from "@/components/FloatingSocials";
-import { BookingModal } from "@/components/BookingModal";
 import { useBooking } from "@/contexts/BookingContext";
 import { OptimizedImage } from "@/components/ui/optimized-image";
 import { usePageMeta } from "@/hooks/use-page-meta";
@@ -13,7 +12,7 @@ const filters = ["Все работы", "Полировка", "Керамика"
 
 const works = [
   {
-    img: `${import.meta.env.BASE_URL}car-aston-martin-db11.jpg`,
+    img: `${import.meta.env.BASE_URL}car-aston-martin-db11.webp`,
     model: "BMW M5 Competition",
     year: "2022",
     service: "Полировка + Керамика",
@@ -21,7 +20,7 @@ const works = [
     desc: "Двухшаговая абразивная полировка + нанесение Ceramic Pro 9H на весь кузов.",
   },
   {
-    img: `${import.meta.env.BASE_URL}car-porsche-911-gt3.jpg`,
+    img: `${import.meta.env.BASE_URL}car-porsche-911-gt3.webp`,
     model: "Porsche 911 GT3",
     year: "2021",
     service: "Химчистка + Антидождь",
@@ -29,7 +28,7 @@ const works = [
     desc: "Глубокая химчистка салона из алькантары, озонирование, антидождь на все стёкла.",
   },
   {
-    img: `${import.meta.env.BASE_URL}car-mercedes-amg-gt.jpg`,
+    img: `${import.meta.env.BASE_URL}car-mercedes-amg-gt.webp`,
     model: "Mercedes-AMG GT",
     year: "2023",
     service: "Керамическое покрытие",
@@ -37,7 +36,7 @@ const works = [
     desc: "Нанесение Gyeon Quartz Mohs+ на весь кузов, обработка дисков и стёкол.",
   },
   {
-    img: `${import.meta.env.BASE_URL}car-lamborghini-urus.jpg`,
+    img: `${import.meta.env.BASE_URL}car-lamborghini-urus.webp`,
     model: "Lamborghini Urus",
     year: "2023",
     service: "Полный детейлинг",
@@ -45,7 +44,7 @@ const works = [
     desc: "Полировка, PPF на зоны риска, керамика на кузов, химчистка кожаного салона.",
   },
   {
-    img: `${import.meta.env.BASE_URL}car-aston-martin-db11-new.jpg`,
+    img: `${import.meta.env.BASE_URL}car-aston-martin-db11-new.webp`,
     model: "Aston Martin DB11",
     year: "2024",
     service: "PPF полный кузов",
@@ -53,7 +52,7 @@ const works = [
     desc: "Оклейка полного кузова матовой антигравийной плёнкой STEK с гарантией 5 лет.",
   },
   {
-    img: `${import.meta.env.BASE_URL}car-ferrari-f8-new.jpg`,
+    img: `${import.meta.env.BASE_URL}car-ferrari-f8-new.webp`,
     model: "Ferrari F8",
     year: "2024",
     service: "Химчистка салона + Озон",
@@ -61,7 +60,7 @@ const works = [
     desc: "Полная химчистка интерьера с обработкой алькантары и карбоновых вставок. Озонация.",
   },
   {
-    img: `${import.meta.env.BASE_URL}car-rolls-royce-cullinan.jpg`,
+    img: `${import.meta.env.BASE_URL}car-rolls-royce-cullinan.webp`,
     model: "Rolls-Royce Cullinan",
     year: "2024",
     service: "Комплексный детейлинг",
@@ -69,7 +68,7 @@ const works = [
     desc: "Подготовка, полировка, Ceramic Pro Elite, PPF, химчистка кожи Nappa. 7 дней работ.",
   },
   {
-    img: `${import.meta.env.BASE_URL}car-tesla-model-s.jpg`,
+    img: `${import.meta.env.BASE_URL}car-tesla-model-s.webp`,
     model: "Tesla Model S Plaid",
     year: "2023",
     service: "Полировка + Ceramiq",
@@ -95,12 +94,11 @@ export default function PortfolioPage() {
   return (
     <main className="min-h-screen bg-[#080808] text-white">
       <Navbar />
-      <BookingModal />
 
       {/* Hero */}
       <section className="relative pt-40 pb-32 md:pb-44 overflow-hidden">
         <div className="absolute inset-0 bg-[#080808]" />
-        <div className="absolute top-1/2 right-0 w-[700px] h-[700px] bg-[#7C3AED]/10 rounded-full blur-[150px] translate-x-1/3 -translate-y-1/2 pointer-events-none" />
+        <div className="performance-glow absolute top-1/2 right-0 w-[700px] h-[700px] bg-[#7C3AED]/10 rounded-full blur-[150px] translate-x-1/3 -translate-y-1/2 pointer-events-none" />
         <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
         {/* Bottom fade */}
         <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-[#080808] to-transparent pointer-events-none z-10" />
@@ -202,7 +200,11 @@ export default function PortfolioPage() {
             <h2 className="text-4xl md:text-5xl font-display font-black text-white mb-4">Ваш автомобиль — следующий</h2>
             <p className="text-white/50 mb-10 max-w-lg mx-auto">Запишитесь уже сегодня и получите бесплатную диагностику состояния лака вашего автомобиля.</p>
             <img
-              src={`${import.meta.env.BASE_URL}images/faq.png`}
+              src={`${import.meta.env.BASE_URL}images/faq.webp`}
+              loading="lazy"
+              decoding="async"
+              width="2400"
+              height="1600"
               alt="Dream Cars"
               className="mx-auto mb-10 w-full max-w-xl object-contain select-none pointer-events-none mix-blend-screen"
             />

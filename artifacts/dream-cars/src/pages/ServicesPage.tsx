@@ -3,7 +3,6 @@ import { Sparkles, Shield, Droplets, CloudRain, Wrench, Layers, Star, ArrowRight
 import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { FloatingSocials } from "@/components/FloatingSocials";
-import { BookingModal } from "@/components/BookingModal";
 import { useBooking } from "@/contexts/BookingContext";
 import { usePageMeta } from "@/hooks/use-page-meta";
 
@@ -101,12 +100,11 @@ export default function ServicesPage() {
   return (
     <main className="min-h-screen bg-[#080808] text-white">
       <Navbar />
-      <BookingModal />
 
       {/* Hero */}
       <section className="relative pt-40 pb-32 md:pb-44 overflow-hidden">
         <div className="absolute inset-0 bg-[#080808]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] bg-[#7C3AED]/12 rounded-full blur-[150px] pointer-events-none" />
+        <div className="performance-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] bg-[#7C3AED]/12 rounded-full blur-[150px] pointer-events-none" />
         <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
         {/* Bottom fade: prevent purple glow from bleeding into next section */}
         <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-[#080808] to-transparent pointer-events-none z-10" />
@@ -192,7 +190,11 @@ export default function ServicesPage() {
             <h2 className="text-4xl md:text-5xl font-display font-black text-white mb-4">Готовы начать?</h2>
             <p className="text-white/50 mb-10 max-w-lg mx-auto">Запишитесь на бесплатную консультацию и мы подберём оптимальный пакет услуг для вашего автомобиля.</p>
             <img
-              src={`${import.meta.env.BASE_URL}images/faq.png`}
+              src={`${import.meta.env.BASE_URL}images/faq.webp`}
+              loading="lazy"
+              decoding="async"
+              width="2400"
+              height="1600"
               alt="Dream Cars"
               className="mx-auto mb-10 w-full max-w-xl object-contain select-none pointer-events-none mix-blend-screen"
             />

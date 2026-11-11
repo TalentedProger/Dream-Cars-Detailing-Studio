@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { FloatingSocials } from "@/components/FloatingSocials";
-import { BookingModal } from "@/components/BookingModal";
 import { useBooking } from "@/contexts/BookingContext";
 import { usePageMeta } from "@/hooks/use-page-meta";
 
@@ -87,12 +86,11 @@ export default function ContactPage() {
   return (
     <main className="min-h-screen bg-[#080808] text-white">
       <Navbar />
-      <BookingModal />
 
       {/* Hero */}
       <section className="relative pt-40 pb-32 md:pb-44 overflow-hidden">
         <div className="absolute inset-0 bg-[#080808]" />
-        <div className="absolute top-0 right-1/4 w-[800px] h-[600px] bg-[#7C3AED]/8 rounded-full blur-[180px] pointer-events-none" />
+        <div className="performance-glow absolute top-0 right-1/4 w-[800px] h-[600px] bg-[#7C3AED]/8 rounded-full blur-[180px] pointer-events-none" />
         <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
         {/* Bottom fade */}
         <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-[#080808] to-transparent pointer-events-none z-10" />
@@ -237,6 +235,9 @@ export default function ContactPage() {
                 <img
                   src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&q=80"
                   alt="Location"
+                  loading="lazy"
+                  decoding="async"
+                  referrerPolicy="no-referrer"
                   className="w-full h-full object-cover opacity-50"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent" />

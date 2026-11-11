@@ -1,9 +1,19 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useLocation } from "wouter";
 import { useBooking } from "@/contexts/BookingContext";
+
+const routeLoaders: Record<string, () => Promise<unknown>> = {
+  "/services": () => import("@/pages/ServicesPage"),
+  "/about": () => import("@/pages/AboutPage"),
+  "/portfolio": () => import("@/pages/PortfolioPage"),
+  "/pricing": () => import("@/pages/PricingPage"),
+  "/contact": () => import("@/pages/ContactPage"),
+};
+
+const prefetchRoute = (route: string) => {
+  void routeLoaders[route]?.();
+};
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -25,11 +35,20 @@ export function Navbar() {
   }, [mobileMenuOpen]);
 
   useEffect(() => {
-    const handleScroll = () => {
+    let frame = 0;
+    const update = () => {
       setIsScrolled(window.scrollY > 50);
+      frame = 0;
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const handleScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   const navLinks = [
@@ -47,11 +66,8 @@ export function Navbar() {
   };
 
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+    <header
+      className={`animate-navbar-in fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         mobileMenuOpen
           ? "py-3 md:py-4 bg-transparent"
           : isScrolled
@@ -73,6 +89,9 @@ export function Navbar() {
               <button
                 key={link.name}
                 onClick={() => handleNav(link.route)}
+                onPointerEnter={() => prefetchRoute(link.route)}
+                onFocus={() => prefetchRoute(link.route)}
+                onTouchStart={() => prefetchRoute(link.route)}
                 className="text-sm font-medium text-white/80 hover:text-white hover:text-glow transition-all duration-300"
               >
                 {link.name}
@@ -98,9 +117,9 @@ export function Navbar() {
                 </svg>
               </a>
             </div>
-            <Button variant="glow" size="sm" className="!rounded-none [clip-path:none]" onClick={open}>
+            <button type="button" className="inline-flex h-9 items-center justify-center bg-primary px-4 text-sm font-medium text-primary-foreground box-glow transition-all duration-300 hover:scale-[1.02] hover:bg-primary/90" onClick={open} onPointerEnter={() => { void import("@/components/BookingModal"); }} onTouchStart={() => { void import("@/components/BookingModal"); }}>
               Записаться
-            </Button>
+            </button>
           </div>
 
           {/* Mobile Toggle */}
@@ -114,15 +133,8 @@ export function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 bg-[#080808]/85 backdrop-blur-xl z-[49] flex flex-col overflow-hidden"
-          >
+      {mobileMenuOpen && (
+          <div className="animate-menu-fade fixed inset-0 bg-[#080808]/85 backdrop-blur-xl z-[49] flex flex-col overflow-hidden">
             {/* Top row: Logo + Close */}
             <div className="flex items-center justify-between px-4 md:px-6 py-3 md:py-4 shrink-0">
               <div
@@ -141,28 +153,22 @@ export function Navbar() {
             {/* Nav links + socials centered together */}
             <div className="flex-1 flex flex-col items-center justify-center text-center px-6 w-full gap-7">
               {navLinks.map((link, i) => (
-                <motion.button
+                <button
                   key={link.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.07 }}
                   onClick={() => handleNav(link.route)}
-                  className="text-2xl font-display font-medium text-white"
+                  onTouchStart={() => prefetchRoute(link.route)}
+                  className="animate-menu-item text-2xl font-display font-medium text-white"
+                  style={{ animationDelay: `${i * 70}ms` }}
                 >
                   {link.name}
-                </motion.button>
+                </button>
               ))}
 
               {/* Divider */}
               <div className="w-20 h-px bg-white/15" />
 
               {/* Socials */}
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.42 }}
-                className="flex justify-center gap-6"
-              >
+              <div className="animate-menu-item flex justify-center gap-6 [animation-delay:420ms]">
                 <a href="https://t.me/dreamcars" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-[#0088CC] transition-colors" aria-label="Telegram">
                   <svg viewBox="0 0 24 24" className="w-7 h-7 fill-current">
                     <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.895-1.056-.688-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.664 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.381 4.025-1.627 4.476-1.635z" />
@@ -178,22 +184,17 @@ export function Navbar() {
                     <path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .423-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.779.678.864 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.736c-.068-1.186-.695-1.287-.695-1.71 0-.204.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.762-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.745-.576.745z" />
                   </svg>
                 </a>
-              </motion.div>
+              </div>
 
               {/* Compact book button */}
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-              >
-                <Button variant="glow" size="sm" className="!rounded-none px-10 [clip-path:none]" onClick={() => { setMobileMenuOpen(false); open(); }}>
+              <div className="animate-menu-item [animation-delay:500ms]">
+                <button type="button" className="inline-flex h-9 items-center justify-center bg-primary px-10 text-sm font-medium text-primary-foreground box-glow transition-all duration-300 hover:bg-primary/90" onClick={() => { setMobileMenuOpen(false); open(); }}>
                   Записаться
-                </Button>
-              </motion.div>
+                </button>
+              </div>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.header>
+          </div>
+      )}
+    </header>
   );
 }

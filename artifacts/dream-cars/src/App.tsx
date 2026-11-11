@@ -1,11 +1,9 @@
 import { Switch, Route, Router as WouterRouter } from "wouter";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import Home from "@/pages/Home";
 import NotFound from "@/pages/not-found";
-import { BookingProvider } from "@/contexts/BookingContext";
+import { BookingProvider, useBooking } from "@/contexts/BookingContext";
 
 // Lazy load route pages
 const ServicesPage = lazy(() => import("@/pages/ServicesPage"));
@@ -13,15 +11,12 @@ const AboutPage = lazy(() => import("@/pages/AboutPage"));
 const PortfolioPage = lazy(() => import("@/pages/PortfolioPage"));
 const PricingPage = lazy(() => import("@/pages/PricingPage"));
 const ContactPage = lazy(() => import("@/pages/ContactPage"));
+const BookingModal = lazy(() => import("@/components/BookingModal").then(module => ({ default: module.BookingModal })));
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      retry: false,
-    },
-  },
-});
+function GlobalBookingModal() {
+  const { isOpen } = useBooking();
+  return isOpen ? <Suspense fallback={null}><BookingModal /></Suspense> : null;
+}
 
 function Router() {
   return (
@@ -40,17 +35,24 @@ function Router() {
 }
 
 function App() {
+  useEffect(() => {
+    const preventGesture = (event: Event) => event.preventDefault();
+    document.addEventListener("gesturestart", preventGesture, { passive: false });
+    document.addEventListener("gesturechange", preventGesture, { passive: false });
+    return () => {
+      document.removeEventListener("gesturestart", preventGesture);
+      document.removeEventListener("gesturechange", preventGesture);
+    };
+  }, []);
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <BookingProvider>
-          <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-            <Router />
-          </WouterRouter>
-        </BookingProvider>
-        <Toaster />
-      </TooltipProvider>
-    </QueryClientProvider>
+    <BookingProvider>
+      <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+        <Router />
+      </WouterRouter>
+      <GlobalBookingModal />
+      <Toaster />
+    </BookingProvider>
   );
 }
 

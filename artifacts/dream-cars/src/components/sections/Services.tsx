@@ -1,4 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "wouter";
 
@@ -8,18 +9,18 @@ const photoClipPath = "polygon(14px 0, calc(100% - 14px) 0, 100% 14px, 100% calc
 type ServiceEffectName = "polish" | "ceramic" | "film" | "interior" | "engine" | "headlight";
 
 const services: { title: string; detail: string; price: string; image: string; effect: ServiceEffectName; imagePosition?: string; cutout?: boolean; edgeAligned?: boolean; softTopFade?: boolean }[] = [
-  { title: "Полировка кузова", detail: "Возвращаем глубину цвета", price: "от 15 000 ₽", image: `${base}services/polishing-kit.png`, effect: "polish", cutout: true },
-  { title: "Керамическое покрытие", detail: "Блеск и защита ЛКП", price: "от 25 000 ₽", image: `${base}services/ceramic-detailing.png`, effect: "ceramic", cutout: true, edgeAligned: true },
-  { title: "Антигравийная плёнка", detail: "Защищаем зоны риска и кузов", price: "от 30 000 ₽", image: `${base}services/film-tools.png`, effect: "film", cutout: true },
-  { title: "Химчистка салона", detail: "Уход за каждой деталью", price: "от 10 000 ₽", image: `${base}services/detailing-tools.png`, effect: "interior", cutout: true },
-  { title: "Детейлинг двигателя", detail: "Чистота под капотом", price: "от 5 000 ₽", image: `${base}services/engine-steam-cutout.png`, effect: "engine", cutout: true, edgeAligned: true },
-  { title: "Реставрация фар", detail: "Прозрачность и защита", price: "от 4 000 ₽", image: `${base}services/headlight-kit.png`, effect: "headlight", cutout: true },
+  { title: "Полировка кузова", detail: "Возвращаем глубину цвета", price: "от 15 000 ₽", image: `${base}services/polishing-kit.webp`, effect: "polish", cutout: true },
+  { title: "Керамическое покрытие", detail: "Блеск и защита ЛКП", price: "от 25 000 ₽", image: `${base}services/ceramic-detailing.webp`, effect: "ceramic", cutout: true, edgeAligned: true },
+  { title: "Антигравийная плёнка", detail: "Защищаем зоны риска и кузов", price: "от 30 000 ₽", image: `${base}services/film-tools.webp`, effect: "film", cutout: true },
+  { title: "Химчистка салона", detail: "Уход за каждой деталью", price: "от 10 000 ₽", image: `${base}services/detailing-tools.webp`, effect: "interior", cutout: true },
+  { title: "Детейлинг двигателя", detail: "Чистота под капотом", price: "от 5 000 ₽", image: `${base}services/engine-steam-cutout.webp`, effect: "engine", cutout: true, edgeAligned: true },
+  { title: "Реставрация фар", detail: "Прозрачность и защита", price: "от 4 000 ₽", image: `${base}services/headlight-kit.webp`, effect: "headlight", cutout: true },
 ];
 
 const photos = [
-  { src: `${base}our_work/wrapping_with_film.jpg`, alt: "Мастера оклеивают красный автомобиль защитной плёнкой", label: "Защищаем", className: "row-span-2" },
-  { src: `${base}our_work/polishing_ceramics.jpg`, alt: "Мастер полирует кузов чёрного автомобиля", label: "Восстанавливаем", className: "" },
-  { src: `${base}our_work/Interior_detailing.jpg`, alt: "Мастер очищает кожаный салон автомобиля", label: "Заботимся о деталях", className: "" },
+  { src: `${base}our_work/wrapping_with_film.webp`, alt: "Мастера оклеивают красный автомобиль защитной плёнкой", label: "Защищаем", className: "row-span-2" },
+  { src: `${base}our_work/polishing_ceramics.webp`, alt: "Мастер полирует кузов чёрного автомобиля", label: "Восстанавливаем", className: "" },
+  { src: `${base}our_work/Interior_detailing.webp`, alt: "Мастер очищает кожаный салон автомобиля", label: "Заботимся о деталях", className: "" },
 ];
 
 function ServiceEffect({ name }: { name: ServiceEffectName }) {
@@ -74,11 +75,24 @@ function ServiceEffect({ name }: { name: ServiceEffectName }) {
 
 export function Services() {
   const reduceMotion = Boolean(useReducedMotion());
+  const sectionRef = useRef<HTMLElement>(null);
+  const [effectsActive, setEffectsActive] = useState(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setEffectsActive(entry.isIntersecting),
+      { rootMargin: "160px 0px", threshold: 0.01 },
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section id="services" className="relative overflow-hidden bg-white pb-0 pt-20 text-[#1b1722] md:pb-0 md:pt-28">
-      <div className="pointer-events-none absolute -left-36 top-12 h-[520px] w-[520px] rounded-full bg-[#6d28d9]/10 blur-[120px]" />
-      <div className="pointer-events-none absolute -right-48 top-[38%] h-[620px] w-[620px] rounded-full bg-[#a875ff]/[0.08] blur-[145px]" />
+    <section ref={sectionRef} id="services" className={`${effectsActive ? "services-effects-active" : ""} relative overflow-hidden bg-white pb-0 pt-20 text-[#1b1722] md:pb-0 md:pt-28`}>
+      <div className="performance-glow pointer-events-none absolute -left-36 top-12 h-[520px] w-[520px] rounded-full bg-[#6d28d9]/10 blur-[120px]" />
+      <div className="performance-glow pointer-events-none absolute -right-48 top-[38%] h-[620px] w-[620px] rounded-full bg-[#a875ff]/[0.08] blur-[145px]" />
 
       <div className="container relative mx-auto px-4 md:px-6">
         <div className="grid items-end gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-10 xl:gap-16">
@@ -108,8 +122,8 @@ export function Services() {
           <div className="grid h-[380px] grid-cols-[1.1fr_0.9fr] grid-rows-2 gap-3.5 sm:h-[460px] lg:h-[540px] xl:h-[590px]">
             {photos.map((photo, index) => (
               <motion.div key={photo.src} initial={{ opacity: 0, x: reduceMotion ? 0 : index === 0 ? -24 : 24, y: reduceMotion ? 0 : 26, scale: reduceMotion ? 1 : 0.97 }} whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: reduceMotion ? 0 : 0.85, delay: reduceMotion ? 0 : 0.16 + index * 0.15, ease: [0.22, 1, 0.36, 1] }} className={`group relative min-h-0 ${photo.className}`}>
-                <div aria-hidden="true" className="pointer-events-none absolute -inset-16 bg-[#7c3aed]/[0.055] blur-[90px]" />
-                <div aria-hidden="true" className="pointer-events-none absolute -inset-20 bg-[#bca8d9]/[0.06] blur-[120px]" />
+                <div aria-hidden="true" className="performance-glow pointer-events-none absolute -inset-16 bg-[#7c3aed]/[0.055] blur-[90px]" />
+                <div aria-hidden="true" className="performance-glow pointer-events-none absolute -inset-20 bg-[#bca8d9]/[0.06] blur-[120px]" />
                 <figure className="relative h-full w-full overflow-hidden bg-[#eeeaf3]" style={{ clipPath: photoClipPath }}>
                   <motion.img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" initial={{ scale: reduceMotion ? 1 : 1.12 }} whileInView={{ scale: 1 }} whileHover={{ scale: reduceMotion ? 1 : 1.04 }} viewport={{ once: true }} transition={{ duration: reduceMotion ? 0 : 1.2, delay: reduceMotion ? 0 : 0.15 + index * 0.15, ease: [0.22, 1, 0.36, 1] }} className="h-full w-full object-cover" />
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
@@ -139,7 +153,7 @@ export function Services() {
                     <Link
                       href="/services"
                       tabIndex={copyIndex === 1 ? -1 : undefined}
-                      className="group relative block h-[350px] overflow-hidden rounded-[24px] border border-white/[0.12] bg-white/[0.025] backdrop-blur-[48px] transition-colors duration-500 hover:border-white/25 hover:bg-white/[0.035] sm:h-[385px] lg:h-[420px]"
+                      className="service-marquee-card group relative block h-[350px] overflow-hidden rounded-[24px] border border-white/[0.12] bg-white/[0.06] transition-colors duration-500 hover:border-white/25 hover:bg-white/[0.075] sm:h-[385px] md:backdrop-blur-[24px] lg:h-[420px]"
                       aria-label={`${service.title}, ${service.price}. Подробнее об услуге`}
                     >
                       <span className={service.edgeAligned ? "absolute bottom-0 left-0 block h-[79%] w-[110%]" : "absolute left-1/2 top-1/2 block h-[58%] w-[84%] -translate-x-1/2 -translate-y-1/2"}>

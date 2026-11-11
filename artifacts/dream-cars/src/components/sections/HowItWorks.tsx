@@ -51,7 +51,7 @@ export function HowItWorks() {
   const reduceMotion = Boolean(useReducedMotion());
 
   return (
-    <section id="process" className="relative isolate overflow-hidden bg-[#f7f8f7] py-20 text-[#131a20] md:py-28 lg:py-[88px]">
+    <section id="process" className="render-optimized relative isolate overflow-hidden bg-[#f7f8f7] py-20 text-[#131a20] md:py-28 lg:py-[88px]">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-[13%] top-10 h-[540px] opacity-70"

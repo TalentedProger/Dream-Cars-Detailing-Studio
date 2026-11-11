@@ -4,7 +4,6 @@ import { ArrowLeft, ArrowRight, Award, Users, Clock, ShieldCheck, Heart, Target,
 import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { FloatingSocials } from "@/components/FloatingSocials";
-import { BookingModal } from "@/components/BookingModal";
 import { useBooking } from "@/contexts/BookingContext";
 import { usePageMeta } from "@/hooks/use-page-meta";
 
@@ -39,12 +38,12 @@ const values = [
 ];
 
 const timeline = [
-  { year: "2019", label: "Старт Dream Cars", event: "Основание студии. Первые клиенты, первые победы.", image: "about-detailing-worker.jpg" },
-  { year: "2020", label: "Сертификация", event: "Сертификация Ceramic Pro. Расширение возможностей по нанопокрытиям.", image: "why-us/polishing-is-the-key.jpg" },
-  { year: "2021", label: "Новый уровень", event: "Открытие нового бокса. Новое профессиональное оборудование Rupes и Flex.", image: "our_work/anti-rain.jpg" },
-  { year: "2022", label: "Партнёрство", event: "Партнёрство с Gyeon. Вошли в список топ-детейлинг-студий России.", image: "our_work/Interior_detailing.jpg" },
-  { year: "2023", label: "Запуск PPF", event: "Запуск услуги PPF. 300+ клиентов с керамическим покрытием.", image: "our_work/wrapping_with_film.jpg" },
-  { year: "2024", label: "500+ клиентов", event: "500+ довольных клиентов. Рейтинг 4.9/5.0 на всех площадках.", image: "our_work/polishing_ceramics.jpg" },
+  { year: "2019", label: "Старт Dream Cars", event: "Основание студии. Первые клиенты, первые победы.", image: "about-detailing-worker.webp" },
+  { year: "2020", label: "Сертификация", event: "Сертификация Ceramic Pro. Расширение возможностей по нанопокрытиям.", image: "why-us/polishing-is-the-key.webp" },
+  { year: "2021", label: "Новый уровень", event: "Открытие нового бокса. Новое профессиональное оборудование Rupes и Flex.", image: "our_work/anti-rain.webp" },
+  { year: "2022", label: "Партнёрство", event: "Партнёрство с Gyeon. Вошли в список топ-детейлинг-студий России.", image: "our_work/Interior_detailing.webp" },
+  { year: "2023", label: "Запуск PPF", event: "Запуск услуги PPF. 300+ клиентов с керамическим покрытием.", image: "our_work/wrapping_with_film.webp" },
+  { year: "2024", label: "500+ клиентов", event: "500+ довольных клиентов. Рейтинг 4.9/5.0 на всех площадках.", image: "our_work/polishing_ceramics.webp" },
 ];
 const developmentPath = [...timeline].reverse();
 
@@ -58,18 +57,28 @@ export default function AboutPage() {
     const video = ctaVideoRef.current;
     if (!video || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const observer = new IntersectionObserver((entries) => {
-      const entry = entries[0];
-      if (!entry) return;
-      if (entry.isIntersecting) {
+    let inViewport = false;
+    const syncPlayback = () => {
+      if (inViewport && !document.hidden) {
         void video.play().catch(() => undefined);
       } else {
         video.pause();
       }
+    };
+    const observer = new IntersectionObserver((entries) => {
+      const entry = entries[0];
+      if (!entry) return;
+      inViewport = entry.isIntersecting;
+      syncPlayback();
     }, { rootMargin: "160px 0px", threshold: 0.12 });
 
     observer.observe(video);
-    return () => observer.disconnect();
+    document.addEventListener("visibilitychange", syncPlayback);
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", syncPlayback);
+      video.pause();
+    };
   }, []);
   usePageMeta({
     title: "О нас — Dream Cars Studio",
@@ -80,13 +89,12 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen bg-[#080808] text-white">
       <Navbar />
-      <BookingModal />
 
       {/* Hero */}
       <section className="relative flex min-h-[100svh] items-center overflow-hidden py-24 md:pb-10 md:pt-28">
-        <img src={`${import.meta.env.BASE_URL}our_work/polishing_ceramics.jpg`} alt="Команда Dream Cars работает над автомобилем" className="absolute inset-0 h-full w-full object-cover object-center" />
+        <img src={`${import.meta.env.BASE_URL}our_work/polishing_ceramics.webp`} alt="Команда Dream Cars работает над автомобилем" fetchPriority="high" loading="eager" decoding="async" width="1536" height="1024" className="absolute inset-0 h-full w-full object-cover object-center" />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,4,7,0.86)_0%,rgba(7,5,10,0.68)_54%,rgba(8,5,12,0.58)_100%)]" />
-        <div className="absolute top-1/3 right-0 w-[800px] h-[600px] bg-[#7C3AED]/10 rounded-full blur-[160px] pointer-events-none" />
+        <div className="performance-glow absolute top-1/3 right-0 w-[800px] h-[600px] bg-[#7C3AED]/10 rounded-full blur-[160px] pointer-events-none" />
         <div className="absolute inset-0 opacity-[0.025]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
         {/* Bottom fade */}
         <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-[#080808] to-transparent pointer-events-none z-10" />
@@ -119,11 +127,13 @@ export default function AboutPage() {
 
       {/* Mission */}
       <section className="relative overflow-visible border-t border-black/[0.06] bg-[#f5f3f7] py-24 text-[#1b1722]">
-        <div className="pointer-events-none absolute -left-40 top-10 h-[480px] w-[480px] rounded-full bg-[#8b5cf6]/10 blur-[130px]" />
+        <div className="performance-glow pointer-events-none absolute -left-40 top-10 h-[480px] w-[480px] rounded-full bg-[#8b5cf6]/10 blur-[130px]" />
         <motion.img
-          src={`${import.meta.env.BASE_URL}about/mission-car.png`}
+          src={`${import.meta.env.BASE_URL}about/mission-car.webp`}
           alt=""
           aria-hidden="true"
+          loading="lazy"
+          decoding="async"
           initial={{ opacity: 0, x: 35 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
@@ -158,7 +168,7 @@ export default function AboutPage() {
               viewport={{ once: true }}
               className="relative min-h-[400px] lg:min-h-[520px]"
             >
-              <img src={`${import.meta.env.BASE_URL}about/mission-car.png`} alt="Автомобиль Dream Cars" className="pointer-events-none absolute -bottom-44 right-[-1rem] z-[5] h-[140%] w-[125%] max-w-none select-none object-contain object-right-bottom lg:hidden" />
+              <img src={`${import.meta.env.BASE_URL}about/mission-car.webp`} alt="Автомобиль Dream Cars" loading="lazy" decoding="async" className="pointer-events-none absolute -bottom-44 right-[-1rem] z-[5] h-[140%] w-[125%] max-w-none select-none object-contain object-right-bottom lg:hidden" />
             </motion.div>
           </div>
         </div>
@@ -250,7 +260,7 @@ export default function AboutPage() {
                         <p className="min-h-[72px] max-w-[280px] text-sm leading-6 text-[#17131d]/72">{item.event}</p>
                         <span className="premium-cta block w-full bg-[#7c3aed]/45 p-px">
                           <span className="premium-cta block aspect-[1.65/1] w-full overflow-hidden bg-[#e9e7ed]">
-                            <img src={`${import.meta.env.BASE_URL}${item.image}`} alt="" aria-hidden="true" loading="lazy" className={`h-full w-full object-cover grayscale-[0.2] transition-transform duration-700 ${item.year === "2024" ? "scale-[1.12] object-[54%_38%] hover:scale-[1.15]" : "hover:scale-[1.03]"}`} />
+                            <img src={`${import.meta.env.BASE_URL}${item.image}`} alt="" aria-hidden="true" loading="lazy" decoding="async" className={`h-full w-full object-cover grayscale-[0.2] transition-transform duration-700 ${item.year === "2024" ? "scale-[1.12] object-[54%_38%] hover:scale-[1.15]" : "hover:scale-[1.03]"}`} />
                           </span>
                         </span>
                       </motion.div>
@@ -273,8 +283,8 @@ export default function AboutPage() {
           muted
           loop
           playsInline
-          preload="metadata"
-          poster={`${import.meta.env.BASE_URL}car-porsche-911.jpg`}
+          preload="none"
+          poster={`${import.meta.env.BASE_URL}car-porsche-911.webp`}
           disablePictureInPicture
           aria-hidden="true"
           tabIndex={-1}

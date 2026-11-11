@@ -10,9 +10,9 @@ const cases = [
   {
     model: "BMW X5",
     brand: "BMW",
-    brandLogo: `${base}brand-logos/bmw.png`,
+    brandLogo: `${base}brand-logos/bmw.webp`,
     field: "Восстановление / защита",
-    image: `${base}cars/bmw-x5.png`,
+    image: `${base}cars/bmw-x5.webp`,
     imageAlt: "BMW X5 в детейлинг-студии Dream Cars",
     request: "Вернуть кузову глубину цвета и защитить его для повседневной эксплуатации.",
     work: ["Восстановительная полировка", "Подготовка ЛКП", "Керамическое покрытие"],
@@ -21,9 +21,9 @@ const cases = [
   {
     model: "Mercedes-Benz S-Class",
     brand: "Mercedes-Benz",
-    brandLogo: `${base}brand-logos/mercedes.png`,
+    brandLogo: `${base}brand-logos/mercedes.webp`,
     field: "Плёнка / кузов",
-    image: `${base}cars/mercedes-s-class.png`,
+    image: `${base}cars/mercedes-s-class.webp`,
     imageAlt: "Mercedes-Benz S-Class в детейлинг-студии Dream Cars",
     request: "Сохранить безупречный вид кузова и защитить наиболее уязвимые зоны.",
     work: ["Оклейка зон риска", "Проработка кромок", "Контроль прилегания плёнки"],
@@ -32,9 +32,9 @@ const cases = [
   {
     model: "Range Rover Sport",
     brand: "Land Rover",
-    brandLogo: `${base}brand-logos/land-rover.png`,
+    brandLogo: `${base}brand-logos/land-rover.webp`,
     field: "Интерьер / уход",
-    image: `${base}cars/range-rover-sport.png`,
+    image: `${base}cars/range-rover-sport.webp`,
     imageAlt: "Range Rover Sport в детейлинг-студии Dream Cars",
     request: "Освежить салон и сохранить фактуру материалов в самых сложных деталях.",
     work: ["Очистка кожи", "Проработка швов и фактур", "Финишный уход за интерьером"],
@@ -43,9 +43,9 @@ const cases = [
   {
     model: "Porsche Cayenne",
     brand: "Porsche",
-    brandLogo: `${base}brand-logos/porsche.png`,
+    brandLogo: `${base}brand-logos/porsche.webp`,
     field: "Стёкла / комфорт",
-    image: `${base}cars/porsche-cayenne.png`,
+    image: `${base}cars/porsche-cayenne.webp`,
     imageAlt: "Porsche Cayenne в детейлинг-студии Dream Cars",
     request: "Подготовить автомобиль к поездкам в непогоду и улучшить обзор.",
     work: ["Подготовка стёкол", "Нанесение антидождя", "Финишная проверка"],
@@ -105,8 +105,8 @@ export function Portfolio() {
 
   return (
     <section id="portfolio" className="relative overflow-hidden bg-white py-24 text-[#1b1722] md:py-32">
-      <div className="pointer-events-none absolute -right-40 top-24 h-[520px] w-[520px] rounded-full bg-[#6d28d9]/[0.1] blur-[130px]" />
-      <div className="pointer-events-none absolute -left-52 bottom-0 h-[620px] w-[620px] rounded-full bg-[#a875ff]/[0.08] blur-[150px]" />
+      <div className="performance-glow pointer-events-none absolute -right-40 top-24 h-[520px] w-[520px] rounded-full bg-[#6d28d9]/[0.1] blur-[130px]" />
+      <div className="performance-glow pointer-events-none absolute -left-52 bottom-0 h-[620px] w-[620px] rounded-full bg-[#a875ff]/[0.08] blur-[150px]" />
       <div className="container relative mx-auto px-4 md:px-6">
         <div className="mb-12 flex flex-col gap-8 md:mb-14 lg:flex-row lg:items-end lg:justify-between">
           <motion.div initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>

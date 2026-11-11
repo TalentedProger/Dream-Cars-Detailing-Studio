@@ -1,9 +1,9 @@
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import { useBooking } from "@/contexts/BookingContext";
 
 export function Hero() {
+  const { open } = useBooking();
   const scrollTo = (id: string) => {
-    const element = document.querySelector(id);
+    const element = document.querySelector(id) ?? document.querySelector(`[data-deferred-section="${id.slice(1)}"]`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
@@ -15,13 +15,13 @@ export function Hero() {
       <div className="absolute inset-0 z-0">
         {/* Background photo */}
         <img
-          src={`${import.meta.env.BASE_URL}images/fon.jpg`}
+          src={`${import.meta.env.BASE_URL}images/fon.webp`}
           alt="Dream Cars Detailing Background"
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover z-0"
           fetchPriority="high"
           loading="eager"
-          decoding="sync"
+          decoding="async"
           width="1920"
           height="1080"
         />
@@ -29,8 +29,8 @@ export function Hero() {
         <div className="absolute inset-0 bg-[#080808]/65 z-0" />
 
         {/* Purple ambient glow */}
-        <div className="absolute top-1/3 left-1/4 w-[600px] h-[600px] bg-[#6B21A8]/20 rounded-full blur-[120px] z-10 pointer-events-none" />
-        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#7C3AED]/15 rounded-full blur-[100px] z-10 pointer-events-none" />
+        <div className="performance-glow absolute top-1/3 left-1/4 w-[600px] h-[600px] bg-[#6B21A8]/20 rounded-full blur-[120px] z-10 pointer-events-none" />
+        <div className="performance-glow absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#7C3AED]/15 rounded-full blur-[100px] z-10 pointer-events-none" />
         {/* Bottom fade over photo */}
         <div className="absolute bottom-0 inset-x-0 h-64 bg-gradient-to-t from-[#080808] to-transparent z-10" />
         {/* Left text-area fade */}
@@ -84,7 +84,9 @@ export function Hero() {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 mb-16 animate-hero-up delay-650">
             <button
-              onClick={() => scrollTo("#contact")}
+              onClick={open}
+              onPointerEnter={() => { void import("@/components/BookingModal"); }}
+              onTouchStart={() => { void import("@/components/BookingModal"); }}
               className="premium-cta px-8 py-4 font-semibold text-white text-sm md:text-base transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_30px_rgba(139,92,246,0.5)] active:scale-[0.98]"
               style={{
                 background: "linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%)",

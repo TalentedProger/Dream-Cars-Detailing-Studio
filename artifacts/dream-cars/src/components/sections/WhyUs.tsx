@@ -1,10 +1,10 @@
 import { motion, useReducedMotion } from "framer-motion";
 
-const sectionBackgroundImage = `${import.meta.env.BASE_URL}why-us/section-background.jpg`;
-const polishingImage = `${import.meta.env.BASE_URL}why-us/polishing-is-the-key.jpg`;
-const w140Image = `${import.meta.env.BASE_URL}cars/mercedes-w140-cutout.png`;
-const qualityImage = `${import.meta.env.BASE_URL}why-us/quality-guarantee.png`;
-const agreementImage = `${import.meta.env.BASE_URL}why-us/agreement-flame.png`;
+const sectionBackgroundImage = `${import.meta.env.BASE_URL}why-us/section-background.webp`;
+const polishingImage = `${import.meta.env.BASE_URL}why-us/polishing-is-the-key.webp`;
+const w140Image = `${import.meta.env.BASE_URL}cars/mercedes-w140-cutout.webp`;
+const qualityImage = `${import.meta.env.BASE_URL}why-us/quality-guarantee.webp`;
+const agreementImage = `${import.meta.env.BASE_URL}why-us/agreement-flame.webp`;
 
 const reveal = {
   hidden: { opacity: 0, y: 22 },
@@ -15,7 +15,7 @@ export function WhyUs() {
   const reduceMotion = Boolean(useReducedMotion());
 
   return (
-    <section id="about" className="relative isolate overflow-hidden bg-[#080709] py-24 text-white md:py-32">
+    <section id="about" className="render-optimized relative isolate overflow-hidden bg-[#080709] py-24 text-white md:py-32">
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
         <img src={sectionBackgroundImage} alt="" loading="lazy" decoding="async" className="h-full w-full scale-105 object-cover object-[58%_center] opacity-[0.32] md:object-center" />
         <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(3,2,5,0.98)_0%,rgba(7,4,10,0.9)_48%,rgba(5,3,8,0.82)_100%)]" />

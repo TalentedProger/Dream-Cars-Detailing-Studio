@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 interface OptimizedImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
@@ -21,15 +21,6 @@ export function OptimizedImage({
 }: OptimizedImageProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(false);
-
-  useEffect(() => {
-    if (priority) {
-      const img = new Image();
-      img.src = src;
-      img.onload = () => setIsLoaded(true);
-      img.onerror = () => setError(true);
-    }
-  }, [src, priority]);
 
   return (
     <div className={cn("relative overflow-hidden bg-white/5", className)}>

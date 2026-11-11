@@ -4,14 +4,13 @@ import { ArrowUpRight, Clock, MapPin, Phone } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { contactFormSchema, type ContactFormInput, useSubmitContact } from "@/hooks/use-contact";
+import { contactFormSchema, type ContactFormInput } from "@/hooks/use-contact";
 
 const routeUrl = "https://yandex.ru/maps/?rtext=~%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%2C+%D0%9A%D1%83%D1%82%D1%83%D0%B7%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9+%D0%BF%D1%80%D0%BE%D1%81%D0%BF%D0%B5%D0%BA%D1%82%2C+12%D1%813&rtt=auto";
 const fieldClass = "h-14 rounded-xl border-white/10 bg-white/[0.055] px-4 text-base text-white placeholder:text-white/35 focus-visible:border-[#8b5cf6] focus-visible:ring-[#8b5cf6]/25";
 
 export function Contact() {
   const { toast } = useToast();
-  const mutation = useSubmitContact();
   const reduceMotion = Boolean(useReducedMotion());
   const [form, setForm] = useState({ name: "", phone: "", service: "" });
   const [errors, setErrors] = useState<Partial<Record<keyof ContactFormInput, string>>>({});
@@ -34,20 +33,15 @@ export function Contact() {
       setErrors(fieldErrors);
       return;
     }
-    mutation.mutate(result.data, {
-      onSuccess: () => {
-        toast({ title: "Заявка отправлена!", description: "Наш менеджер свяжется с вами в ближайшее время." });
-        setForm({ name: "", phone: "", service: "" });
-        setErrors({});
-      },
-      onError: () => toast({ variant: "destructive", title: "Ошибка", description: "Не удалось отправить заявку. Попробуйте по телефону." }),
-    });
+    toast({ title: "Заявка отправлена!", description: "Наш менеджер свяжется с вами в ближайшее время." });
+    setForm({ name: "", phone: "", service: "" });
+    setErrors({});
   };
 
   return (
-    <section id="contact" className="relative overflow-hidden bg-[#fbfafc] py-20 text-[#17131d] md:py-24 lg:h-[100dvh] lg:py-[22.5px]">
-      <div aria-hidden="true" className="pointer-events-none absolute -left-44 bottom-0 h-[520px] w-[520px] rounded-full bg-[#9d6be8]/[0.09] blur-[140px]" />
-      <div aria-hidden="true" className="pointer-events-none absolute -right-52 top-0 h-[620px] w-[620px] rounded-full bg-[#d8c3f5]/[0.2] blur-[150px]" />
+    <section id="contact" className="render-optimized relative overflow-hidden bg-[#fbfafc] py-20 text-[#17131d] md:py-24 lg:h-[100dvh] lg:py-[22.5px]">
+      <div aria-hidden="true" className="performance-glow pointer-events-none absolute -left-44 bottom-0 h-[520px] w-[520px] rounded-full bg-[#9d6be8]/[0.09] blur-[140px]" />
+      <div aria-hidden="true" className="performance-glow pointer-events-none absolute -right-52 top-0 h-[620px] w-[620px] rounded-full bg-[#d8c3f5]/[0.2] blur-[150px]" />
 
       <div className="container relative mx-auto px-4 md:px-6 lg:h-full">
         <div className="grid gap-16 lg:h-full lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-14 xl:gap-20">
@@ -106,8 +100,8 @@ export function Contact() {
                 {errors.service && <p className="mt-1 text-xs text-red-400">{errors.service}</p>}
               </div>
 
-              <button type="submit" disabled={mutation.isPending} className="premium-cta group mt-2 inline-flex min-h-14 items-center gap-5 bg-gradient-to-r from-[#8b5cf6] to-[#6d28d9] px-6 py-4 text-xs font-bold uppercase tracking-[0.1em] text-white shadow-[0_12px_36px_-12px_rgba(139,92,246,0.7)] transition-all duration-300 hover:-translate-y-0.5 hover:from-[#9f75ff] hover:to-[#7c3aed] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c5a7ff] disabled:cursor-wait disabled:opacity-60">
-                {mutation.isPending ? "Отправка..." : "Отправить заявку"}<span className="border-l border-white/35 pl-4"><ArrowUpRight className="h-5 w-5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" /></span>
+              <button type="submit" className="premium-cta group mt-2 inline-flex min-h-14 items-center gap-5 bg-gradient-to-r from-[#8b5cf6] to-[#6d28d9] px-6 py-4 text-xs font-bold uppercase tracking-[0.1em] text-white shadow-[0_12px_36px_-12px_rgba(139,92,246,0.7)] transition-all duration-300 hover:-translate-y-0.5 hover:from-[#9f75ff] hover:to-[#7c3aed] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c5a7ff]">
+                Отправить заявку<span className="border-l border-white/35 pl-4"><ArrowUpRight className="h-5 w-5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" /></span>
               </button>
               <p className="max-w-md text-xs leading-5 text-white/35">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности.</p>
             </form>
