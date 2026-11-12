@@ -257,13 +257,6 @@
     @apply bg-background/60 backdrop-blur-xl border border-white/5;
   }
 
-  .navbar-scrolled {
-    background: rgba(8, 8, 9, 0.72);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.075);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-  }
-
   .premium-cta {
     border-radius: 0;
     clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));

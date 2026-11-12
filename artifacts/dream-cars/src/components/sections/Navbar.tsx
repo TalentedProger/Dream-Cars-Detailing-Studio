@@ -68,12 +68,12 @@ export function Navbar() {
 
   return (
     <header
-      className={`animate-navbar-in fixed top-0 left-0 right-0 ${mobileMenuOpen ? "z-[70]" : "z-50"} transition-all duration-500 ${
+      className={`animate-navbar-in fixed left-0 right-0 top-0 ${mobileMenuOpen ? "z-[70]" : "z-50"} border-b py-3 transition-[background-color,border-color,box-shadow] duration-300 md:py-4 lg:py-6 ${
         mobileMenuOpen
-          ? "bg-[#070609] py-3 md:py-4"
+          ? "border-transparent bg-[#070609]"
           : isScrolled
-          ? "navbar-scrolled py-3 md:py-4 shadow-2xl shadow-black/40"
-          : "py-3 md:py-4 lg:py-6 bg-transparent"
+          ? "border-white/[0.075] bg-black shadow-[0_12px_32px_rgba(0,0,0,0.28)]"
+          : "border-transparent bg-transparent"
       }`}
     >
       <div className="container mx-auto px-4 md:px-6">
@@ -118,7 +118,7 @@ export function Navbar() {
                 </svg>
               </a>
             </div>
-            <button type="button" className="inline-flex h-9 items-center justify-center bg-primary px-4 text-sm font-medium text-primary-foreground box-glow transition-all duration-300 hover:scale-[1.02] hover:bg-primary/90" onClick={open} onPointerEnter={() => { void import("@/components/BookingModal"); }} onTouchStart={() => { void import("@/components/BookingModal"); }}>
+            <button type="button" className="inline-flex h-10 items-center justify-center rounded-[5px] bg-gradient-to-r from-[#8b5cf6] to-[#6d28d9] px-5 text-sm font-semibold text-white transition-colors duration-300 hover:from-[#9f75ff] hover:to-[#7c3aed]" onClick={open} onPointerEnter={() => { void import("@/components/BookingModal"); }} onTouchStart={() => { void import("@/components/BookingModal"); }}>
               Записаться
             </button>
           </div>

@@ -79,6 +79,7 @@ const works = [
 export default function PortfolioPage() {
   const { open } = useBooking();
   const [activeFilter, setActiveFilter] = useState("Все работы");
+  const mobileOptimized = typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
   usePageMeta({
     title: "Наши работы — Dream Cars Studio",
     description: "Портфолио детейлинга: BMW M5, Porsche 911, Ferrari F8, Aston Martin, Lamborghini, Rolls-Royce. Реальные результаты до и после. Car detailing portfolio: real results before and after.",
@@ -91,7 +92,7 @@ export default function PortfolioPage() {
     : works.filter((w) => w.tag === activeFilter);
 
   return (
-    <main className="min-h-screen bg-[#080808] text-white">
+    <main className="min-h-screen w-full overflow-x-clip bg-[#080808] text-white">
       <Navbar />
 
       {/* Hero */}
@@ -102,7 +103,7 @@ export default function PortfolioPage() {
         {/* Bottom fade */}
         <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-[#080808] to-transparent pointer-events-none z-10" />
         <div className="container relative z-10 mx-auto px-4 md:px-6">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
+          <motion.div initial={mobileOptimized ? false : { opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
             <h1 className="text-6xl md:text-8xl font-display font-black leading-none mb-6 text-white">
               Наши<br />
               <span style={{ background: "linear-gradient(135deg, #ffffff 0%, #a78bfa 50%, #7c3aed 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>работы</span>
@@ -118,7 +119,7 @@ export default function PortfolioPage() {
       <section className="pb-10">
         <div className="container mx-auto px-4 md:px-6">
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={mobileOptimized ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
             className="flex flex-wrap gap-2"
@@ -147,7 +148,7 @@ export default function PortfolioPage() {
             {filtered.map((work, i) => (
               <motion.div
                 key={`${work.model}-${i}`}
-                initial={{ opacity: 0, y: 24 }}
+                initial={mobileOptimized ? false : { opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.07, duration: 0.5 }}
                 className="group relative rounded-3xl overflow-hidden border border-white/8 hover:border-[#7C3AED]/50 transition-all duration-400 cursor-pointer"
@@ -157,20 +158,20 @@ export default function PortfolioPage() {
                   <OptimizedImage
                     src={work.img}
                     alt={work.model}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    className="w-full h-full object-cover transition-transform duration-700 md:group-hover:scale-105"
                     width={800}
                     height={600}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/20 to-transparent pointer-events-none" />
                   {/* Service tag */}
                   <div className="absolute top-4 left-4">
-                    <span className="bg-[#7C3AED]/80 backdrop-blur-sm text-white text-xs font-bold uppercase tracking-wider py-1.5 px-3 rounded-full">
+                    <span className="bg-[#7C3AED]/90 text-white text-xs font-bold uppercase tracking-wider py-1.5 px-3 rounded-full md:backdrop-blur-sm">
                       {work.tag}
                     </span>
                   </div>
                   {/* Year */}
                   <div className="absolute top-4 right-4">
-                    <span className="bg-black/50 backdrop-blur-sm text-white/70 text-xs py-1.5 px-3 rounded-full border border-white/10">
+                    <span className="bg-black/70 text-white/70 text-xs py-1.5 px-3 rounded-full border border-white/10 md:backdrop-blur-sm">
                       {work.year}
                     </span>
                   </div>
@@ -191,7 +192,7 @@ export default function PortfolioPage() {
       <section className="py-24 relative overflow-hidden border-t border-white/5">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#7C3AED]/5 to-transparent" />
         <div className="container relative z-10 mx-auto px-4 md:px-6 text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+          <motion.div initial={mobileOptimized ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 className="text-4xl md:text-5xl font-display font-black text-white mb-4">Ваш автомобиль — следующий</h2>
             <p className="text-white/50 mb-10 max-w-lg mx-auto">Запишитесь уже сегодня и получите бесплатную диагностику состояния лака вашего автомобиля.</p>
             <img

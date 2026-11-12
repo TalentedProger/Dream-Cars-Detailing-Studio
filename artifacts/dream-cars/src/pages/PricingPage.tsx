@@ -121,6 +121,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 
 export default function PricingPage() {
   const { open } = useBooking();
+  const mobileOptimized = typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
   usePageMeta({
     title: "Цены на детейлинг — Dream Cars Studio",
     description: "Цены на детейлинг: до 35 000 ₽ — Полировка, до 70 000 ₽ — Керамика, до 140 000 ₽ — PPF+Керамика. Бесплатная консультация. Car detailing prices: ceramic coating, PPF, polishing.",
@@ -128,7 +129,7 @@ export default function PricingPage() {
     canonicalPath: "/pricing",
   });
   return (
-    <main className="min-h-screen bg-[#080808] text-white">
+    <main className="min-h-screen w-full overflow-x-clip bg-[#080808] text-white">
       <Navbar />
 
       {/* Hero */}
@@ -139,7 +140,7 @@ export default function PricingPage() {
         {/* Bottom fade */}
         <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-[#080808] to-transparent pointer-events-none z-10" />
         <div className="container relative z-10 mx-auto px-4 md:px-6">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
+          <motion.div initial={mobileOptimized ? false : { opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
             <h1 className="text-6xl md:text-8xl font-display font-black leading-none mb-6">
               <span className="text-white">Наши </span>
               <span style={{ background: "linear-gradient(135deg, #ffffff 0%, #a78bfa 50%, #7c3aed 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>цены</span>
@@ -158,11 +159,11 @@ export default function PricingPage() {
             {plans.map((plan, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 24 }}
+                initial={mobileOptimized ? false : { opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className={`relative rounded-3xl p-8 border flex flex-col backdrop-blur-xl transition-all duration-300 ${
+                className={`relative rounded-3xl p-8 border flex flex-col md:backdrop-blur-xl transition-all duration-300 ${
                   plan.popular
                     ? "bg-white/10 border-[#7C3AED]/70 shadow-[0_0_50px_rgba(124,58,237,0.22)] md:scale-[1.04] z-10"
                     : "bg-white/5 border-white/10 hover:border-[#7C3AED]/40"
@@ -189,7 +190,7 @@ export default function PricingPage() {
                 </ul>
                 <button
                   onClick={open}
-                  className={`w-full py-3.5 rounded-xl font-bold text-sm uppercase tracking-wider transition-all duration-300 hover:scale-[1.02] ${
+                  className={`w-full py-3.5 rounded-xl font-bold text-sm uppercase tracking-wider transition-all duration-300 md:hover:scale-[1.02] ${
                     plan.popular
                       ? "text-white hover:shadow-[0_0_24px_rgba(124,58,237,0.5)]"
                       : "text-white/70 border border-white/15 hover:border-[#7C3AED]/50 hover:bg-white/5"
@@ -207,7 +208,7 @@ export default function PricingPage() {
       {/* Individual services */}
       <section className="py-24 border-t border-white/5">
         <div className="container mx-auto px-4 md:px-6">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-12">
+          <motion.div initial={mobileOptimized ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-12">
             <h2 className="text-4xl font-display font-bold text-white mb-3">Отдельные <span className="text-[#7C3AED]">услуги</span></h2>
             <p className="text-white/50 max-w-lg">Заказывайте именно то, что нужно вашему автомобилю — без лишних трат.</p>
           </motion.div>
@@ -215,7 +216,7 @@ export default function PricingPage() {
             {individual.map((item, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 16 }}
+                initial={mobileOptimized ? false : { opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
@@ -235,7 +236,7 @@ export default function PricingPage() {
       {/* FAQ */}
       <section className="py-24 border-t border-white/5">
         <div className="container mx-auto px-4 md:px-6">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-12">
+          <motion.div initial={mobileOptimized ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-12">
             <h2 className="text-4xl font-display font-bold text-white mb-3">Часто задаваемые <span className="text-[#7C3AED]">вопросы</span></h2>
             <p className="text-white/50">Всё, что вам нужно знать перед записью.</p>
           </motion.div>
@@ -243,14 +244,14 @@ export default function PricingPage() {
             {/* FAQ list */}
             <div className="flex-1 min-w-0 space-y-3 lg:max-w-[55%]">
               {faqs.map((f, i) => (
-                <motion.div key={i} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }}>
+                <motion.div key={i} initial={mobileOptimized ? false : { opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }}>
                   <FaqItem q={f.q} a={f.a} />
                 </motion.div>
               ))}
             </div>
             {/* FAQ image */}
             <motion.div
-              initial={{ opacity: 0, x: 80 }}
+              initial={mobileOptimized ? false : { opacity: 0, x: 80 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -274,7 +275,7 @@ export default function PricingPage() {
       <section className="py-24 relative overflow-hidden border-t border-white/5">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#7C3AED]/5 to-transparent" />
         <div className="container relative z-10 mx-auto px-4 md:px-6 text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+          <motion.div initial={mobileOptimized ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 className="text-4xl md:text-5xl font-display font-black text-white mb-4">Не знаете что выбрать?</h2>
             <p className="text-white/50 mb-10 max-w-lg mx-auto">Оставьте заявку — мы бесплатно проконсультируем и подберём услугу под ваш автомобиль и бюджет.</p>
             <button

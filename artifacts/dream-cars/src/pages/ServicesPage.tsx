@@ -1,5 +1,6 @@
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Sparkles, Shield, Droplets, CloudRain, Wrench, Layers, Star, ArrowRight, Zap } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { useBooking } from "@/contexts/BookingContext";
@@ -7,7 +8,7 @@ import { usePageMeta } from "@/hooks/use-page-meta";
 
 const services = [
   {
-    icon: <Sparkles className="w-8 h-8" />,
+    image: "services/polishing-kit.webp",
     title: "Полировка кузова",
     subtitle: "Восстановительная & защитная",
     desc: "Многоступенчатая профессиональная полировка. Удаление голограмм, мелких царапин и следов смоляных дождей. Возвращаем заводской блеск с помощью японских абразивов.",
@@ -17,7 +18,7 @@ const services = [
     badge: null,
   },
   {
-    icon: <Shield className="w-8 h-8" />,
+    image: "services/ceramic-detailing.webp",
     title: "Керамическое покрытие",
     subtitle: "Нанозащита SiO₂",
     desc: "Профессиональное нанесение сертифицированной керамики Ceramic Pro или Gyeon. Мощная гидрофобность, защита от реагентов, ультрафиолета и химии до 5 лет.",
@@ -27,7 +28,7 @@ const services = [
     badge: "Хит",
   },
   {
-    icon: <Droplets className="w-8 h-8" />,
+    image: "services/detailing-tools.webp",
     title: "Химчистка салона",
     subtitle: "Глубокая биообработка",
     desc: "Полный детейлинг интерьера: очистка всех поверхностей, кожи, ткани, пластика и потолка. Озонация для уничтожения запахов. Применяем только биоразлагаемую химию.",
@@ -37,7 +38,7 @@ const services = [
     badge: null,
   },
   {
-    icon: <Layers className="w-8 h-8" />,
+    image: "services/film-tools.webp",
     title: "Антигравийная плёнка (PPF)",
     subtitle: "Полиуретановая защита",
     desc: "Оклейка зон риска или всего кузова самовосстанавливающейся полиуретановой плёнкой. Защита от сколов, царапин, химии и ультрафиолета на долгие годы.",
@@ -47,7 +48,7 @@ const services = [
     badge: "Премиум",
   },
   {
-    icon: <Wrench className="w-8 h-8" />,
+    image: "services/engine-detailing-centered.webp",
     title: "Детейлинг двигателя",
     subtitle: "Бережная очистка подкапота",
     desc: "Профессиональная очистка подкапотного пространства диэлектрическим составом без риска повреждения электроники. Последующая консервация пластика и резины.",
@@ -57,7 +58,8 @@ const services = [
     badge: null,
   },
   {
-    icon: <CloudRain className="w-8 h-8" />,
+    image: "our_work/anti-rain.webp",
+    cover: true,
     title: "Антидождь и тонировка",
     subtitle: "Видимость и стиль",
     desc: "Нанесение профессионального гидрофобного состава на стёкла повышает видимость в дождь и снег. Тонировка автомобильной плёнкой по ГОСТ с гарантией.",
@@ -67,7 +69,7 @@ const services = [
     badge: null,
   },
   {
-    icon: <Star className="w-8 h-8" />,
+    image: "services/headlight-kit.webp",
     title: "Реставрация фар",
     subtitle: "Полировка и бронирование",
     desc: "Полировка помутневших фар с восстановлением прозрачности до заводского состояния. Нанесение защитного лака или ПВХ-плёнки для продления результата.",
@@ -77,7 +79,8 @@ const services = [
     badge: null,
   },
   {
-    icon: <Zap className="w-8 h-8" />,
+    image: "car-porsche-911-gt3.webp",
+    cover: true,
     title: "Комплексный детейлинг",
     subtitle: "Всё включено",
     desc: "Полный цикл работ: мойка, полировка, нанесение покрытия, химчистка салона, детейлинг двигателя и антидождь. Ваш автомобиль как будто только из салона.",
@@ -90,6 +93,28 @@ const services = [
 
 export default function ServicesPage() {
   const { open } = useBooking();
+  const ctaVideoRef = useRef<HTMLVideoElement>(null);
+  const mobileOptimized = typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
+
+  useEffect(() => {
+    const video = ctaVideoRef.current;
+    if (!video || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry?.isIntersecting && !document.hidden) {
+        void video.play().catch(() => undefined);
+      } else {
+        video.pause();
+      }
+    }, { rootMargin: "180px 0px", threshold: 0.08 });
+
+    observer.observe(video);
+    return () => {
+      observer.disconnect();
+      video.pause();
+    };
+  }, []);
+
   usePageMeta({
     title: "Услуги детейлинга — Dream Cars Studio",
     description: "Полировка кузова, керамическое покрытие, PPF-плёнка, химчистка салона, лакокрасочные работы. Car detailing services: ceramic coating, PPF film, paint polishing, interior detailing.",
@@ -97,7 +122,7 @@ export default function ServicesPage() {
     canonicalPath: "/services",
   });
   return (
-    <main className="min-h-screen bg-[#080808] text-white">
+    <main className="min-h-screen w-full overflow-x-clip bg-[#080808] text-white">
       <Navbar />
 
       {/* Hero */}
@@ -108,7 +133,7 @@ export default function ServicesPage() {
         {/* Bottom fade: prevent purple glow from bleeding into next section */}
         <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-[#080808] to-transparent pointer-events-none z-10" />
         <div className="container relative z-10 mx-auto px-4 md:px-6">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
+          <motion.div initial={mobileOptimized ? false : { opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
             <h1 className="text-6xl md:text-8xl font-display font-black leading-none mb-6 text-white">
               Наши<br />
               <span style={{ background: "linear-gradient(135deg, #ffffff 0%, #a78bfa 50%, #7c3aed 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>услуги</span>
@@ -123,82 +148,110 @@ export default function ServicesPage() {
       {/* Services grid */}
       <section className="pb-32">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
             {services.map((srv, i) => (
-              <motion.div
+              <motion.article
                 key={i}
-                initial={{ opacity: 0, y: 24 }}
+                initial={mobileOptimized ? false : { opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ delay: i * 0.07, duration: 0.5 }}
-                className="group relative bg-[#111]/60 border border-white/8 rounded-3xl p-8 hover:border-[#7C3AED]/50 hover:bg-[#111] transition-all duration-400 overflow-hidden"
+                className="group relative flex min-h-[540px] flex-col overflow-hidden rounded-[26px] border border-white/[0.09] bg-[linear-gradient(145deg,rgba(24,20,29,0.96),rgba(9,8,11,0.99))] transition-colors duration-500 hover:border-[#9f75ff]/40"
               >
-                {srv.badge && (
-                  <span className="absolute top-5 right-5 bg-gradient-to-r from-[#7C3AED] to-[#6D28D9] text-white text-[10px] font-bold uppercase tracking-wider py-1 px-3 rounded-full">
-                    {srv.badge}
+                <div className="relative h-[215px] shrink-0 overflow-hidden border-b border-white/[0.07] bg-[radial-gradient(circle_at_75%_50%,rgba(139,92,246,0.24),transparent_42%),linear-gradient(145deg,#17121d,#0b090e)] md:h-[235px]">
+                  <span className="absolute left-6 top-5 z-10 font-display text-[3.25rem] font-semibold leading-none tracking-[-0.07em] text-white/[0.12]">
+                    {String(i + 1).padStart(2, "0")}
                   </span>
-                )}
-                <div className="absolute top-0 right-0 w-48 h-48 bg-[#7C3AED]/8 rounded-full blur-3xl -mr-16 -mt-16 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                <div className="flex items-start gap-5 mb-5">
-                  <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 group-hover:border-[#7C3AED]/40 flex items-center justify-center text-[#7C3AED] shrink-0 transition-colors">
-                    {srv.icon}
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-display font-bold text-white mb-0.5">{srv.title}</h3>
-                    <p className="text-[#7C3AED] text-xs font-medium uppercase tracking-wider">{srv.subtitle}</p>
-                  </div>
+                  {srv.badge && (
+                    <span className="absolute right-5 top-5 z-20 rounded-full border border-[#b995e4]/25 bg-black/55 px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.16em] text-[#d7b9f5] md:backdrop-blur-md">
+                      {srv.badge}
+                    </span>
+                  )}
+                  <img
+                    src={`${import.meta.env.BASE_URL}${srv.image}`}
+                    alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    decoding="async"
+                    className={`absolute inset-0 h-full w-full transition-transform duration-700 group-hover:scale-[1.025] ${srv.cover ? "object-cover opacity-70" : "scale-[0.9] object-contain object-right-bottom p-3 group-hover:scale-[0.93]"}`}
+                  />
+                  {srv.cover && <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,8,12,0.78),transparent_52%),linear-gradient(to_top,rgba(7,5,9,0.55),transparent_55%)]" />}
+                  <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#141018] to-transparent" />
                 </div>
 
-                <p className="text-white/55 text-sm leading-relaxed mb-6">{srv.desc}</p>
-
-                <ul className="space-y-2 mb-6">
-                  {srv.features.map((f, j) => (
-                    <li key={j} className="flex items-center gap-2 text-sm text-white/70">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#7C3AED] shrink-0" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="flex items-center justify-between pt-5 border-t border-white/8">
-                  <div>
-                    <div className="text-xs text-white/35 mb-0.5">Стоимость</div>
-                    <div className="text-lg font-bold text-white">{srv.price}</div>
+                <div className="flex flex-1 flex-col p-6 md:p-7">
+                  <div className="mb-4 flex items-start justify-between gap-5">
+                    <div>
+                      <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#a875ff]">{srv.subtitle}</p>
+                      <h2 className="font-display text-[1.75rem] font-semibold leading-[1.05] tracking-[-0.045em] text-white">{srv.title}</h2>
+                    </div>
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[5px] border border-white/10 bg-white/[0.045] text-white/70 transition-colors group-hover:border-[#a875ff]/45 group-hover:text-[#c6a4ec]">
+                      <ArrowUpRight className="h-[18px] w-[18px]" strokeWidth={1.6} aria-hidden="true" />
+                    </span>
                   </div>
-                  <div className="text-right">
-                    <div className="text-xs text-white/35 mb-0.5">Время</div>
-                    <div className="text-sm text-white/70">{srv.duration}</div>
+                  <p className="mb-6 text-sm leading-6 text-white/50">{srv.desc}</p>
+
+                  <ul className="mb-6 grid grid-cols-1 gap-x-5 gap-y-2.5 sm:grid-cols-2">
+                    {srv.features.map((feature) => (
+                      <li key={feature} className="flex items-start gap-2.5 text-xs leading-5 text-white/67">
+                        <span className="mt-2 h-px w-3 shrink-0 bg-[#9f75ff]" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mt-auto flex items-end justify-between gap-5 border-t border-white/[0.08] pt-5">
+                    <div>
+                      <div className="mb-1 text-[9px] font-semibold uppercase tracking-[0.17em] text-white/30">Стоимость</div>
+                      <div className="font-display text-xl font-semibold tracking-[-0.025em] text-white">{srv.price}</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="mb-1 text-[9px] font-semibold uppercase tracking-[0.17em] text-white/30">Срок работы</div>
+                      <div className="text-sm font-medium text-white/65">{srv.duration}</div>
+                    </div>
                   </div>
                 </div>
-              </motion.div>
+              </motion.article>
             ))}
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-24 relative overflow-hidden border-t border-white/5">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#7C3AED]/5 to-transparent" />
-        <div className="container relative z-10 mx-auto px-4 md:px-6 text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="text-4xl md:text-5xl font-display font-black text-white mb-4">Готовы начать?</h2>
-            <p className="text-white/50 mb-10 max-w-lg mx-auto">Запишитесь на бесплатную консультацию и мы подберём оптимальный пакет услуг для вашего автомобиля.</p>
-            <img
-              src={`${import.meta.env.BASE_URL}images/faq.webp`}
-              loading="lazy"
-              decoding="async"
-              width="2400"
-              height="1600"
-              alt="Dream Cars"
-              className="mx-auto mb-10 w-full max-w-xl object-contain select-none pointer-events-none mix-blend-screen"
-            />
+      <section className="relative min-h-[600px] overflow-hidden border-t border-white/5 md:min-h-[680px]">
+        <video
+          ref={ctaVideoRef}
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
+          muted
+          loop
+          playsInline
+          preload="none"
+          poster={`${import.meta.env.BASE_URL}car-porsche-911.webp`}
+          disablePictureInPicture
+          aria-hidden="true"
+          tabIndex={-1}
+        >
+          <source src={`${import.meta.env.BASE_URL}video/need-money-for-porsche.mp4`} type="video/mp4" />
+        </video>
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(3,2,5,0.96)_0%,rgba(7,4,11,0.84)_42%,rgba(7,4,11,0.35)_75%,rgba(3,2,5,0.2)_100%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/25" />
+
+        <div className="container relative z-10 mx-auto flex min-h-[600px] items-center px-4 py-20 md:min-h-[680px] md:px-6 md:py-24">
+          <motion.div initial={mobileOptimized ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-2xl text-left">
+            <h2 className="mb-5 font-display text-4xl font-black leading-[1.02] tracking-[-0.05em] text-white md:text-6xl">Готовы начать?</h2>
+            <p className="mb-8 max-w-xl text-base leading-7 text-white/65 md:text-lg">Запишитесь на бесплатную консультацию — оценим состояние автомобиля и подберём оптимальный набор работ без лишних услуг.</p>
+
+            <div className="mb-10 flex flex-wrap gap-x-6 gap-y-3 text-xs font-medium text-white/65">
+              <span className="border-l border-[#a875ff] pl-3">Бесплатная консультация</span>
+              <span className="border-l border-[#a875ff] pl-3">Предварительный расчёт</span>
+              <span className="border-l border-[#a875ff] pl-3">Персональный план работ</span>
+            </div>
+
             <button
               onClick={open}
-              className="inline-flex items-center gap-3 px-10 py-4 rounded-xl font-bold text-white text-sm uppercase tracking-wider transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_0_40px_rgba(124,58,237,0.5)] active:scale-[0.98]"
-              style={{ background: "linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%)", boxShadow: "0 4px 20px rgba(124,58,237,0.35)" }}
+              className="premium-cta inline-flex min-h-14 items-center gap-5 bg-gradient-to-r from-[#8b5cf6] to-[#6d28d9] px-7 py-4 text-sm font-bold uppercase tracking-[0.1em] text-white transition-colors hover:from-[#9f75ff] hover:to-[#7c3aed]"
             >
-              Записаться на детейлинг <ArrowRight className="w-4 h-4" />
+              Записаться на детейлинг <span className="border-l border-white/35 pl-4"><ArrowRight className="h-4 w-4" aria-hidden="true" /></span>
             </button>
           </motion.div>
         </div>
