@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { ChevronRight, Menu, X } from "lucide-react";
 import { useLocation } from "wouter";
 import { useBooking } from "@/contexts/BookingContext";
+import { useBodyScrollLock } from "@/hooks/use-body-scroll-lock";
 
 const routeLoaders: Record<string, () => Promise<unknown>> = {
   "/services": () => import("@/pages/ServicesPage"),
@@ -21,16 +22,15 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [, navigate] = useLocation();
   const { open } = useBooking();
+  useBodyScrollLock(mobileMenuOpen);
 
   useEffect(() => {
-    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
     if (mobileMenuOpen) {
       document.body.classList.add('mobile-menu-open');
     } else {
       document.body.classList.remove('mobile-menu-open');
     }
     return () => {
-      document.body.style.overflow = "";
       document.body.classList.remove('mobile-menu-open');
     };
   }, [mobileMenuOpen]);
@@ -63,7 +63,7 @@ export function Navbar() {
   const handleNav = (route: string) => {
     setMobileMenuOpen(false);
     navigate(route);
-    window.scrollTo({ top: 0 });
+    window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "auto" }));
   };
 
   return (

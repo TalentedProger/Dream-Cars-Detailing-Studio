@@ -95,8 +95,8 @@ export function Services() {
       <div className="performance-glow pointer-events-none absolute -right-48 top-[38%] h-[620px] w-[620px] rounded-full bg-[#a875ff]/[0.08] blur-[145px]" />
 
       <div className="container relative mx-auto px-4 md:px-6">
-        <div className="grid items-end gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-10 xl:gap-16">
-          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: reduceMotion ? 0 : 0.4 }} className="lg:pb-8">
+        <div className="grid items-end gap-0 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-10 xl:gap-16">
+          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: reduceMotion ? 0 : 0.4 }} className="mb-12 lg:mb-0 lg:pb-8">
             <motion.div initial={{ opacity: 0, x: reduceMotion ? 0 : -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: reduceMotion ? 0 : 0.65, delay: reduceMotion ? 0 : 0.1 }} className="mb-7 flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.26em] text-[#8d63b8]">
               <span className="h-px w-9 bg-[#a875ff]" />
               Наши услуги / Dream Cars
@@ -135,7 +135,7 @@ export function Services() {
               </motion.div>
             ))}
           </div>
-          <div className="flex justify-center lg:hidden">
+          <div className="mt-10 flex justify-center lg:hidden">
             <Link href="/services" className="premium-cta inline-flex min-h-14 items-center gap-5 bg-gradient-to-r from-[#8b5cf6] to-[#6d28d9] px-6 py-4 text-sm font-bold uppercase tracking-[0.1em] text-white shadow-[0_12px_36px_-12px_rgba(139,92,246,0.7)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c5a7ff]">
               Смотреть все услуги <span className="border-l border-white/35 pl-4"><ArrowUpRight className="h-5 w-5" aria-hidden="true" /></span>
             </Link>
@@ -143,7 +143,7 @@ export function Services() {
         </div>
       </div>
 
-      <div className="relative left-1/2 z-10 mt-20 w-screen -translate-x-1/2 border-y border-[#b68aff]/55 bg-[linear-gradient(112deg,#17101f_0%,#321948_28%,#6a2eb0_62%,#281238_100%)] py-5 md:mt-28 md:py-7">
+      <div className="relative left-1/2 z-10 mt-10 w-screen -translate-x-1/2 border-y border-[#b68aff]/55 bg-[linear-gradient(112deg,#17101f_0%,#321948_28%,#6a2eb0_62%,#281238_100%)] py-5 md:mt-28 md:py-7">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

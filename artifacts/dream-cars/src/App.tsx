@@ -4,6 +4,7 @@ import { Suspense, lazy, useEffect } from "react";
 import Home from "@/pages/Home";
 import NotFound from "@/pages/not-found";
 import { BookingProvider, useBooking } from "@/contexts/BookingContext";
+import { Navbar } from "@/components/sections/Navbar";
 
 // Lazy load route pages
 const ServicesPage = lazy(() => import("@/pages/ServicesPage"));
@@ -48,6 +49,7 @@ function App() {
   return (
     <BookingProvider>
       <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+        <Navbar />
         <Router />
       </WouterRouter>
       <GlobalBookingModal />

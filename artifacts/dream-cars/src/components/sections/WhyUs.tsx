@@ -17,7 +17,7 @@ export function WhyUs() {
   const reduceMotion = Boolean(useReducedMotion());
 
   return (
-    <section id="about" className="render-optimized relative isolate overflow-hidden bg-[#080709] py-24 text-white md:py-32">
+    <section id="about" className="render-optimized relative isolate overflow-hidden bg-[#080709] pb-10 pt-24 text-white md:py-32">
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
         <img src={sectionBackgroundImage} alt="" loading="lazy" decoding="async" className="h-full w-full scale-105 object-cover object-[58%_center] opacity-[0.32] md:object-center" />
         <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(3,2,5,0.98)_0%,rgba(7,4,10,0.9)_48%,rgba(5,3,8,0.82)_100%)]" />
@@ -49,7 +49,7 @@ export function WhyUs() {
               </div>
             </motion.article>
 
-            <motion.article variants={reveal} transition={{ duration: reduceMotion ? 0 : 0.65 }} className="relative flex min-h-[289px] flex-col overflow-hidden border border-white/10 bg-[#030204] p-6 lg:col-span-4 lg:min-h-0">
+            <motion.article initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.82 }} variants={reveal} transition={{ duration: reduceMotion ? 0 : 0.65 }} className="relative flex min-h-[289px] flex-col overflow-hidden border border-white/10 bg-[#030204] p-6 lg:col-span-4 lg:min-h-0">
               <svg viewBox="0 0 520 230" preserveAspectRatio="none" aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-[82%] w-full [mask-image:linear-gradient(to_right,black_0%,black_80%,transparent_100%)]">
                 <defs>
                   <linearGradient id="why-us-chart-area" x1="0" y1="0" x2="0" y2="1">
@@ -96,7 +96,7 @@ export function WhyUs() {
               <p className="mt-auto text-sm font-semibold leading-snug text-white"><span className="block">Согласование</span><span className="block">до старта</span></p>
             </motion.article>
 
-            <motion.article variants={reveal} transition={{ duration: reduceMotion ? 0 : 0.65 }} className="flex min-h-[289px] flex-col border border-black/10 bg-white p-6 text-[#17131d] shadow-[0_18px_50px_rgba(0,0,0,0.12)] lg:col-span-4 lg:min-h-0">
+            <motion.article variants={reveal} transition={{ duration: reduceMotion ? 0 : 0.65 }} className="order-6 flex min-h-[289px] flex-col border border-black/10 bg-white p-6 text-[#17131d] shadow-[0_18px_50px_rgba(0,0,0,0.12)] md:order-none lg:col-span-4 lg:min-h-0">
               <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#7138c7]">Мастерство и открытость</p>
               <h3 className="mt-4 max-w-sm font-display text-2xl font-semibold leading-tight tracking-[-0.035em] text-[#17131d]">Руки, которым доверяют сложное</h3>
               <p className="mt-3 max-w-sm text-sm leading-6 text-[#17131d]/60">Подбираем технологию под состояние автомобиля и показываем, из чего складывается результат.</p>
@@ -106,7 +106,7 @@ export function WhyUs() {
               </div>
             </motion.article>
 
-            <motion.article variants={reveal} transition={{ duration: reduceMotion ? 0 : 0.65 }} className="relative flex min-h-[289px] flex-col overflow-hidden bg-[linear-gradient(145deg,rgba(168,117,255,0.92),rgba(101,49,177,0.96))] p-6 lg:col-span-2 lg:min-h-0">
+            <motion.article variants={reveal} transition={{ duration: reduceMotion ? 0 : 0.65 }} className="order-5 relative flex min-h-[289px] flex-col overflow-hidden bg-[linear-gradient(145deg,rgba(168,117,255,0.92),rgba(101,49,177,0.96))] p-6 md:order-none lg:col-span-2 lg:min-h-0">
               <strong className="max-w-[150px] font-display text-3xl font-semibold leading-[0.95] tracking-[-0.05em] text-white md:text-4xl">30 дней</strong>
               <img src={agreementImage} alt="" aria-hidden="true" loading="lazy" className="pointer-events-none absolute left-1/2 top-1/2 h-[106px] w-[106px] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_12px_26px_rgba(36,88,255,0.28)]" />
               <p className="mt-auto text-sm font-semibold leading-snug text-white"><span className="block">Гарантия</span><span className="block">качества</span></p>

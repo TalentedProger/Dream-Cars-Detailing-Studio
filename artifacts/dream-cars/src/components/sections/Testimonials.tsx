@@ -74,7 +74,7 @@ export function Testimonials() {
           <div className="flex gap-4 md:gap-5">
             {reviews.map((review, index) => (
               <div key={review.name} className="min-w-0 flex-[0_0_100%] md:flex-[0_0_calc(50%-10px)] xl:flex-[0_0_calc(33.333%-14px)]" role="group" aria-roledescription="слайд" aria-label={`${index + 1} из ${reviews.length}`}>
-                <article className="relative flex h-full min-h-[585px] flex-col overflow-hidden rounded-[24px] border border-white/10 bg-[linear-gradient(160deg,#211a2b,#141019_58%,#0d0b11)] p-7 shadow-[0_22px_55px_rgba(0,0,0,0.13)] transition-colors duration-300 hover:border-[#b78ae8]/35 md:p-8">
+                <article className="relative flex h-full min-h-[585px] flex-col overflow-hidden rounded-[24px] bg-[linear-gradient(160deg,#15111b,#0d0a10_58%,#070609)] p-7 shadow-[0_22px_55px_rgba(0,0,0,0.13)] md:p-8">
                   <img
                     src={`${base}cars/${review.photo}`}
                     alt={review.photoAlt}

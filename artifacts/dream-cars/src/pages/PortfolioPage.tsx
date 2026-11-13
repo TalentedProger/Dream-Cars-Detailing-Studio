@@ -1,7 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
-import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { useBooking } from "@/contexts/BookingContext";
 import { OptimizedImage } from "@/components/ui/optimized-image";
@@ -194,7 +193,6 @@ export default function PortfolioPage() {
 
   return (
     <main className="min-h-screen w-full overflow-x-clip bg-[#080808] text-white">
-      <Navbar />
 
       {/* Hero */}
       <section className="relative overflow-hidden pb-16 pt-40 md:pb-20">

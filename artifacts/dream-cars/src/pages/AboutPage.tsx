@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Award, Clock, ShieldCheck, Star, Users } from "lucide-react";
-import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { useBooking } from "@/contexts/BookingContext";
 import { usePageMeta } from "@/hooks/use-page-meta";
@@ -120,7 +119,6 @@ export default function AboutPage() {
   });
   return (
     <main className="min-h-screen w-full overflow-x-clip bg-[#080808] text-white">
-      <Navbar />
 
       {/* Hero */}
       <section className="relative min-h-[82svh] overflow-hidden bg-[#050506]">

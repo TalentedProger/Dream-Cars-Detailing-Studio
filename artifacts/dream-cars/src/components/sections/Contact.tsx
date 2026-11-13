@@ -45,7 +45,7 @@ export function Contact() {
 
       <div className="container relative mx-auto px-4 md:px-6 lg:h-full">
         <div className="grid gap-16 lg:h-full lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-14 xl:gap-20">
-          <motion.div initial={{ opacity: 0, x: reduceMotion ? 0 : -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: reduceMotion ? 0 : 0.7 }}>
+          <motion.div initial={{ opacity: 0, x: reduceMotion ? 0 : -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: reduceMotion ? 0 : 0.7 }} className="order-2 lg:order-1">
             <h2 className="max-w-[570px] font-display text-[clamp(3rem,5.2vw,5.2rem)] font-semibold leading-[0.95] tracking-[-0.065em]">
               Запишитесь<br />
               <span className="inline-flex items-baseline gap-[0.38em]">
@@ -80,7 +80,7 @@ export function Contact() {
             </div>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, x: reduceMotion ? 0 : 24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: reduceMotion ? 0 : 0.7, delay: reduceMotion ? 0 : 0.1 }} className="rounded-[28px] border border-[#8b5cf6]/25 bg-[#111013] p-6 text-white shadow-[0_24px_70px_rgba(30,20,40,0.13)] md:p-9 lg:w-[90%] lg:justify-self-end lg:p-8 xl:p-10">
+          <motion.div initial={{ opacity: 0, x: reduceMotion ? 0 : 24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: reduceMotion ? 0 : 0.7, delay: reduceMotion ? 0 : 0.1 }} className="order-1 rounded-[28px] border border-[#8b5cf6]/25 bg-[#111013] p-6 text-white shadow-[0_24px_70px_rgba(30,20,40,0.13)] md:p-9 lg:order-2 lg:w-[90%] lg:justify-self-end lg:p-8 xl:p-10">
             <h3 className="font-display text-3xl font-semibold tracking-[-0.04em] text-white md:text-4xl">Оставить заявку</h3>
             <p className="mt-3 text-sm leading-6 text-white/50 md:text-base">Свяжемся с вами и обсудим детали.</p>
 

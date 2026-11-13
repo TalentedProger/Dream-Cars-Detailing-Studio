@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { Phone, MapPin, Clock, ArrowRight, Send, MessageCircle, Instagram } from "lucide-react";
 import { useState } from "react";
-import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { useBooking } from "@/contexts/BookingContext";
 import { usePageMeta } from "@/hooks/use-page-meta";
@@ -92,7 +91,6 @@ export default function ContactPage() {
 
   return (
     <main className="min-h-screen w-full overflow-x-clip bg-[#080808] text-white">
-      <Navbar />
 
       {/* Hero */}
       <section className="relative overflow-hidden pb-16 pt-40 md:pb-20">

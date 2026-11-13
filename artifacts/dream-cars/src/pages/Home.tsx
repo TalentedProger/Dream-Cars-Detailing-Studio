@@ -1,4 +1,3 @@
-import { Navbar } from "@/components/sections/Navbar";
 import { Hero } from "@/components/sections/Hero";
 import { Suspense, lazy, useEffect, useRef, useState, type ReactNode } from "react";
 import { usePageMeta } from "@/hooks/use-page-meta";
@@ -48,7 +47,6 @@ export default function Home() {
   });
   return (
     <main className="min-h-screen bg-background text-foreground selection:bg-primary/30">
-      <Navbar />
       <Hero />
       <Suspense fallback={<div className="min-h-[70vh] bg-white" aria-hidden="true" />}><Services /></Suspense>
       <DeferredSection name="about" minHeight="900px"><WhyUs /></DeferredSection>

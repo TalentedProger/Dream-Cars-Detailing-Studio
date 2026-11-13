@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { useState } from "react";
 import { useBooking } from "@/contexts/BookingContext";
+import { useBodyScrollLock } from "@/hooks/use-body-scroll-lock";
 
 const VkIcon = () => (
   <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current">
@@ -27,6 +28,7 @@ export function BookingModal() {
   const [phone, setPhone] = useState("");
   const [agreed, setAgreed] = useState(false);
   const [sent, setSent] = useState(false);
+  useBodyScrollLock(isOpen);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

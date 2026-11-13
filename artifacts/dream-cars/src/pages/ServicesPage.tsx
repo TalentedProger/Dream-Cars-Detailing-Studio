@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { useBooking } from "@/contexts/BookingContext";
 import { usePageMeta } from "@/hooks/use-page-meta";
@@ -123,7 +122,6 @@ export default function ServicesPage() {
   });
   return (
     <main className="min-h-screen w-full overflow-x-clip bg-[#080808] text-white">
-      <Navbar />
 
       {/* Hero */}
       <section className="relative overflow-hidden pb-16 pt-40 md:pb-20">
@@ -156,9 +154,9 @@ export default function ServicesPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ delay: i * 0.07, duration: 0.5 }}
-                className="group relative flex min-h-[540px] flex-col overflow-hidden rounded-[26px] bg-[linear-gradient(145deg,rgba(47,39,55,0.98),rgba(25,21,29,0.99))] shadow-[0_22px_55px_-34px_rgba(0,0,0,0.72)]"
+                className="group relative flex min-h-[500px] flex-col overflow-hidden rounded-[26px] bg-[linear-gradient(145deg,rgba(76,64,86,0.98),rgba(45,37,51,0.99))] shadow-[0_22px_55px_-34px_rgba(0,0,0,0.58)] md:min-h-[540px]"
               >
-                <div className="relative h-[238px] shrink-0 overflow-hidden border-b border-white/[0.07] bg-[radial-gradient(circle_at_75%_50%,rgba(139,92,246,0.24),transparent_42%),linear-gradient(145deg,#241a2c,#130f17)] md:h-[260px]">
+                <div className="relative h-[220px] shrink-0 overflow-hidden border-b border-white/[0.07] bg-[radial-gradient(circle_at_75%_50%,rgba(139,92,246,0.24),transparent_42%),linear-gradient(145deg,#32263b,#211925)] md:h-[260px]">
                   {srv.badge && (
                     <span className="absolute right-5 top-5 z-20 rounded-full border border-[#b995e4]/25 bg-black/55 px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.16em] text-[#d7b9f5] md:backdrop-blur-md">
                       {srv.badge}
@@ -180,10 +178,10 @@ export default function ServicesPage() {
                   </div>
                 </div>
 
-                <div className="flex flex-1 flex-col p-6 md:p-7">
-                  <p className="mb-6 text-sm leading-6 text-white/50">{srv.desc}</p>
+                <div className="flex flex-1 flex-col p-5 md:p-7">
+                  <p className="mb-4 text-sm leading-6 text-white/60 md:mb-6">{srv.desc}</p>
 
-                  <ul className="mb-6 grid grid-cols-1 gap-x-5 gap-y-2.5 sm:grid-cols-2">
+                  <ul className="mb-4 grid grid-cols-1 gap-x-5 gap-y-2 sm:grid-cols-2 md:mb-6 md:gap-y-2.5">
                     {srv.features.map((feature) => (
                       <li key={feature} className="flex items-start gap-2.5 text-xs leading-5 text-white/67">
                         <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#9f75ff]" />
@@ -192,7 +190,7 @@ export default function ServicesPage() {
                     ))}
                   </ul>
 
-                  <div className="-mx-6 mt-auto flex items-end justify-between gap-5 border-t border-white/[0.08] px-6 pt-5 md:-mx-7 md:px-7">
+                  <div className="-mx-5 mt-auto flex items-end justify-between gap-5 border-t border-white/[0.1] px-5 pt-4 md:-mx-7 md:px-7 md:pt-5">
                     <div>
                       <div className="mb-1 text-[9px] font-semibold uppercase tracking-[0.17em] text-white/30">Стоимость</div>
                       <div className="font-display text-xl font-semibold tracking-[-0.025em] text-white">{srv.price}</div>

@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { Check, HelpCircle, ArrowRight, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { useBooking } from "@/contexts/BookingContext";
 import { usePageMeta } from "@/hooks/use-page-meta";
@@ -142,7 +141,6 @@ export default function PricingPage() {
   }, []);
   return (
     <main className="min-h-screen w-full overflow-x-clip bg-[#080808] text-white">
-      <Navbar />
 
       {/* Hero */}
       <section className="relative overflow-hidden pb-16 pt-40 md:pb-20">

@@ -106,7 +106,7 @@ export function Portfolio() {
   const expandedProject = expandedIndex === null ? null : cases[expandedIndex];
 
   return (
-    <section id="portfolio" className="relative overflow-hidden bg-white py-24 text-[#1b1722] md:py-32">
+    <section id="portfolio" className="relative overflow-hidden bg-white pb-10 pt-24 text-[#1b1722] md:py-32">
       <div className="performance-glow pointer-events-none absolute -right-40 top-24 h-[520px] w-[520px] rounded-full bg-[#6d28d9]/[0.1] blur-[130px]" />
       <div className="performance-glow pointer-events-none absolute -left-52 bottom-0 h-[620px] w-[620px] rounded-full bg-[#a875ff]/[0.08] blur-[150px]" />
       <div className="container relative mx-auto px-4 md:px-6">
@@ -144,7 +144,7 @@ export function Portfolio() {
                     onClick={() => setExpandedIndex(index)}
                     onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setExpandedIndex(index); } }}
                     aria-label={`Открыть проект ${project.model}`}
-                    className="portfolio-case-shape group relative grid h-[620px] cursor-pointer grid-rows-[210px_minmax(0,1fr)] overflow-hidden border border-[#1b1722]/10 bg-[radial-gradient(circle_at_82%_20%,rgba(168,117,255,0.22),transparent_44%),linear-gradient(135deg,rgba(255,255,255,0.72),rgba(242,235,250,0.62))] shadow-[0_24px_70px_rgba(55,33,79,0.1)] outline-none transition-[border-color] focus-visible:border-[#8b5cf6] sm:h-auto sm:grid-rows-none lg:min-h-[616px] lg:grid-cols-[0.99fr_1.01fr]"
+                    className="portfolio-case-shape group relative grid h-[540px] cursor-pointer grid-rows-[180px_minmax(0,1fr)] overflow-hidden border border-[#1b1722]/10 bg-[radial-gradient(circle_at_82%_20%,rgba(168,117,255,0.22),transparent_44%),linear-gradient(135deg,rgba(255,255,255,0.72),rgba(242,235,250,0.62))] shadow-[0_24px_70px_rgba(55,33,79,0.1)] outline-none transition-[border-color] focus-visible:border-[#8b5cf6] sm:h-auto sm:grid-rows-none lg:min-h-[616px] lg:grid-cols-[0.99fr_1.01fr]"
                   >
                     <div className="portfolio-photo-panel relative z-10 min-h-0 overflow-hidden bg-[#0a080d] sm:min-h-[390px] lg:min-h-full">
                       <div className="absolute inset-0"><ProjectPhoto project={project} eager={index === 0} /></div>
@@ -152,21 +152,22 @@ export function Portfolio() {
 
                     <div aria-hidden="true" className="portfolio-diagonal-divider pointer-events-none" />
 
-                    <div className="relative z-10 flex flex-col border-t border-white/15 bg-[radial-gradient(circle_at_18%_18%,rgba(196,153,255,0.3),transparent_40%),radial-gradient(circle_at_92%_86%,rgba(142,78,225,0.28),transparent_44%),linear-gradient(145deg,#321a47_0%,#4b2468_50%,#281237_100%)] p-5 text-white backdrop-blur-[24px] sm:p-9 lg:border-t-0 lg:py-10 lg:pr-10 lg:pl-20 xl:py-12 xl:pr-12 xl:pl-24">
+                    <div className="relative z-10 flex flex-col border-t border-white/15 bg-[radial-gradient(circle_at_18%_18%,rgba(196,153,255,0.3),transparent_40%),radial-gradient(circle_at_92%_86%,rgba(142,78,225,0.28),transparent_44%),linear-gradient(145deg,#321a47_0%,#4b2468_50%,#281237_100%)] px-5 pb-3 pt-4 text-white backdrop-blur-[24px] sm:p-9 lg:border-t-0 lg:py-10 lg:pr-10 lg:pl-20 xl:py-12 xl:pr-12 xl:pl-24">
                       <div className="flex items-center justify-between gap-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#c6a4ec]">
-                        <span>История проекта</span>
+                        <span className="min-w-0 truncate font-display text-[1.05rem] font-semibold normal-case tracking-[-0.035em] text-white sm:hidden">{project.model}</span>
+                        <span className="hidden sm:inline">История проекта</span>
                         <div className="flex h-11 w-16 items-center justify-center transition-transform duration-300 group-hover:scale-105" aria-hidden="true">
                           <img src={project.brandLogo} alt="" aria-hidden="true" loading="lazy" className="h-full w-full object-contain drop-shadow-[0_7px_16px_rgba(0,0,0,0.3)]" />
                         </div>
                       </div>
-                      <h3 className="mt-3 font-display text-3xl font-semibold tracking-[-0.05em] text-white sm:mt-6 sm:text-5xl">{project.model}</h3>
+                      <h3 className="mt-3 hidden font-display text-3xl font-semibold tracking-[-0.05em] text-white sm:mt-6 sm:block sm:text-5xl">{project.model}</h3>
 
                       <div className="mt-4 grid gap-1.5 border-t border-white/10 pt-3 sm:mt-7 sm:grid-cols-[115px_1fr] sm:gap-5 sm:pt-5">
-                        <span className="text-xs font-semibold uppercase tracking-[0.13em] text-white/40">Задача</span>
+                        <span className="w-fit border-l-2 border-[#c9a4ee] pl-2 text-xs font-semibold uppercase tracking-[0.13em] text-[#dec8f5] sm:border-0 sm:pl-0 sm:text-white/40">Задача</span>
                         <p className="text-sm leading-relaxed text-white/[0.72]">{project.request}</p>
                       </div>
                       <div className="mt-3 grid gap-1.5 border-t border-white/10 pt-3 sm:mt-5 sm:grid-cols-[115px_1fr] sm:gap-5 sm:pt-5">
-                        <span className="text-xs font-semibold uppercase tracking-[0.13em] text-white/40">Выполнено</span>
+                        <span className="w-fit border-l-2 border-[#c9a4ee] pl-2 text-xs font-semibold uppercase tracking-[0.13em] text-[#dec8f5] sm:border-0 sm:pl-0 sm:text-white/40">Выполнено</span>
                         <ul className="space-y-2 text-sm text-white/85">
                           {project.work.map((item) => <li key={item} className="flex items-start gap-2"><span className="mt-2 h-1 w-1 shrink-0 rotate-45 bg-[#b78ae8]" />{item}</li>)}
                         </ul>
@@ -194,7 +195,7 @@ export function Portfolio() {
               <button type="button" onClick={scrollNext} aria-label="Следующая работа" className="flex h-12 w-12 items-center justify-center border border-[#1b1722]/15 text-[#1b1722] transition-colors hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/10"><ArrowRight className="h-5 w-5" /></button>
             </div>
           </div>
-          <div className="mt-7 flex justify-center lg:hidden">
+          <div className="mt-10 flex justify-center lg:hidden">
             <Link href="/portfolio" className="premium-cta inline-flex min-h-14 items-center gap-5 bg-gradient-to-r from-[#8b5cf6] to-[#6d28d9] px-6 py-4 text-xs font-bold uppercase tracking-[0.12em] text-white shadow-[0_12px_36px_-12px_rgba(139,92,246,0.65)]">
               Все проекты <span className="border-l border-white/35 pl-4"><ArrowUpRight className="h-5 w-5" aria-hidden="true" /></span>
             </Link>
