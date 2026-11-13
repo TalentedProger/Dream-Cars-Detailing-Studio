@@ -248,6 +248,7 @@ export default function PortfolioPage() {
           <div className="grid grid-cols-1 gap-7 md:gap-9">
             {filtered.map((work, i) => {
               const project = toDetailProject(work);
+              const reversed = i % 2 === 1;
               return (
                 <motion.button
                   type="button"
@@ -259,16 +260,16 @@ export default function PortfolioPage() {
                   className="portfolio-case-shape group relative grid min-h-[610px] w-full grid-rows-[240px_minmax(0,1fr)] overflow-hidden border border-white/10 text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8b5cf6] lg:min-h-[520px] lg:grid-cols-[0.99fr_1.01fr] lg:grid-rows-none"
                   aria-label={`Открыть проект ${work.model}`}
                 >
-                  <div className="portfolio-photo-panel relative z-10 min-h-0 overflow-hidden bg-[#0a080d] lg:min-h-full">
+                  <div className={`portfolio-photo-panel relative z-10 min-h-0 overflow-hidden bg-[#0a080d] lg:min-h-full ${reversed ? "portfolio-photo-panel--reverse lg:order-2" : ""}`}>
                     <OptimizedImage src={work.img} alt={work.model} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]" width={1200} height={900} />
                     <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_46%_48%,transparent_24%,rgba(3,2,5,0.44)_100%)]" />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/[0.08] to-black/20" />
                     <span className="absolute bottom-5 left-5 rounded-md border border-white/25 bg-black/30 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.15em] text-white backdrop-blur-[4px] md:bottom-7 md:left-7">{work.service}</span>
                   </div>
 
-                  <div aria-hidden="true" className="portfolio-diagonal-divider pointer-events-none" />
+                  <div aria-hidden="true" className={`portfolio-diagonal-divider pointer-events-none ${reversed ? "portfolio-diagonal-divider--reverse" : ""}`} />
 
-                  <div className="relative z-10 flex min-h-0 flex-col border-t border-white/15 bg-[radial-gradient(circle_at_18%_18%,rgba(196,153,255,0.3),transparent_40%),radial-gradient(circle_at_92%_86%,rgba(142,78,225,0.28),transparent_44%),linear-gradient(145deg,#321a47_0%,#4b2468_50%,#281237_100%)] p-6 text-white lg:border-t-0 lg:py-9 lg:pr-10 lg:pl-20 xl:py-11 xl:pr-12 xl:pl-24">
+                  <div className={`relative z-10 flex min-h-0 flex-col border-t border-white/15 bg-[radial-gradient(circle_at_18%_18%,rgba(196,153,255,0.3),transparent_40%),radial-gradient(circle_at_92%_86%,rgba(142,78,225,0.28),transparent_44%),linear-gradient(145deg,#321a47_0%,#4b2468_50%,#281237_100%)] p-6 text-white lg:border-t-0 lg:py-9 xl:py-11 ${reversed ? "lg:order-1 lg:pr-20 lg:pl-10 xl:pr-24 xl:pl-12" : "lg:pr-10 lg:pl-20 xl:pr-12 xl:pl-24"}`}>
                     <div className="flex items-center justify-between gap-4 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#cfb1f2]">
                       <span>{work.tag} · {work.year}</span>
                       {project.brandLogo ? <img src={project.brandLogo} alt="" aria-hidden="true" loading="lazy" className="h-10 w-14 object-contain drop-shadow-[0_7px_16px_rgba(0,0,0,0.3)]" /> : <span>{project.brand}</span>}
