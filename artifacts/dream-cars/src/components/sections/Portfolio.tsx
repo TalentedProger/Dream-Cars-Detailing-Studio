@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "wouter";
+import { PortfolioDetailView } from "@/components/PortfolioDetailView";
 
 const base = import.meta.env.BASE_URL;
 
@@ -102,6 +103,7 @@ export function Portfolio() {
 
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
+  const expandedProject = expandedIndex === null ? null : cases[expandedIndex];
 
   return (
     <section id="portfolio" className="relative overflow-hidden bg-white py-24 text-[#1b1722] md:py-32">
@@ -136,13 +138,16 @@ export function Portfolio() {
             <div className="flex touch-pan-y">
               {cases.map((project, index) => (
                 <div key={project.model} className="min-w-0 flex-[0_0_100%]" role="group" aria-roledescription="слайд" aria-label={`${index + 1} из ${cases.length}: ${project.model}`}>
-                  <article className="portfolio-case-shape relative grid h-[620px] grid-rows-[210px_minmax(0,1fr)] overflow-hidden border border-[#1b1722]/10 bg-[radial-gradient(circle_at_82%_20%,rgba(168,117,255,0.22),transparent_44%),linear-gradient(135deg,rgba(255,255,255,0.72),rgba(242,235,250,0.62))] shadow-[0_24px_70px_rgba(55,33,79,0.1)] sm:h-auto sm:grid-rows-none lg:min-h-[616px] lg:grid-cols-[0.99fr_1.01fr]">
+                  <article
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => setExpandedIndex(index)}
+                    onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setExpandedIndex(index); } }}
+                    aria-label={`Открыть проект ${project.model}`}
+                    className="portfolio-case-shape group relative grid h-[620px] cursor-pointer grid-rows-[210px_minmax(0,1fr)] overflow-hidden border border-[#1b1722]/10 bg-[radial-gradient(circle_at_82%_20%,rgba(168,117,255,0.22),transparent_44%),linear-gradient(135deg,rgba(255,255,255,0.72),rgba(242,235,250,0.62))] shadow-[0_24px_70px_rgba(55,33,79,0.1)] outline-none transition-[border-color] focus-visible:border-[#8b5cf6] sm:h-auto sm:grid-rows-none lg:min-h-[616px] lg:grid-cols-[0.99fr_1.01fr]"
+                  >
                     <div className="portfolio-photo-panel relative z-10 min-h-0 overflow-hidden bg-[#0a080d] sm:min-h-[390px] lg:min-h-full">
-                      {expandedIndex !== index && (
-                        <motion.div layoutId={`portfolio-photo-${index}`} className="absolute inset-0" transition={{ type: "spring", stiffness: 150, damping: 24, mass: 0.9 }}>
-                          <ProjectPhoto project={project} eager={index === 0} />
-                        </motion.div>
-                      )}
+                      <div className="absolute inset-0"><ProjectPhoto project={project} eager={index === 0} /></div>
                     </div>
 
                     <div aria-hidden="true" className="portfolio-diagonal-divider pointer-events-none" />
@@ -150,9 +155,9 @@ export function Portfolio() {
                     <div className="relative z-10 flex flex-col border-t border-white/15 bg-[radial-gradient(circle_at_18%_18%,rgba(196,153,255,0.3),transparent_40%),radial-gradient(circle_at_92%_86%,rgba(142,78,225,0.28),transparent_44%),linear-gradient(145deg,#321a47_0%,#4b2468_50%,#281237_100%)] p-5 text-white backdrop-blur-[24px] sm:p-9 lg:border-t-0 lg:py-10 lg:pr-10 lg:pl-20 xl:py-12 xl:pr-12 xl:pl-24">
                       <div className="flex items-center justify-between gap-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#c6a4ec]">
                         <span>История проекта</span>
-                        <button type="button" onClick={() => setExpandedIndex(index)} className="flex h-11 w-16 items-center justify-center transition-transform duration-300 hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#cba7f2]" aria-label={`Развернуть фотографию ${project.model}`}>
+                        <div className="flex h-11 w-16 items-center justify-center transition-transform duration-300 group-hover:scale-105" aria-hidden="true">
                           <img src={project.brandLogo} alt="" aria-hidden="true" loading="lazy" className="h-full w-full object-contain drop-shadow-[0_7px_16px_rgba(0,0,0,0.3)]" />
-                        </button>
+                        </div>
                       </div>
                       <h3 className="mt-3 font-display text-3xl font-semibold tracking-[-0.05em] text-white sm:mt-6 sm:text-5xl">{project.model}</h3>
 
@@ -198,44 +203,8 @@ export function Portfolio() {
       </div>
 
       <AnimatePresence>
-        {expandedIndex !== null && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35 }} className="fixed inset-0 z-[100] bg-black/90" role="dialog" aria-modal="true" aria-label={`Фотография проекта ${cases[expandedIndex].model}`}>
-            <motion.div layoutId={`portfolio-photo-${expandedIndex}`} className="relative h-[100dvh] w-screen overflow-hidden bg-black" transition={{ type: "spring", stiffness: 150, damping: 24, mass: 0.9 }}>
-              <ProjectPhoto project={cases[expandedIndex]} eager />
-              <motion.aside initial={{ opacity: 0, x: -32 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} transition={{ duration: 0.55, delay: 0.18, ease: [0.22, 1, 0.36, 1] }} className="absolute inset-x-0 bottom-0 z-10 max-h-[68dvh] overflow-y-auto border-t border-white/15 bg-[linear-gradient(145deg,rgba(3,2,5,0.97),rgba(15,7,24,0.93))] p-6 text-white shadow-[0_-24px_70px_rgba(0,0,0,0.35)] backdrop-blur-2xl sm:p-8 lg:inset-y-0 lg:right-auto lg:max-h-none lg:w-[42vw] lg:max-w-[620px] lg:border-t-0 lg:border-r lg:p-10 xl:w-[38vw] xl:p-14">
-                <div className="flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#c6a4ec]">
-                  <span className="h-px w-8 bg-[#b78ae8]" /> Первый экран проекта
-                </div>
-                <p className="mt-8 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/40">{cases[expandedIndex].field}</p>
-                <h2 className="mt-3 font-display text-[clamp(2.7rem,5vw,5.4rem)] font-semibold leading-[0.92] tracking-[-0.065em] text-white">{cases[expandedIndex].model}</h2>
-
-                <div className="mt-9 border-t border-white/[0.12] pt-5">
-                  <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/40">Задача</span>
-                  <p className="mt-3 text-sm leading-6 text-white/[0.74] md:text-base md:leading-7">{cases[expandedIndex].request}</p>
-                </div>
-
-                <div className="mt-7 border-t border-white/[0.12] pt-5">
-                  <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/40">Выполнено</span>
-                  <ul className="mt-3 space-y-2.5 text-sm text-white/85 md:text-base">
-                    {cases[expandedIndex].work.map((item) => (
-                      <li key={item} className="flex items-start gap-3">
-                        <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rotate-45 bg-[#b78ae8]" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="mt-8 border-t border-[#a875ff]/40 pt-5">
-                  <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#c6a4ec]">Результат</span>
-                  <p className="mt-3 text-sm leading-6 text-white/80 md:text-base md:leading-7">{cases[expandedIndex].result}</p>
-                </div>
-              </motion.aside>
-              <button type="button" onClick={() => setExpandedIndex(null)} className="absolute right-5 top-5 z-20 flex h-14 w-20 items-center justify-center transition-transform duration-300 hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white md:right-8 md:top-8" aria-label={`Свернуть фотографию ${cases[expandedIndex].model}`}>
-                <img src={cases[expandedIndex].brandLogo} alt="" aria-hidden="true" className="h-full w-full object-contain drop-shadow-[0_10px_24px_rgba(0,0,0,0.45)]" />
-              </button>
-            </motion.div>
-          </motion.div>
+        {expandedProject && (
+          <PortfolioDetailView project={expandedProject} onClose={() => setExpandedIndex(null)} theme="light" />
         )}
       </AnimatePresence>
     </section>

@@ -1,15 +1,48 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { useBooking } from "@/contexts/BookingContext";
 import { OptimizedImage } from "@/components/ui/optimized-image";
 import { usePageMeta } from "@/hooks/use-page-meta";
+import { PortfolioDetailView, type PortfolioDetailProject } from "@/components/PortfolioDetailView";
 
 const filters = ["Все работы", "Полировка", "Керамика", "Химчистка", "PPF", "Комплекс"];
 
 const works = [
+  {
+    img: `${import.meta.env.BASE_URL}cars/bmw-x5.webp`,
+    model: "BMW X5",
+    year: "2024",
+    service: "Восстановление + Керамика",
+    tag: "Полировка",
+    desc: "Вернули кузову глубину цвета, удалили мелкие дефекты и защитили покрытие для повседневной эксплуатации.",
+  },
+  {
+    img: `${import.meta.env.BASE_URL}cars/mercedes-s-class.webp`,
+    model: "Mercedes-Benz S-Class",
+    year: "2024",
+    service: "Антигравийная плёнка",
+    tag: "PPF",
+    desc: "Защитили наиболее уязвимые зоны кузова прозрачной плёнкой с аккуратной проработкой кромок.",
+  },
+  {
+    img: `${import.meta.env.BASE_URL}cars/range-rover-sport.webp`,
+    model: "Range Rover Sport",
+    year: "2024",
+    service: "Детейлинг интерьера",
+    tag: "Химчистка",
+    desc: "Освежили салон, глубоко очистили материалы и сохранили естественную фактуру кожи и декоративных элементов.",
+  },
+  {
+    img: `${import.meta.env.BASE_URL}cars/porsche-cayenne.webp`,
+    model: "Porsche Cayenne",
+    year: "2024",
+    service: "Стёкла + Комплексный уход",
+    tag: "Комплекс",
+    desc: "Подготовили автомобиль к поездкам в непогоду, улучшили обзор и выполнили финишный комплексный уход.",
+  },
   {
     img: `${import.meta.env.BASE_URL}car-aston-martin-db11.webp`,
     model: "BMW M5 Competition",
@@ -76,9 +109,52 @@ const works = [
   },
 ];
 
+const serviceSteps: Record<string, string[]> = {
+  "Полировка": ["Диагностика и деликатная мойка", "Коррекция лакокрасочного покрытия", "Финишная полировка и контроль света"],
+  "Керамика": ["Подготовка и обезжиривание кузова", "Нанесение защитного состава", "Полимеризация и контроль покрытия"],
+  "Химчистка": ["Разбор и глубокая очистка салона", "Деликатная работа с материалами", "Сушка, озонирование и финишный уход"],
+  "PPF": ["Подготовка поверхностей", "Раскрой и нанесение защитной плёнки", "Проработка кромок и контроль прилегания"],
+  "Комплекс": ["Полная диагностика автомобиля", "Комплекс работ по кузову и салону", "Финишная проверка каждого элемента"],
+};
+
+const brandLogos: Record<string, string | undefined> = {
+  BMW: `${import.meta.env.BASE_URL}brand-logos/bmw.webp`,
+  Porsche: `${import.meta.env.BASE_URL}brand-logos/porsche.webp`,
+  Mercedes: `${import.meta.env.BASE_URL}brand-logos/mercedes.webp`,
+};
+
+function getBrand(model: string) {
+  if (model.startsWith("Mercedes")) return "Mercedes";
+  if (model.startsWith("Aston Martin")) return "Aston Martin";
+  if (model.startsWith("Rolls-Royce")) return "Rolls-Royce";
+  if (model.startsWith("Tesla")) return "Tesla";
+  if (model.startsWith("Lamborghini")) return "Lamborghini";
+  if (model.startsWith("Ferrari")) return "Ferrari";
+  if (model.startsWith("Porsche")) return "Porsche";
+  return "BMW";
+}
+
+function toDetailProject(work: (typeof works)[number]): PortfolioDetailProject {
+  const brand = getBrand(work.model);
+  return {
+    model: work.model,
+    brand,
+    brandLogo: brandLogos[brand],
+    field: work.service,
+    image: work.img,
+    imageAlt: `${work.model} после работ в Dream Cars Studio`,
+    request: work.desc,
+    work: serviceSteps[work.tag] || ["Диагностика", work.service, "Финишный контроль"],
+    result: `Автомобиль получил согласованный комплекс «${work.service}»: восстановленный внешний вид, защищённые поверхности и аккуратный результат, проверенный мастером перед выдачей.`,
+    year: work.year,
+  };
+}
+
 export default function PortfolioPage() {
   const { open } = useBooking();
   const [activeFilter, setActiveFilter] = useState("Все работы");
+  const [expandedProject, setExpandedProject] = useState<PortfolioDetailProject | null>(null);
+  const ctaVideoRef = useRef<HTMLVideoElement>(null);
   const mobileOptimized = typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
   usePageMeta({
     title: "Наши работы — Dream Cars Studio",
@@ -90,6 +166,31 @@ export default function PortfolioPage() {
   const filtered = activeFilter === "Все работы"
     ? works
     : works.filter((w) => w.tag === activeFilter);
+
+  useEffect(() => {
+    if (!expandedProject) return;
+    const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setExpandedProject(null);
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [expandedProject]);
+
+  useEffect(() => {
+    const video = ctaVideoRef.current;
+    if (!video || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry?.isIntersecting && !document.hidden) void video.play().catch(() => undefined);
+      else video.pause();
+    }, { rootMargin: "180px 0px", threshold: 0.08 });
+    observer.observe(video);
+    return () => { observer.disconnect(); video.pause(); };
+  }, []);
 
   return (
     <main className="min-h-screen w-full overflow-x-clip bg-[#080808] text-white">
@@ -144,78 +245,87 @@ export default function PortfolioPage() {
       {/* Works grid */}
       <section className="pb-32">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map((work, i) => (
-              <motion.div
-                key={`${work.model}-${i}`}
-                initial={mobileOptimized ? false : { opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.07, duration: 0.5 }}
-                className="group relative rounded-3xl overflow-hidden border border-white/8 hover:border-[#7C3AED]/50 transition-all duration-400 cursor-pointer"
-              >
-                {/* Image */}
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <OptimizedImage
-                    src={work.img}
-                    alt={work.model}
-                    className="w-full h-full object-cover transition-transform duration-700 md:group-hover:scale-105"
-                    width={800}
-                    height={600}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/20 to-transparent pointer-events-none" />
-                  {/* Service tag */}
-                  <div className="absolute top-4 left-4">
-                    <span className="bg-[#7C3AED]/90 text-white text-xs font-bold uppercase tracking-wider py-1.5 px-3 rounded-full md:backdrop-blur-sm">
-                      {work.tag}
-                    </span>
+          <div className="grid grid-cols-1 gap-7 md:gap-9">
+            {filtered.map((work, i) => {
+              const project = toDetailProject(work);
+              return (
+                <motion.button
+                  type="button"
+                  key={`${work.model}-${i}`}
+                  onClick={() => setExpandedProject(project)}
+                  initial={mobileOptimized ? false : { opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: Math.min(i * 0.06, 0.3), duration: 0.5 }}
+                  className="portfolio-case-shape group relative grid min-h-[610px] w-full grid-rows-[240px_minmax(0,1fr)] overflow-hidden border border-white/10 text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8b5cf6] lg:min-h-[520px] lg:grid-cols-[0.99fr_1.01fr] lg:grid-rows-none"
+                  aria-label={`Открыть проект ${work.model}`}
+                >
+                  <div className="portfolio-photo-panel relative z-10 min-h-0 overflow-hidden bg-[#0a080d] lg:min-h-full">
+                    <OptimizedImage src={work.img} alt={work.model} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]" width={1200} height={900} />
+                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_46%_48%,transparent_24%,rgba(3,2,5,0.44)_100%)]" />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/[0.08] to-black/20" />
+                    <span className="absolute bottom-5 left-5 rounded-md border border-white/25 bg-black/30 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.15em] text-white backdrop-blur-[4px] md:bottom-7 md:left-7">{work.service}</span>
                   </div>
-                  {/* Year */}
-                  <div className="absolute top-4 right-4">
-                    <span className="bg-black/70 text-white/70 text-xs py-1.5 px-3 rounded-full border border-white/10 md:backdrop-blur-sm">
-                      {work.year}
-                    </span>
+
+                  <div aria-hidden="true" className="portfolio-diagonal-divider pointer-events-none" />
+
+                  <div className="relative z-10 flex min-h-0 flex-col border-t border-white/15 bg-[radial-gradient(circle_at_18%_18%,rgba(196,153,255,0.3),transparent_40%),radial-gradient(circle_at_92%_86%,rgba(142,78,225,0.28),transparent_44%),linear-gradient(145deg,#321a47_0%,#4b2468_50%,#281237_100%)] p-6 text-white lg:border-t-0 lg:py-9 lg:pr-10 lg:pl-20 xl:py-11 xl:pr-12 xl:pl-24">
+                    <div className="flex items-center justify-between gap-4 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#cfb1f2]">
+                      <span>{work.tag} · {work.year}</span>
+                      {project.brandLogo ? <img src={project.brandLogo} alt="" aria-hidden="true" loading="lazy" className="h-10 w-14 object-contain drop-shadow-[0_7px_16px_rgba(0,0,0,0.3)]" /> : <span>{project.brand}</span>}
+                    </div>
+                    <h2 className="mt-4 font-display text-3xl font-semibold tracking-[-0.05em] text-white md:text-4xl xl:text-5xl">{work.model}</h2>
+                    <div className="mt-5 border-t border-white/10 pt-4">
+                      <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">Задача</span>
+                      <p className="mt-2 max-w-2xl text-sm leading-6 text-white/70">{work.desc}</p>
+                    </div>
+                    <ul className="mt-5 grid gap-2 text-sm text-white/82 sm:grid-cols-2">
+                      {project.work.map((item) => <li key={item} className="flex items-start gap-2"><span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-white" />{item}</li>)}
+                    </ul>
+                    <div className="mt-auto border-t border-[#c49bf0]/30 pt-4">
+                      <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#cfb1f2]">Результат</span>
+                      <p className="mt-2 text-sm leading-6 text-white/70">{project.result}</p>
+                    </div>
                   </div>
-                </div>
-                {/* Content */}
-                <div className="p-6 bg-[#111]/80">
-                  <h3 className="font-display font-bold text-lg text-white mb-1">{work.model}</h3>
-                  <p className="text-[#7C3AED] text-xs font-medium uppercase tracking-wider mb-3">{work.service}</p>
-                  <p className="text-white/50 text-sm leading-relaxed">{work.desc}</p>
-                </div>
-              </motion.div>
-            ))}
+                </motion.button>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-24 relative overflow-hidden border-t border-white/5">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#7C3AED]/5 to-transparent" />
-        <div className="container relative z-10 mx-auto px-4 md:px-6 text-center">
-          <motion.div initial={mobileOptimized ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="text-4xl md:text-5xl font-display font-black text-white mb-4">Ваш автомобиль — следующий</h2>
-            <p className="text-white/50 mb-10 max-w-lg mx-auto">Запишитесь уже сегодня и получите бесплатную диагностику состояния лака вашего автомобиля.</p>
-            <img
-              src={`${import.meta.env.BASE_URL}images/faq.webp`}
-              loading="lazy"
-              decoding="async"
-              width="2400"
-              height="1600"
-              alt="Dream Cars"
-              className="mx-auto mb-10 w-full max-w-xl object-contain select-none pointer-events-none mix-blend-screen"
-            />
+      <section className="relative min-h-[600px] overflow-hidden border-t border-white/5 md:min-h-[680px]">
+        <video ref={ctaVideoRef} className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center" muted loop playsInline preload="none" poster={`${import.meta.env.BASE_URL}car-porsche-911.webp`} disablePictureInPicture aria-hidden="true" tabIndex={-1}>
+          <source src={`${import.meta.env.BASE_URL}video/need-money-for-porsche.mp4`} type="video/mp4" />
+        </video>
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(3,2,5,0.96)_0%,rgba(7,4,11,0.84)_42%,rgba(7,4,11,0.35)_75%,rgba(3,2,5,0.2)_100%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/25" />
+        <div className="container relative z-10 mx-auto flex min-h-[600px] items-center px-4 py-20 md:min-h-[680px] md:px-6 md:py-24">
+          <motion.div initial={mobileOptimized ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-2xl text-left">
+            <h2 className="font-display text-4xl font-black leading-[1.02] tracking-[-0.05em] text-white md:text-6xl">Ваш автомобиль — следующий</h2>
+            <p className="mt-5 max-w-xl text-base leading-7 text-white/65 md:text-lg">Запишитесь уже сегодня и получите бесплатную диагностику состояния лака вашего автомобиля.</p>
+            <div className="my-10 flex flex-col items-start gap-3 text-xs font-medium text-white/65">
+              <span className="border-l border-[#a875ff] pl-3">Бесплатная консультация</span>
+              <span className="border-l border-[#a875ff] pl-3">Предварительный расчёт</span>
+              <span className="border-l border-[#a875ff] pl-3">Персональный план работ</span>
+            </div>
             <button
               onClick={open}
-              className="inline-flex items-center gap-3 px-10 py-4 rounded-xl font-bold text-white text-sm uppercase tracking-wider transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_0_40px_rgba(124,58,237,0.5)]"
-              style={{ background: "linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%)", boxShadow: "0 4px 20px rgba(124,58,237,0.35)" }}
+              className="premium-cta inline-flex min-h-14 items-center gap-5 bg-gradient-to-r from-[#8b5cf6] to-[#6d28d9] px-7 py-4 text-sm font-bold uppercase tracking-[0.1em] text-white transition-colors hover:from-[#9f75ff] hover:to-[#7c3aed]"
             >
-              Записаться <ArrowRight className="w-4 h-4" />
+              Записаться <span className="border-l border-white/35 pl-4"><ArrowRight className="h-4 w-4" aria-hidden="true" /></span>
             </button>
           </motion.div>
         </div>
       </section>
 
       <Footer />
+
+      <AnimatePresence>
+        {expandedProject && (
+          <PortfolioDetailView project={expandedProject} onClose={() => setExpandedProject(null)} theme="dark" />
+        )}
+      </AnimatePresence>
     </main>
   );
 }

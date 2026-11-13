@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { useBooking } from "@/contexts/BookingContext";
@@ -156,12 +156,9 @@ export default function ServicesPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ delay: i * 0.07, duration: 0.5 }}
-                className="group relative flex min-h-[540px] flex-col overflow-hidden rounded-[26px] border border-white/[0.09] bg-[linear-gradient(145deg,rgba(24,20,29,0.96),rgba(9,8,11,0.99))] transition-colors duration-500 hover:border-[#9f75ff]/40"
+                className="group relative flex min-h-[540px] flex-col overflow-hidden rounded-[26px] bg-[linear-gradient(145deg,rgba(47,39,55,0.98),rgba(25,21,29,0.99))] shadow-[0_22px_55px_-34px_rgba(0,0,0,0.72)]"
               >
-                <div className="relative h-[215px] shrink-0 overflow-hidden border-b border-white/[0.07] bg-[radial-gradient(circle_at_75%_50%,rgba(139,92,246,0.24),transparent_42%),linear-gradient(145deg,#17121d,#0b090e)] md:h-[235px]">
-                  <span className="absolute left-6 top-5 z-10 font-display text-[3.25rem] font-semibold leading-none tracking-[-0.07em] text-white/[0.12]">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
+                <div className="relative h-[238px] shrink-0 overflow-hidden border-b border-white/[0.07] bg-[radial-gradient(circle_at_75%_50%,rgba(139,92,246,0.24),transparent_42%),linear-gradient(145deg,#241a2c,#130f17)] md:h-[260px]">
                   {srv.badge && (
                     <span className="absolute right-5 top-5 z-20 rounded-full border border-[#b995e4]/25 bg-black/55 px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.16em] text-[#d7b9f5] md:backdrop-blur-md">
                       {srv.badge}
@@ -173,34 +170,29 @@ export default function ServicesPage() {
                     aria-hidden="true"
                     loading="lazy"
                     decoding="async"
-                    className={`absolute inset-0 h-full w-full transition-transform duration-700 group-hover:scale-[1.025] ${srv.cover ? "object-cover opacity-70" : "scale-[0.9] object-contain object-right-bottom p-3 group-hover:scale-[0.93]"}`}
+                    className="absolute inset-0 h-full w-full object-cover opacity-75 transition-transform duration-700 group-hover:scale-[1.025]"
                   />
-                  {srv.cover && <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,8,12,0.78),transparent_52%),linear-gradient(to_top,rgba(7,5,9,0.55),transparent_55%)]" />}
-                  <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#141018] to-transparent" />
+                  <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,8,12,0.48),transparent_62%),linear-gradient(to_top,rgba(7,5,9,0.68),transparent_62%)]" />
+                  <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#0d0a10] via-[#0d0a10]/75 to-transparent" />
+                  <div className="absolute bottom-5 left-6 right-6 z-20">
+                    <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#c39bf3]">{srv.subtitle}</p>
+                    <h2 className="font-display text-[1.75rem] font-semibold leading-[1.05] tracking-[-0.045em] text-white">{srv.title}</h2>
+                  </div>
                 </div>
 
                 <div className="flex flex-1 flex-col p-6 md:p-7">
-                  <div className="mb-4 flex items-start justify-between gap-5">
-                    <div>
-                      <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#a875ff]">{srv.subtitle}</p>
-                      <h2 className="font-display text-[1.75rem] font-semibold leading-[1.05] tracking-[-0.045em] text-white">{srv.title}</h2>
-                    </div>
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[5px] border border-white/10 bg-white/[0.045] text-white/70 transition-colors group-hover:border-[#a875ff]/45 group-hover:text-[#c6a4ec]">
-                      <ArrowUpRight className="h-[18px] w-[18px]" strokeWidth={1.6} aria-hidden="true" />
-                    </span>
-                  </div>
                   <p className="mb-6 text-sm leading-6 text-white/50">{srv.desc}</p>
 
                   <ul className="mb-6 grid grid-cols-1 gap-x-5 gap-y-2.5 sm:grid-cols-2">
                     {srv.features.map((feature) => (
                       <li key={feature} className="flex items-start gap-2.5 text-xs leading-5 text-white/67">
-                        <span className="mt-2 h-px w-3 shrink-0 bg-[#9f75ff]" />
+                        <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#9f75ff]" />
                         {feature}
                       </li>
                     ))}
                   </ul>
 
-                  <div className="mt-auto flex items-end justify-between gap-5 border-t border-white/[0.08] pt-5">
+                  <div className="-mx-6 mt-auto flex items-end justify-between gap-5 border-t border-white/[0.08] px-6 pt-5 md:-mx-7 md:px-7">
                     <div>
                       <div className="mb-1 text-[9px] font-semibold uppercase tracking-[0.17em] text-white/30">Стоимость</div>
                       <div className="font-display text-xl font-semibold tracking-[-0.025em] text-white">{srv.price}</div>
@@ -241,7 +233,7 @@ export default function ServicesPage() {
             <h2 className="mb-5 font-display text-4xl font-black leading-[1.02] tracking-[-0.05em] text-white md:text-6xl">Готовы начать?</h2>
             <p className="mb-8 max-w-xl text-base leading-7 text-white/65 md:text-lg">Запишитесь на бесплатную консультацию — оценим состояние автомобиля и подберём оптимальный набор работ без лишних услуг.</p>
 
-            <div className="mb-10 flex flex-wrap gap-x-6 gap-y-3 text-xs font-medium text-white/65">
+            <div className="mb-10 flex flex-col items-start gap-3 text-xs font-medium text-white/65">
               <span className="border-l border-[#a875ff] pl-3">Бесплатная консультация</span>
               <span className="border-l border-[#a875ff] pl-3">Предварительный расчёт</span>
               <span className="border-l border-[#a875ff] pl-3">Персональный план работ</span>

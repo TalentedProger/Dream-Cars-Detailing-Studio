@@ -61,7 +61,7 @@ export function Testimonials() {
         <div className="mb-11 flex flex-col justify-between gap-7 md:mb-14 md:flex-row md:items-end">
           <motion.div initial={{ opacity: 0, y: reduceMotion ? 0 : 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: reduceMotion ? 0 : 0.65 }}>
             <h2 className="font-display text-[clamp(2.5rem,5vw,4.7rem)] font-semibold leading-none tracking-[-0.06em]">Отзывы <span className="text-white">клиентов</span></h2>
-            <p className="mt-5 max-w-md text-sm leading-6 text-white/55 md:text-base">Что говорят владельцы автомобилей после работы нашей команды.</p>
+            <p className="mt-5 max-w-md text-sm leading-6 text-white/55 md:max-w-none md:whitespace-nowrap md:text-base">Что говорят владельцы автомобилей после работы нашей команды.</p>
           </motion.div>
 
           <div className="hidden items-center gap-2 self-end md:flex md:self-auto">

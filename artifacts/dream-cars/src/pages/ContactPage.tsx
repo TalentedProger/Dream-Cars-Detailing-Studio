@@ -125,7 +125,7 @@ export default function ContactPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="flex min-w-0 flex-col gap-3"
+                className="min-w-0"
               >
                 <a href={item.href} className="group relative block min-h-[190px] flex-1 overflow-hidden rounded-2xl border border-white/8 bg-white/[0.02] p-6 transition-all duration-300 hover:border-[#7C3AED]/35 hover:bg-white/[0.04]">
                   <div className="absolute inset-0 bg-gradient-to-br from-[#7C3AED]/0 to-[#7C3AED]/0 transition-all duration-500 group-hover:from-[#7C3AED]/5 group-hover:to-transparent" />
@@ -138,33 +138,40 @@ export default function ContactPage() {
                     <div className="mt-1 text-xs text-white/35">{item.sub}</div>
                   </div>
                 </a>
-
-                <a href={socials[i].href} target="_blank" rel="noopener noreferrer" className="group flex min-h-16 items-center justify-between rounded-2xl border border-white/8 bg-white/[0.02] px-4 transition-all duration-200 hover:border-[#7C3AED]/30 hover:bg-white/[0.04]">
-                  <span className="flex items-center gap-3">
-                    <span className="flex h-9 w-9 items-center justify-center rounded-xl" style={{ background: `${socials[i].color}20`, border: `1px solid ${socials[i].color}30` }}>
-                      <span style={{ color: socials[i].color }}>{socials[i].icon}</span>
-                    </span>
-                    <span className="text-sm font-medium text-white/60 transition-colors group-hover:text-white">{socials[i].name}</span>
-                  </span>
-                  <ArrowRight className="h-4 w-4 text-white/25 transition-transform group-hover:translate-x-0.5 group-hover:text-white/55" aria-hidden="true" />
-                </a>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* Social strip */}
+      <section className="border-y border-white/[0.07] bg-[#0b0b0c] py-4">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-3">
+            {socials.map((social) => (
+              <a key={social.name} href={social.href} target="_blank" rel="noopener noreferrer" className="group flex min-h-16 items-center justify-between rounded-[5px] border border-white/8 bg-white/[0.025] px-4 transition-colors hover:border-white/20 hover:bg-white/[0.05]">
+                <span className="flex items-center gap-3">
+                  <span className="flex h-9 w-9 items-center justify-center" style={{ color: social.color }}>{social.icon}</span>
+                  <span className="text-sm font-medium text-white/60 transition-colors group-hover:text-white">{social.name}</span>
+                </span>
+                <ArrowRight className="h-4 w-4 text-white/25 transition-transform group-hover:translate-x-0.5 group-hover:text-white/60" aria-hidden="true" />
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Consultation + form */}
-      <section className="relative overflow-hidden border-t border-white/5 py-20 md:py-28">
-        <img src={`${import.meta.env.BASE_URL}our_work/polishing_ceramics.webp`} alt="" aria-hidden="true" loading="lazy" decoding="async" className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center opacity-45" />
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(5,4,7,0.94)_0%,rgba(7,5,10,0.84)_48%,rgba(5,4,7,0.9)_100%)]" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-black/55" />
+      <section className="relative overflow-hidden border-t border-black/[0.06] bg-[#fbfafc] py-20 text-[#17131d] md:py-28">
+        <img src={`${import.meta.env.BASE_URL}our_work/polishing_ceramics.webp`} alt="" aria-hidden="true" loading="lazy" decoding="async" className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center opacity-[0.06] grayscale" />
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(251,250,252,0.97)_0%,rgba(251,250,252,0.91)_52%,rgba(251,250,252,0.95)_100%)]" />
+        <div className="performance-glow pointer-events-none absolute -left-52 bottom-0 h-[560px] w-[560px] rounded-full bg-[#8b5cf6]/[0.08] blur-[145px]" />
 
         <div className="container relative z-10 mx-auto px-4 md:px-6">
           <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1.08fr)_minmax(400px,0.92fr)] lg:gap-20 xl:gap-28">
             <motion.div initial={mobileOptimized ? false : { opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
-              <h2 className="max-w-xl font-display text-4xl font-semibold leading-[1.02] tracking-[-0.05em] text-white md:text-6xl">Обсудим ваш автомобиль</h2>
-              <p className="mt-6 max-w-lg text-base leading-7 text-white/48 md:text-lg">Расскажите о состоянии автомобиля и желаемом результате. Мы предложим понятный план работ и заранее согласуем стоимость.</p>
+              <h2 className="max-w-xl font-display text-4xl font-semibold leading-[1.02] tracking-[-0.05em] text-[#17131d] md:text-6xl">Обсудим ваш автомобиль</h2>
+              <p className="mt-6 max-w-lg text-base leading-7 text-[#17131d]/55 md:text-lg">Расскажите о состоянии автомобиля и желаемом результате. Мы предложим понятный план работ и заранее согласуем стоимость.</p>
 
               <div className="mt-10 max-w-xl space-y-0">
                 {[
@@ -172,11 +179,11 @@ export default function ContactPage() {
                   ["02", "Рассчитаем стоимость", "Зафиксируем состав работ и бюджет до начала детейлинга."],
                   ["03", "Назначим удобное время", "Согласуем дату приёма и ориентировочный срок готовности."],
                 ].map(([number, title, text]) => (
-                  <div key={number} className="grid grid-cols-[2.4rem_1fr] gap-4 border-t border-white/[0.09] py-5 first:border-t-0 first:pt-0">
-                    <span className="font-display text-sm font-semibold text-[#9f75ff]">{number}</span>
+                  <div key={number} className="grid grid-cols-[2.4rem_1fr] gap-4 border-t border-black/[0.09] py-5 first:border-t-0 first:pt-0">
+                    <span className="font-display text-sm font-semibold text-[#7c3aed]">{number}</span>
                     <div>
-                      <h3 className="text-sm font-semibold text-white">{title}</h3>
-                      <p className="mt-1 text-sm leading-6 text-white/38">{text}</p>
+                      <h3 className="text-sm font-semibold text-[#17131d]">{title}</h3>
+                      <p className="mt-1 text-sm leading-6 text-[#17131d]/48">{text}</p>
                     </div>
                   </div>
                 ))}

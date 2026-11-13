@@ -141,7 +141,7 @@ export default function AboutPage() {
           <motion.div initial={mobileOptimized ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65, delay: 0.26 }} className="mt-10 grid grid-cols-2 overflow-hidden rounded-2xl border border-white/[0.12] bg-black/55 md:mt-12 md:backdrop-blur-md lg:grid-cols-4">
             {stats.map((stat, index) => (
               <div key={stat.label} className={`flex min-h-[112px] flex-col justify-center px-5 py-4 transition-colors hover:bg-white/[0.045] md:min-h-[122px] md:px-7 ${index < 3 ? "lg:border-r lg:border-white/10" : ""} ${index % 2 === 0 ? "border-r border-white/10 lg:border-r" : ""} ${index >= 2 ? "border-t border-white/10 lg:border-t-0" : ""}`}>
-                <stat.icon className="mb-2 h-5 w-5 text-[#a875ff]" strokeWidth={1.7} aria-hidden="true" />
+                <stat.icon className="mb-2 h-5 w-5 text-white" strokeWidth={1.7} aria-hidden="true" />
                 <div className="font-display text-3xl font-semibold tracking-[-0.045em] text-[#a875ff] md:text-4xl">{stat.num}</div>
                 <div className="mt-2 text-xs text-white/48 md:text-sm">{stat.label}</div>
               </div>
@@ -246,6 +246,7 @@ export default function AboutPage() {
           <motion.div initial={mobileOptimized ? false : { opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="flex items-center justify-between gap-6">
             <div>
               <h2 className="font-display text-4xl font-semibold tracking-[-0.05em] md:text-5xl">Наш путь</h2>
+              <p className="mt-3 text-sm leading-6 text-[#17131d]/52 md:whitespace-nowrap md:text-base">Ключевые этапы развития Dream Cars Studio — от первых проектов до сегодняшнего стандарта качества.</p>
             </div>
             <div className="flex items-center gap-2 md:hidden">
               <button type="button" onClick={() => selectTimeline(activeTimelineIndex - 1)} aria-label="Предыдущий год" className="flex h-11 w-11 items-center justify-center rounded-full border border-[#17131d]/10 bg-white text-[#17131d] transition-colors active:bg-[#ebe7f1]"><ArrowLeft className="h-5 w-5" aria-hidden="true" /></button>
@@ -314,12 +315,17 @@ export default function AboutPage() {
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(4,3,6,0.94)_0%,rgba(7,4,11,0.78)_38%,rgba(8,5,12,0.34)_72%,rgba(6,4,9,0.18)_100%)]" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20" />
         <div className="container relative z-10 mx-auto flex min-h-[558px] items-stretch px-4 py-16 md:min-h-[744px] md:px-6 md:py-24">
-          <motion.div initial={mobileOptimized ? false : { opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="grid min-h-[360px] max-w-2xl content-between gap-10 text-left md:min-h-[430px]">
-            <h2 className="font-display text-4xl font-black leading-[1.02] tracking-[-0.05em] text-white md:text-6xl">Доверьте нам свой автомобиль</h2>
-            <p className="max-w-xl text-base leading-7 text-white/65 md:text-lg">Запишитесь на бесплатную консультацию и убедитесь, что детейлинг мирового уровня — доступен.</p>
+          <motion.div initial={mobileOptimized ? false : { opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="flex min-h-[360px] w-full flex-col text-left md:min-h-[430px]">
+            <h2 className="font-display text-4xl font-black leading-[1.02] tracking-[-0.05em] text-white md:text-6xl"><span className="block">Доверьте</span><span className="block">нам свой</span><span className="block">автомобиль</span></h2>
+            <p className="mt-4 max-w-xl text-base leading-7 text-white/65 md:text-lg">Запишитесь на бесплатную консультацию и убедитесь, что детейлинг мирового уровня — доступен.</p>
+            <div className="mt-8 flex flex-col items-start gap-3 text-xs font-medium text-white/65">
+              <span className="border-l border-[#a875ff] pl-3">Бесплатная консультация</span>
+              <span className="border-l border-[#a875ff] pl-3">Предварительный расчёт</span>
+              <span className="border-l border-[#a875ff] pl-3">Персональный план работ</span>
+            </div>
             <button
               onClick={open}
-              className="premium-cta inline-flex w-fit items-center gap-5 px-8 py-4 font-bold text-white text-sm uppercase tracking-wider transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_38px_-14px_rgba(124,58,237,0.65)]"
+              className="premium-cta mt-auto inline-flex w-fit self-center items-center gap-5 px-8 py-4 font-bold text-white text-sm uppercase tracking-wider transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_38px_-14px_rgba(124,58,237,0.65)]"
               style={{ background: "linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%)", boxShadow: "0 4px 20px rgba(124,58,237,0.35)" }}
             >
               Записаться <span className="border-l border-white/30 pl-4"><ArrowRight className="w-4 h-4" /></span>

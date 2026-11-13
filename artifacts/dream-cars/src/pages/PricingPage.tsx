@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Check, HelpCircle, ArrowRight, ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { useBooking } from "@/contexts/BookingContext";
@@ -121,6 +121,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 
 export default function PricingPage() {
   const { open } = useBooking();
+  const ctaVideoRef = useRef<HTMLVideoElement>(null);
   const mobileOptimized = typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
   usePageMeta({
     title: "Цены на детейлинг — Dream Cars Studio",
@@ -128,6 +129,17 @@ export default function PricingPage() {
     keywords: "цены детейлинг, стоимость полировки, цена керамики, PPF цена, car detailing cost, ceramic coating price, PPF price",
     canonicalPath: "/pricing",
   });
+
+  useEffect(() => {
+    const video = ctaVideoRef.current;
+    if (!video || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry?.isIntersecting && !document.hidden) void video.play().catch(() => undefined);
+      else video.pause();
+    }, { rootMargin: "180px 0px", threshold: 0.08 });
+    observer.observe(video);
+    return () => { observer.disconnect(); video.pause(); };
+  }, []);
   return (
     <main className="min-h-screen w-full overflow-x-clip bg-[#080808] text-white">
       <Navbar />
@@ -272,18 +284,26 @@ export default function PricingPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 relative overflow-hidden border-t border-white/5">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#7C3AED]/5 to-transparent" />
-        <div className="container relative z-10 mx-auto px-4 md:px-6 text-center">
-          <motion.div initial={mobileOptimized ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="text-4xl md:text-5xl font-display font-black text-white mb-4">Не знаете что выбрать?</h2>
-            <p className="text-white/50 mb-10 max-w-lg mx-auto">Оставьте заявку — мы бесплатно проконсультируем и подберём услугу под ваш автомобиль и бюджет.</p>
+      <section className="relative min-h-[600px] overflow-hidden border-t border-white/5 md:min-h-[680px]">
+        <video ref={ctaVideoRef} className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center" muted loop playsInline preload="none" poster={`${import.meta.env.BASE_URL}car-porsche-911.webp`} disablePictureInPicture aria-hidden="true" tabIndex={-1}>
+          <source src={`${import.meta.env.BASE_URL}video/need-money-for-porsche.mp4`} type="video/mp4" />
+        </video>
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(3,2,5,0.96)_0%,rgba(7,4,11,0.84)_42%,rgba(7,4,11,0.35)_75%,rgba(3,2,5,0.2)_100%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/25" />
+        <div className="container relative z-10 mx-auto flex min-h-[600px] items-center px-4 py-20 md:min-h-[680px] md:px-6 md:py-24">
+          <motion.div initial={mobileOptimized ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-2xl text-left">
+            <h2 className="font-display text-4xl font-black leading-[1.02] tracking-[-0.05em] text-white md:text-6xl">Не знаете что выбрать?</h2>
+            <p className="mt-5 max-w-xl text-base leading-7 text-white/65 md:text-lg">Оставьте заявку — мы бесплатно проконсультируем и подберём услугу под ваш автомобиль и бюджет.</p>
+            <div className="my-10 flex flex-col items-start gap-3 text-xs font-medium text-white/65">
+              <span className="border-l border-[#a875ff] pl-3">Бесплатная консультация</span>
+              <span className="border-l border-[#a875ff] pl-3">Предварительный расчёт</span>
+              <span className="border-l border-[#a875ff] pl-3">Персональный план работ</span>
+            </div>
             <button
               onClick={open}
-              className="inline-flex items-center gap-3 px-10 py-4 rounded-xl font-bold text-white text-sm uppercase tracking-wider transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_0_40px_rgba(124,58,237,0.5)] mt-8"
-              style={{ background: "linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%)", boxShadow: "0 4px 20px rgba(124,58,237,0.35)" }}
+              className="premium-cta inline-flex min-h-14 items-center gap-5 bg-gradient-to-r from-[#8b5cf6] to-[#6d28d9] px-7 py-4 text-sm font-bold uppercase tracking-[0.1em] text-white transition-colors hover:from-[#9f75ff] hover:to-[#7c3aed]"
             >
-              Получить консультацию <ArrowRight className="w-4 h-4" />
+              Получить консультацию <span className="border-l border-white/35 pl-4"><ArrowRight className="h-4 w-4" aria-hidden="true" /></span>
             </button>
           </motion.div>
         </div>
