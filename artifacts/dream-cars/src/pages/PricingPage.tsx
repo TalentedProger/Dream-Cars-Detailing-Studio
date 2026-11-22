@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Check, HelpCircle, ArrowRight, ChevronDown } from "lucide-react";
+import { Check, HelpCircle, ArrowRight, ArrowUpRight, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Footer } from "@/components/sections/Footer";
 import { useBooking } from "@/contexts/BookingContext";
@@ -8,24 +8,23 @@ import { usePageMeta } from "@/hooks/use-page-meta";
 const plans = [
   {
     name: "Базовый",
-    tagline: "Регулярный уход",
     price: "от 3 000 ₽",
-    desc: "Поддержание чистоты и свежести",
+    desc: "Поддерживаем чистоту кузова и свежесть салона для повседневных поездок.",
     features: [
       "Трёхфазная мойка кузова",
       "Уборка салона пылесосом",
       "Очистка стёкол изнутри",
       "Чернение резины",
       "Влажная уборка пластика",
+      "Контроль чистоты перед выдачей",
     ],
     popular: false,
     color: "#7C3AED",
   },
   {
     name: "Стандарт",
-    tagline: "Лучший выбор",
     price: "от 8 000 ₽",
-    desc: "Глубокая очистка и базовая защита",
+    desc: "Глубоко очищаем автомобиль и добавляем базовую защиту поверхностей.",
     features: [
       "Всё из Базового пакета",
       "Лёгкая полировка (1 шаг)",
@@ -39,9 +38,8 @@ const plans = [
   },
   {
     name: "Премиум",
-    tagline: "Максимальный результат",
     price: "от 20 000 ₽",
-    desc: "Профессиональная защита и восстановление",
+    desc: "Восстанавливаем внешний вид и защищаем кузов и салон профессиональными составами.",
     features: [
       "Всё из Стандарта",
       "Абразивная полировка (2 шага)",
@@ -56,18 +54,18 @@ const plans = [
 ];
 
 const individual = [
-  { service: "Трёхфазная мойка", price: "1 500 – 3 000 ₽" },
-  { service: "Химчистка салона", price: "от 10 000 ₽" },
-  { service: "Полировка (1 шаг)", price: "от 8 000 ₽" },
-  { service: "Полировка (2 шага)", price: "от 15 000 ₽" },
-  { service: "Керамика SiO₂", price: "от 25 000 ₽" },
-  { service: "PPF (зоны риска)", price: "от 30 000 ₽" },
-  { service: "PPF (полный кузов)", price: "от 90 000 ₽" },
-  { service: "Антидождь", price: "от 3 000 ₽" },
-  { service: "Детейлинг двигателя", price: "от 5 000 ₽" },
-  { service: "Реставрация фар", price: "от 4 000 ₽" },
-  { service: "Озонирование", price: "от 2 000 ₽" },
-  { service: "Тонировка", price: "от 5 000 ₽" },
+  { service: "Трёхфазная мойка", price: "1 500 – 3 000 ₽", image: "services/foam-wash-bmw.png", category: "Бережный уход", detail: "Очистка кузова без лишнего воздействия на покрытие." },
+  { service: "Химчистка салона", price: "от 10 000 ₽", image: "services/detailing-tools.webp", category: "Интерьер", detail: "Глубокая очистка ткани, кожи и труднодоступных зон." },
+  { service: "Полировка (1 шаг)", price: "от 8 000 ₽", image: "services/polishing-kit.webp", category: "Восстановление", detail: "Освежаем блеск и убираем лёгкие следы эксплуатации." },
+  { service: "Детейлинг двигателя", price: "от 5 000 ₽", image: "services/engine-detailing-centered.webp", category: "Под капотом", detail: "Аккуратно очищаем и приводим в порядок подкапотное пространство." },
+  { service: "Реставрация фар", price: "от 4 000 ₽", image: "services/headlight-kit.webp", category: "Оптика", detail: "Возвращаем прозрачность и защищаем поверхность фар." },
+  { service: "Озонирование", price: "от 2 000 ₽", image: "services/ozonator.png", category: "Воздух в салоне", detail: "Обработка салона для устранения стойких запахов." },
+  { service: "PPF (полный кузов)", price: "от 90 000 ₽", image: "services/ppf-roll.png", category: "Защитная плёнка", detail: "Защищаем все окрашенные панели автомобиля." },
+  { service: "Антидождь", price: "от 3 000 ₽", image: "services/anti-rain-kit.png", category: "Обзор", detail: "Водоотталкивающее покрытие для автомобильных стёкол." },
+  { service: "Полировка (2 шага)", price: "от 15 000 ₽", image: "services/polish-2.png", category: "Восстановление", detail: "Работаем с более заметными дефектами лакокрасочного покрытия." },
+  { service: "Керамика SiO₂", price: "от 25 000 ₽", image: "services/ceramic-sio2.png", category: "Защита кузова", detail: "Добавляем глубину цвета и гидрофобные свойства." },
+  { service: "PPF (зоны риска)", price: "от 30 000 ₽", image: "services/ppf-roll.png", category: "Защитная плёнка", detail: "Закрываем участки, которые чаще встречают сколы." },
+  { service: "Тонировка", price: "от 5 000 ₽", image: "services/tint-film.png", category: "Стёкла", detail: "Подбираем плёнку и аккуратно наносим её на стёкла." },
 ];
 
 const faqs = [
@@ -140,15 +138,46 @@ export default function PricingPage() {
     return () => { observer.disconnect(); video.pause(); };
   }, []);
   return (
-    <main className="min-h-screen w-full overflow-x-clip bg-[#080808] text-white">
+    <main className="relative min-h-screen w-full overflow-x-clip bg-[#080808] text-white">
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[1900px] overflow-hidden [mask-image:linear-gradient(to_bottom,black_0%,black_78%,transparent_100%)] md:h-[1200px]" aria-hidden="true">
+        <svg className="absolute left-1/2 top-0 h-full min-w-[850px] w-[120%] -translate-x-1/2" viewBox="0 0 1200 1100" preserveAspectRatio="xMidYMid slice" fill="none">
+          <defs>
+            <radialGradient id="pricing-ambient-violet">
+              <stop stopColor="#9054df" stopOpacity=".42" />
+              <stop offset=".48" stopColor="#5e2c9c" stopOpacity=".19" />
+              <stop offset="1" stopColor="#2a153a" stopOpacity="0" />
+            </radialGradient>
+            <radialGradient id="pricing-ambient-lilac">
+              <stop stopColor="#b98af2" stopOpacity=".29" />
+              <stop offset=".5" stopColor="#6d3aa6" stopOpacity=".13" />
+              <stop offset="1" stopColor="#291438" stopOpacity="0" />
+            </radialGradient>
+            <linearGradient id="pricing-silk" x1="265" y1="1060" x2="1020" y2="-80" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#130d1c" stopOpacity="0" />
+              <stop offset=".19" stopColor="#46276c" stopOpacity=".42" />
+              <stop offset=".42" stopColor="#9a66d7" stopOpacity=".73" />
+              <stop offset=".55" stopColor="#4d2879" stopOpacity=".57" />
+              <stop offset=".78" stopColor="#7c44bf" stopOpacity=".52" />
+              <stop offset="1" stopColor="#1a1126" stopOpacity=".1" />
+            </linearGradient>
+            <linearGradient id="pricing-silk-edge" x1="300" y1="1010" x2="970" y2="0" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#be9ce9" stopOpacity="0" />
+              <stop offset=".38" stopColor="#d9b7ff" stopOpacity=".35" />
+              <stop offset=".68" stopColor="#b385ea" stopOpacity=".25" />
+              <stop offset="1" stopColor="#a375d5" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          <ellipse cx="865" cy="290" rx="345" ry="345" fill="url(#pricing-ambient-violet)" />
+          <ellipse cx="395" cy="785" rx="385" ry="330" fill="url(#pricing-ambient-lilac)" />
+          <path d="M935 -130 C 855 65 980 198 903 365 C 828 528 610 567 466 686 C 338 793 272 918 272 1140 L 104 1140 C 114 850 239 669 395 559 C 567 437 729 423 757 293 C 793 129 683 42 748 -130 Z" fill="url(#pricing-silk)" />
+          <path d="M748 -130 C 683 42 793 129 757 293 C 729 423 567 437 395 559 C 239 669 114 850 104 1140" stroke="url(#pricing-silk-edge)" strokeWidth="2" />
+        </svg>
+      </div>
 
       {/* Hero */}
-      <section className="relative overflow-hidden pb-16 pt-40 md:pb-20">
-        <div className="absolute inset-0 bg-[#080808]" />
+      <section className="relative z-10 pb-16 pt-40 md:pb-20">
         <div className="performance-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-[#7C3AED]/10 rounded-full blur-[160px] pointer-events-none" />
         <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
-        {/* Bottom fade */}
-        <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-[#080808] to-transparent pointer-events-none z-10" />
         <div className="container relative z-10 mx-auto px-4 md:px-6">
           <motion.div initial={mobileOptimized ? false : { opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
             <h1 className="text-6xl md:text-8xl font-display font-black leading-none mb-6">
@@ -163,9 +192,9 @@ export default function PricingPage() {
       </section>
 
       {/* Plans */}
-      <section className="pb-24">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 lg:gap-14 xl:gap-20 max-w-6xl mx-auto">
+      <section className="relative z-10 pb-24 pt-10">
+        <div className="relative mx-auto w-full max-w-[1440px] px-4 md:px-6">
+          <div className="mx-auto grid w-full max-w-[1325px] grid-cols-1 gap-5 md:grid-cols-3 md:gap-3 lg:gap-4">
             {plans.map((plan, i) => (
               <motion.div
                 key={i}
@@ -173,39 +202,30 @@ export default function PricingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className={`relative rounded-3xl p-8 border flex flex-col md:backdrop-blur-xl transition-all duration-300 ${
-                  plan.popular
-                    ? "bg-white/10 border-[#7C3AED]/70 shadow-[0_0_50px_rgba(124,58,237,0.22)] md:scale-[1.04] z-10"
-                    : "bg-white/5 border-white/10 hover:border-[#7C3AED]/40"
-                }`}
+                className={`group relative flex min-h-[440px] flex-col overflow-visible rounded-[26px] border bg-[linear-gradient(155deg,rgba(16,19,21,0.7),rgba(9,10,12,0.79)_57%,rgba(13,14,16,0.73))] px-6 pb-6 pt-7 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_24px_48px_rgba(0,0,0,0.22)] backdrop-blur-[6px] md:min-h-[470px] lg:px-7 lg:pt-8 ${i === 2 ? "border-[#bc91ff]/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_0_32px_rgba(139,92,246,0.25),0_24px_48px_rgba(0,0,0,0.22)]" : plan.popular ? "border-white/55" : "border-white/35"}`}
               >
+                <div className={`pointer-events-none absolute inset-x-0 top-0 h-24 rounded-t-[26px] bg-gradient-to-b ${i === 2 ? "from-[#a875ff]/20" : "from-white/[0.055]"} to-transparent`} aria-hidden="true" />
                 {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#7C3AED] to-[#6D28D9] text-white text-xs font-bold uppercase tracking-wider py-1.5 px-5 rounded-full shadow-[0_4px_16px_rgba(124,58,237,0.4)]">
+                  <div className="absolute -top-4 left-1/2 z-20 -translate-x-1/2 whitespace-nowrap rounded-full bg-gradient-to-r from-[#7C3AED] to-[#6D28D9] px-5 py-1.5 text-xs font-bold uppercase tracking-wider text-white shadow-[0_4px_16px_rgba(124,58,237,0.4)]">
                     Выбор клиентов
                   </div>
                 )}
-                <div className="mb-8">
-                  <div className="text-xs text-[#7C3AED] font-bold uppercase tracking-widest mb-2">{plan.tagline}</div>
-                  <h3 className="text-2xl font-display font-bold text-white mb-2">{plan.name}</h3>
-                  <p className="text-white/40 text-sm mb-5 h-10">{plan.desc}</p>
-                  <div className="text-4xl font-display font-black text-white">{plan.price}</div>
+                <div className="relative mb-5">
+                  <h3 className="font-display text-[1.65rem] font-medium leading-none tracking-[-0.045em] text-white">{plan.name}</h3>
+                  <div className="mt-2 font-display text-[2.25rem] font-semibold leading-none tracking-[-0.055em] text-white lg:text-[2.5rem]">{plan.price}</div>
+                  <p className="mt-5 min-h-10 max-w-[290px] text-xs leading-[1.45] text-white/65">{plan.desc}</p>
                 </div>
-                <ul className="space-y-3 mb-8 flex-grow">
+                <ul className="relative mb-6 grid flex-grow content-start grid-rows-[repeat(6,36px)] gap-1.5">
                   {plan.features.map((f, j) => (
                     <li key={j} className="flex items-start gap-3">
-                      <Check className={`w-4 h-4 shrink-0 mt-0.5 ${plan.popular ? "text-[#a78bfa]" : "text-white/35"}`} />
-                      <span className="text-white/75 text-sm">{f}</span>
+                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/25 text-white"><Check className="h-3.5 w-3.5" strokeWidth={1.8} aria-hidden="true" /></span>
+                      <span className="pt-px text-xs leading-[1.5] text-white/80">{f}</span>
                     </li>
                   ))}
                 </ul>
                 <button
                   onClick={open}
-                  className={`w-full py-3.5 rounded-xl font-bold text-sm uppercase tracking-wider transition-all duration-300 md:hover:scale-[1.02] ${
-                    plan.popular
-                      ? "text-white hover:shadow-[0_0_24px_rgba(124,58,237,0.5)]"
-                      : "text-white/70 border border-white/15 hover:border-[#7C3AED]/50 hover:bg-white/5"
-                  }`}
-                  style={plan.popular ? { background: "linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%)", boxShadow: "0 4px 20px rgba(124,58,237,0.3)" } : {}}
+                  className="relative mx-auto flex min-h-10 w-[min(100%,172px)] items-center justify-center rounded-full bg-white px-5 py-2 text-xs font-semibold text-[#111315] transition-colors hover:bg-[#f0e6ff] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
                 >
                   Выбрать
                 </button>
@@ -216,28 +236,44 @@ export default function PricingPage() {
       </section>
 
       {/* Individual services */}
-      <section className="py-24 border-t border-white/5">
-        <div className="container mx-auto px-4 md:px-6">
-          <motion.div initial={mobileOptimized ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-12">
-            <h2 className="text-4xl font-display font-bold text-white mb-3">Отдельные <span className="text-[#7C3AED]">услуги</span></h2>
-            <p className="text-white/50 max-w-lg">Заказывайте именно то, что нужно вашему автомобилю — без лишних трат.</p>
-          </motion.div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <section className="relative z-10 bg-[#f5f4f2] py-20 text-[#141316] md:py-28">
+        <motion.h2 initial={mobileOptimized ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-9 px-3 font-display text-[clamp(2.5rem,5.5vw,5.5rem)] font-semibold leading-[0.95] tracking-[-0.07em] text-[#141316] md:mb-10 md:px-4">
+          Отдельные услуги
+        </motion.h2>
+        <div className="grid w-full grid-cols-1 gap-px border-y border-[#17141c]/20 bg-[#17141c]/20 sm:grid-cols-2 lg:grid-cols-3">
             {individual.map((item, i) => (
-              <motion.div
-                key={i}
-                initial={mobileOptimized ? false : { opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                className="flex items-center justify-between p-5 rounded-2xl border border-white/8 hover:border-[#7C3AED]/35 hover:bg-white/[0.02] transition-all duration-200 group"
+              <button
+                key={item.service}
+                type="button"
+                onClick={open}
+                aria-label={`${item.service}, ${item.price}. Оставить заявку`}
+                className={`group relative flex min-h-[370px] min-w-0 flex-col overflow-hidden p-5 text-left transition-colors duration-300 focus-visible:z-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#7C3AED] focus-visible:outline-offset-[-3px] md:min-h-[405px] md:p-6 ${i === 0 ? "bg-[#111013] text-white" : "bg-[#faf9f7] text-[#17151b] hover:bg-white"}`}
               >
-                <span className="text-white/75 text-sm group-hover:text-white transition-colors">{item.service}</span>
-                <span className="text-white font-bold text-sm bg-[#7C3AED]/10 border border-[#7C3AED]/20 px-3 py-1 rounded-lg">{item.price}</span>
-              </motion.div>
+                {i === 0 && (
+                  <>
+                    <img src={`/${item.image}`} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover object-[64%_center]" />
+                    <span aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(6,6,8,0.84)_0%,rgba(6,6,8,0.22)_35%,rgba(6,6,8,0.12)_56%,rgba(6,6,8,0.88)_100%)]" />
+                  </>
+                )}
+                <span className="relative z-10 flex w-full items-start justify-between gap-4">
+                  <span className="min-w-0">
+                    <span className="block font-display text-xl font-medium leading-tight tracking-[-0.045em] md:text-[1.45rem]">{item.service}</span>
+                    <span className={`mt-2 block text-[10px] font-medium uppercase tracking-[0.12em] ${i === 0 ? "text-white/55" : "text-[#746f7a]"}`}>{item.category}</span>
+                  </span>
+                  <ArrowUpRight aria-hidden="true" className="h-6 w-6 shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={1.5} />
+                </span>
+                <span className="relative z-10 flex min-h-0 flex-1 items-center justify-center py-4">
+                  {i !== 0 && <img src={`/${item.image}`} alt="" loading="lazy" decoding="async" className="relative h-[185px] w-[88%] object-contain md:h-[210px]" />}
+                </span>
+                <span className="relative z-10 flex w-full items-end justify-between gap-5">
+                  <span className={`max-w-[240px] text-xs leading-[1.5] md:text-[13px] ${i === 0 ? "text-white/65" : "text-[#514c56]"}`}>{item.detail}</span>
+                  <span className="shrink-0 whitespace-nowrap font-display text-xs font-semibold tracking-[-0.025em] md:text-sm">{item.price}</span>
+                </span>
+              </button>
             ))}
-          </div>
-          <p className="text-white/30 text-xs mt-6 flex items-center gap-2">
+        </div>
+        <div className="container mx-auto px-4 md:px-6">
+          <p className="mt-6 flex items-start gap-2 text-xs leading-relaxed text-[#746f7a]">
             <HelpCircle className="w-3 h-3" /> Цены указаны для автомобилей классов B–D. Для SUV, внедорожников и суперкаров — индивидуальный расчёт.
           </p>
         </div>

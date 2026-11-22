@@ -108,6 +108,22 @@ export default function ContactPage() {
             <p className="text-white/55 max-w-xl text-lg leading-relaxed">
               Есть вопросы? Хотите записаться или просто узнать стоимость? Напишите или позвоните — ответим в течение 15 минут.
             </p>
+            <div className="mt-8 flex items-center gap-3" aria-label="Социальные сети Dream Cars">
+              {socials.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.name}
+                  title={social.name}
+                  className="flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] transition-colors hover:border-white/30 hover:bg-white/[0.12] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#a78bfa]"
+                  style={{ color: social.color }}
+                >
+                  {social.icon}
+                </a>
+              ))}
+            </div>
           </motion.div>
         </div>
       </section>
@@ -137,23 +153,6 @@ export default function ContactPage() {
                   </div>
                 </a>
               </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Social strip */}
-      <section className="border-y border-white/[0.07] bg-[#0b0b0c] py-4">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-3">
-            {socials.map((social) => (
-              <a key={social.name} href={social.href} target="_blank" rel="noopener noreferrer" className="group flex min-h-16 items-center justify-between rounded-[5px] border border-white/8 bg-white/[0.025] px-4 transition-colors hover:border-white/20 hover:bg-white/[0.05]">
-                <span className="flex items-center gap-3">
-                  <span className="flex h-9 w-9 items-center justify-center" style={{ color: social.color }}>{social.icon}</span>
-                  <span className="text-sm font-medium text-white/60 transition-colors group-hover:text-white">{social.name}</span>
-                </span>
-                <ArrowRight className="h-4 w-4 text-white/25 transition-transform group-hover:translate-x-0.5 group-hover:text-white/60" aria-hidden="true" />
-              </a>
             ))}
           </div>
         </div>
