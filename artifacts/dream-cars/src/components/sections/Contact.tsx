@@ -44,24 +44,26 @@ export function Contact() {
       <div aria-hidden="true" className="performance-glow pointer-events-none absolute -right-52 top-0 h-[620px] w-[620px] rounded-full bg-[#d8c3f5]/[0.2] blur-[150px]" />
 
       <div className="container relative mx-auto px-4 md:px-6 lg:h-full">
-        <div className="grid gap-16 lg:h-full lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-14 xl:gap-20">
-          <motion.div initial={{ opacity: 0, x: reduceMotion ? 0 : -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: reduceMotion ? 0 : 0.7 }} className="order-2 lg:order-1">
-            <h2 className="max-w-[570px] font-display text-[clamp(3rem,5.2vw,5.2rem)] font-semibold leading-[0.95] tracking-[-0.065em]">
-              Запишитесь<br />
-              <span className="inline-flex items-baseline gap-[0.38em]">
-                <span>на</span>
-                <span className="relative text-[#8b5cf6]">
-                  детейлинг
-                  <svg viewBox="0 0 30 30" fill="none" aria-hidden="true" className="absolute -right-7 -top-5 h-6 w-6 overflow-visible text-current">
-                    <path d="M15 1.5c.7 8.2 5.3 12.8 13.5 13.5-8.2.7-12.8 5.3-13.5 13.5C14.3 20.3 9.7 15.7 1.5 15 9.7 14.3 14.3 9.7 15 1.5Z" fill="currentColor" />
-                    <path d="M25 2.3c.2 2.4 1.5 3.7 3.9 3.9-2.4.2-3.7 1.5-3.9 3.9-.2-2.4-1.5-3.7-3.9-3.9 2.4-.2 3.7-1.5 3.9-3.9Z" fill="currentColor" opacity=".48" />
-                  </svg>
+        <div className="grid gap-8 md:gap-12 lg:h-full lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-14 xl:gap-20">
+          <div className="contents lg:order-1 lg:block">
+            <motion.div initial={{ opacity: 0, x: reduceMotion ? 0 : -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: reduceMotion ? 0 : 0.7 }} className="order-1">
+              <h2 className="max-w-[570px] font-display text-[clamp(3rem,5.2vw,5.2rem)] font-semibold leading-[0.95] tracking-[-0.065em]">
+                Запишитесь<br />
+                <span className="inline-flex items-baseline gap-[0.38em]">
+                  <span>на</span>
+                  <span className="relative text-[#8b5cf6]">
+                    детейлинг
+                    <svg viewBox="0 0 30 30" fill="none" aria-hidden="true" className="absolute -right-7 -top-5 h-6 w-6 overflow-visible text-current">
+                      <path d="M15 1.5c.7 8.2 5.3 12.8 13.5 13.5-8.2.7-12.8 5.3-13.5 13.5C14.3 20.3 9.7 15.7 1.5 15 9.7 14.3 14.3 9.7 15 1.5Z" fill="currentColor" />
+                      <path d="M25 2.3c.2 2.4 1.5 3.7 3.9 3.9-2.4.2-3.7 1.5-3.9 3.9-.2-2.4-1.5-3.7-3.9-3.9 2.4-.2 3.7-1.5 3.9-3.9Z" fill="currentColor" opacity=".48" />
+                    </svg>
+                  </span>
                 </span>
-              </span>
-            </h2>
-            <p className="mt-5 max-w-md text-base leading-7 text-[#6e6874] md:text-lg">Расскажите о вашем автомобиле и желаемом результате. Подберём работы и согласуем стоимость.</p>
+              </h2>
+              <p className="mt-5 max-w-md text-base leading-7 text-[#6e6874] md:text-lg">Расскажите о вашем автомобиле и желаемом результате. Подберём работы и согласуем стоимость.</p>
+            </motion.div>
 
-            <div className="mt-9 space-y-5">
+            <motion.div initial={{ opacity: 0, x: reduceMotion ? 0 : -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: reduceMotion ? 0 : 0.7 }} className="order-3 space-y-5 lg:mt-9">
               <div className="grid grid-cols-[1.75rem_minmax(0,1fr)] items-center gap-x-4 border-t border-[#231b2d]/10 pt-5 sm:grid-cols-[1.75rem_minmax(0,1fr)_auto]">
                 <MapPin className="h-6 w-6 self-center text-[#574f60]" strokeWidth={1.65} aria-hidden="true" />
                 <div><span className="block text-[11px] font-semibold uppercase tracking-[0.18em] text-[#716b77]">Адрес</span><span className="mt-1.5 block text-base font-medium text-[#25202a] md:text-lg">Москва, Кутузовский проспект, 12с3</span></div>
@@ -77,10 +79,10 @@ export function Contact() {
                 <Clock className="h-6 w-6 self-center text-[#574f60]" strokeWidth={1.65} aria-hidden="true" />
                 <div><span className="block text-[11px] font-semibold uppercase tracking-[0.18em] text-[#716b77]">Режим работы</span><span className="mt-1.5 block text-base font-medium text-[#25202a] md:text-lg">Ежедневно, 10:00–21:00</span></div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
 
-          <motion.div initial={{ opacity: 0, x: reduceMotion ? 0 : 24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: reduceMotion ? 0 : 0.7, delay: reduceMotion ? 0 : 0.1 }} className="order-1 rounded-[28px] border border-[#8b5cf6]/25 bg-[#111013] p-6 text-white shadow-[0_24px_70px_rgba(30,20,40,0.13)] md:p-9 lg:order-2 lg:w-[90%] lg:justify-self-end lg:p-8 xl:p-10">
+          <motion.div initial={{ opacity: 0, x: reduceMotion ? 0 : 24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: reduceMotion ? 0 : 0.7, delay: reduceMotion ? 0 : 0.1 }} className="order-2 rounded-[28px] border border-[#8b5cf6]/25 bg-[#111013] p-6 text-white shadow-[0_24px_70px_rgba(30,20,40,0.13)] md:p-9 lg:w-[90%] lg:justify-self-end lg:p-8 xl:p-10">
             <h3 className="font-display text-3xl font-semibold tracking-[-0.04em] text-white md:text-4xl">Оставить заявку</h3>
             <p className="mt-3 text-sm leading-6 text-white/50 md:text-base">Свяжемся с вами и обсудим детали.</p>
 
