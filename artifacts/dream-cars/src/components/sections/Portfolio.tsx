@@ -144,7 +144,7 @@ export function Portfolio() {
                     onClick={() => setExpandedIndex(index)}
                     onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setExpandedIndex(index); } }}
                     aria-label={`Открыть проект ${project.model}`}
-                    className="portfolio-case-shape group relative grid h-[540px] cursor-pointer grid-rows-[180px_minmax(0,1fr)] overflow-hidden border border-[#1b1722]/10 bg-[radial-gradient(circle_at_82%_20%,rgba(168,117,255,0.22),transparent_44%),linear-gradient(135deg,rgba(255,255,255,0.72),rgba(242,235,250,0.62))] shadow-[0_24px_70px_rgba(55,33,79,0.1)] outline-none transition-[border-color] focus-visible:border-[#8b5cf6] sm:h-auto sm:grid-rows-none lg:min-h-[616px] lg:grid-cols-[0.99fr_1.01fr]"
+                    className="portfolio-case-shape group relative grid h-[540px] cursor-pointer grid-rows-[198px_minmax(0,1fr)] overflow-hidden border border-[#1b1722]/10 bg-[radial-gradient(circle_at_82%_20%,rgba(168,117,255,0.22),transparent_44%),linear-gradient(135deg,rgba(255,255,255,0.72),rgba(242,235,250,0.62))] shadow-[0_24px_70px_rgba(55,33,79,0.1)] outline-none transition-[border-color] focus-visible:border-[#8b5cf6] sm:h-auto sm:grid-rows-none lg:min-h-[616px] lg:grid-cols-[0.99fr_1.01fr]"
                   >
                     <div className="portfolio-photo-panel relative z-10 min-h-0 overflow-hidden bg-[#0a080d] sm:min-h-[390px] lg:min-h-full">
                       <div className="absolute inset-0"><ProjectPhoto project={project} eager={index === 0} /></div>
@@ -152,8 +152,8 @@ export function Portfolio() {
 
                     <div aria-hidden="true" className="portfolio-diagonal-divider pointer-events-none" />
 
-                    <div className="relative z-10 flex flex-col justify-between gap-6 bg-[radial-gradient(circle_at_18%_18%,rgba(196,153,255,0.3),transparent_40%),radial-gradient(circle_at_92%_86%,rgba(142,78,225,0.28),transparent_44%),linear-gradient(145deg,#321a47_0%,#4b2468_50%,#281237_100%)] px-5 pb-4 pt-4 text-white backdrop-blur-[24px] sm:justify-start sm:gap-0 sm:border-t sm:border-white/15 sm:p-9 lg:border-t-0 lg:py-10 lg:pr-10 lg:pl-20 xl:py-12 xl:pr-12 xl:pl-24">
-                      <div className="flex items-center justify-between gap-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#c6a4ec]">
+                    <div className="relative z-10 flex min-h-0 flex-col justify-between bg-[radial-gradient(circle_at_18%_18%,rgba(196,153,255,0.3),transparent_40%),radial-gradient(circle_at_92%_86%,rgba(142,78,225,0.28),transparent_44%),linear-gradient(145deg,#321a47_0%,#4b2468_50%,#281237_100%)] px-5 pt-4 text-white backdrop-blur-[24px] sm:justify-start sm:border-t sm:border-white/15 sm:p-9 lg:border-t-0 lg:py-10 lg:pr-10 lg:pl-20 xl:py-12 xl:pr-12 xl:pl-24">
+                      <div className="flex items-end justify-between gap-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#c6a4ec] sm:items-center">
                         <span className="min-w-0 truncate font-display text-[1.05rem] font-semibold normal-case tracking-[-0.035em] text-white sm:hidden">{project.model}</span>
                         <span className="hidden sm:inline">История проекта</span>
                         <div className="flex h-11 w-16 items-center justify-center transition-transform duration-300 group-hover:scale-105" aria-hidden="true">
@@ -172,6 +172,7 @@ export function Portfolio() {
                           {project.work.map((item) => <li key={item} className="flex items-start gap-2"><span className="mt-2 h-1 w-1 shrink-0 rotate-45 bg-[#b78ae8]" />{item}</li>)}
                         </ul>
                       </div>
+                      <div aria-hidden="true" className="h-0 shrink-0 sm:hidden" />
                       <div className="mt-6 hidden border-t border-[#a875ff]/35 pt-5 sm:block lg:mt-auto">
                         <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#c6a4ec]">Результат</span>
                         <p className="mt-2 text-sm leading-relaxed text-white/[0.78]">{project.result}</p>
