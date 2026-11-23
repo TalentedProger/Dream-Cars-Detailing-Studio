@@ -20,7 +20,7 @@ const prefetchRoute = (route: string) => {
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [, navigate] = useLocation();
+  const [location, navigate] = useLocation();
   const { open } = useBooking();
   useBodyScrollLock(mobileMenuOpen);
 
@@ -148,7 +148,8 @@ export function Navbar() {
                   key={link.name}
                   onClick={() => handleNav(link.route)}
                   onTouchStart={() => prefetchRoute(link.route)}
-                  className="group animate-menu-item flex w-full items-center justify-between py-3.5 text-left font-display text-[1.5625rem] font-medium tracking-[-0.025em] text-white transition-colors hover:text-[#c6a4ec]"
+                  aria-current={location === link.route ? "page" : undefined}
+                  className={`group animate-menu-item flex w-full items-center justify-between py-3.5 text-left font-display text-[1.5625rem] font-medium tracking-[-0.025em] transition-colors ${location === link.route ? "text-[#a875ff]" : "text-white hover:text-[#c6a4ec]"}`}
                   style={{ animationDelay: `${40 + i * 45}ms` }}
                 >
                   <span>{link.name}</span>

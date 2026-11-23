@@ -176,7 +176,7 @@ export default function PricingPage() {
       </div>
 
       {/* Hero */}
-      <section className="relative z-10 pb-16 pt-40 md:pb-20">
+      <section className="relative z-10 pb-0 pt-40 md:pb-20">
         <div className="performance-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-[#7C3AED]/10 rounded-full blur-[160px] pointer-events-none" />
         <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
         <div className="container relative z-10 mx-auto px-4 md:px-6">
@@ -193,7 +193,7 @@ export default function PricingPage() {
       </section>
 
       {/* Plans */}
-      <section className="relative z-10 pb-24 pt-24 md:pt-10">
+      <section className="relative z-10 pb-24 pt-6 md:pt-10">
         <div className="relative mx-auto w-full max-w-[1440px] px-4 md:px-6">
           <div className="mx-auto grid w-full max-w-[1325px] grid-cols-1 gap-5 md:grid-cols-3 md:gap-3 lg:gap-4">
             {plans.map((plan, i) => (

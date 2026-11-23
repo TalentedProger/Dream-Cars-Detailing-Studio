@@ -14,6 +14,7 @@ export type PortfolioDetailProject = {
   work: string[];
   result: string;
   year?: string;
+  photoCredit?: { author: string; sourceUrl: string; licenseUrl: string };
 };
 
 type PortfolioDetailViewProps = {
@@ -28,11 +29,11 @@ export function PortfolioDetailView({ project, onClose, theme = "light" }: Portf
   const border = dark ? "border-white/12" : "border-black/10";
   const muted = dark ? "text-white/55" : "text-[#17131d]/55";
   const galleryImages = [
-    project.image,
-    `${import.meta.env.BASE_URL}our_work/polishing_ceramics.webp`,
-    `${import.meta.env.BASE_URL}our_work/wrapping_with_film.webp`,
-    `${import.meta.env.BASE_URL}our_work/Interior_detailing.webp`,
-    `${import.meta.env.BASE_URL}our_work/anti-rain.webp`,
+    { src: project.image, alt: project.imageAlt || project.model },
+    { src: `${import.meta.env.BASE_URL}our_work/polishing_ceramics.webp`, alt: "Процесс полировки кузова" },
+    { src: `${import.meta.env.BASE_URL}our_work/wrapping_with_film.webp`, alt: "Процесс оклейки защитной плёнкой" },
+    { src: `${import.meta.env.BASE_URL}our_work/Interior_detailing.webp`, alt: "Детейлинг интерьера" },
+    { src: `${import.meta.env.BASE_URL}our_work/anti-rain.webp`, alt: "Нанесение защитного состава на стекло" },
   ];
 
   const showPreviousImage = () => setSelectedImageIndex((current) => current === null ? null : (current - 1 + galleryImages.length) % galleryImages.length);
@@ -42,7 +43,7 @@ export function PortfolioDetailView({ project, onClose, theme = "light" }: Portf
     if (selectedImageIndex === null) return;
     const previousIndex = (selectedImageIndex - 1 + galleryImages.length) % galleryImages.length;
     const nextIndex = (selectedImageIndex + 1) % galleryImages.length;
-    [galleryImages[previousIndex], galleryImages[nextIndex]].forEach((src) => {
+    [galleryImages[previousIndex], galleryImages[nextIndex]].forEach(({ src }) => {
       const image = new Image();
       image.src = src;
     });
@@ -78,7 +79,7 @@ export function PortfolioDetailView({ project, onClose, theme = "light" }: Portf
           </button>
 
           {project.brandLogo ? (
-            <span className="flex h-10 w-14 items-center justify-center justify-self-center p-1.5 md:h-12 md:w-20 md:rounded-[5px] md:bg-white"><img src={project.brandLogo} alt={`Логотип ${project.brand}`} className="h-full w-full object-contain" /></span>
+            <span className={`flex h-10 w-14 items-center justify-center justify-self-center p-1.5 md:h-12 md:w-20 md:rounded-[5px] ${project.brandLogo.endsWith(".svg") ? "md:bg-white/10" : "md:bg-white"}`}><img src={project.brandLogo} alt={`Логотип ${project.brand}`} className="h-full w-full object-contain" /></span>
           ) : (
             <span className="justify-self-center font-display text-sm font-semibold uppercase tracking-[0.18em] text-white">{project.brand}</span>
           )}
@@ -111,18 +112,26 @@ export function PortfolioDetailView({ project, onClose, theme = "light" }: Portf
             <div className="flex min-w-max gap-2 md:min-w-0 md:gap-3">
               {galleryImages.map((image, index) => (
                 <button
-                  key={image}
+                  key={image.src}
                   type="button"
                   onClick={() => setSelectedImageIndex(index)}
                   className="group relative aspect-[4/3] w-[72vw] shrink-0 snap-start overflow-hidden rounded-[10px] bg-black/10 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#8b5cf6] md:w-auto md:min-w-0 md:flex-1 md:rounded-[5px]"
-                  aria-label={`Открыть фотографию ${index + 1} проекта ${project.model}`}
+                  aria-label={`Открыть фото: ${image.alt}`}
                 >
-                  <img src={image} alt={`${project.model}, фотография проекта ${index + 1}`} loading={index === 0 ? "eager" : "lazy"} decoding="async" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]" />
+                  <img src={image.src} alt={image.alt} loading={index === 0 ? "eager" : "lazy"} decoding="async" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]" />
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 to-transparent transition-colors group-hover:from-black/10" />
                 </button>
               ))}
             </div>
           </div>
+          <p className={`mt-3 text-xs ${muted}`}>Первое фото — автомобиль указанной модели. Остальные кадры показывают процессы детейлинга.</p>
+          {project.photoCredit && (
+            <p className={`mt-3 text-xs ${muted}`}>
+              Фото: <a href={project.photoCredit.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">{project.photoCredit.author}</a>
+              {" · "}<a href={project.photoCredit.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">CC BY-SA 4.0</a>
+              {" · формат и размер изменены"}
+            </p>
+          )}
         </section>
 
         <section className="pb-4 pt-9 md:pb-5 md:pt-12">
@@ -174,8 +183,8 @@ export function PortfolioDetailView({ project, onClose, theme = "light" }: Portf
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.985 }}
               transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
-              src={galleryImages[selectedImageIndex]}
-              alt={`${project.model}, увеличенная фотография`}
+              src={galleryImages[selectedImageIndex].src}
+              alt={galleryImages[selectedImageIndex].alt}
               className="max-h-full max-w-full cursor-grab touch-pan-y select-none object-contain will-change-transform active:cursor-grabbing"
               drag="x"
               dragConstraints={{ left: 0, right: 0 }}

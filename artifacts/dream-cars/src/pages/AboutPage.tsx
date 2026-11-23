@@ -258,7 +258,6 @@ export default function AboutPage() {
           </motion.div>
 
           <div ref={timelineScrollRef} onScroll={handleTimelineScroll} className="relative mt-10 touch-auto snap-x snap-mandatory overflow-x-auto overflow-y-hidden overscroll-x-contain pb-3 [scrollbar-width:none] md:mt-14 md:snap-none [&::-webkit-scrollbar]:hidden">
-            <div className="pointer-events-none absolute left-0 right-0 top-[96px] z-0 h-12 opacity-55 [background-image:repeating-linear-gradient(90deg,transparent_0,transparent_14px,rgba(95,89,106,0.22)_14px,rgba(95,89,106,0.22)_15px)]" />
             <div className="relative z-10 flex w-full items-start md:min-w-max">
               {developmentPath.map((item, index) => {
                 const isActive = activeTimelineIndex === index;
@@ -274,6 +273,7 @@ export default function AboutPage() {
                     aria-pressed={isActive}
                     className={`relative h-[470px] w-full shrink-0 snap-start border-l px-5 text-left transition-[width,border-color] duration-500 focus-visible:z-20 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#7c3aed] md:snap-none ${isActive ? "border-[#7c3aed] md:w-[390px]" : "border-[#d8dbe2] md:w-[190px]"}`}
                   >
+                    <span aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-[96px] h-12 opacity-55 [background-image:repeating-linear-gradient(90deg,transparent_0,transparent_14px,rgba(95,89,106,0.22)_14px,rgba(95,89,106,0.22)_15px)]" />
                     <span className={`absolute left-5 top-0 block font-display text-[3rem] font-semibold leading-none tracking-[-0.045em] transition-colors duration-300 ${isActive ? "text-[#17131d]" : "text-[#17131d]/28"}`}>{item.year}</span>
                     <span className={`absolute left-5 top-[58px] block text-xs font-semibold transition-colors ${isActive ? "text-[#7c3aed]" : "text-[#17131d]/25"}`}>{item.label}</span>
 

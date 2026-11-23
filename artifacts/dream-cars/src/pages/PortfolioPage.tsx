@@ -121,10 +121,30 @@ const brandLogos: Record<string, string | undefined> = {
   BMW: `${import.meta.env.BASE_URL}brand-logos/bmw.webp`,
   Porsche: `${import.meta.env.BASE_URL}brand-logos/porsche.webp`,
   Mercedes: `${import.meta.env.BASE_URL}brand-logos/mercedes.webp`,
+  "Land Rover": `${import.meta.env.BASE_URL}brand-logos/land-rover.webp`,
+  "Aston Martin": `${import.meta.env.BASE_URL}brand-logos/astonmartin.svg`,
+  Ferrari: `${import.meta.env.BASE_URL}brand-logos/ferrari.svg`,
+  Lamborghini: `${import.meta.env.BASE_URL}brand-logos/lamborghini.svg`,
+  "Rolls-Royce": `${import.meta.env.BASE_URL}brand-logos/rollsroyce.svg`,
+  Tesla: `${import.meta.env.BASE_URL}brand-logos/tesla.svg`,
+};
+
+const photoCredits: Record<string, NonNullable<PortfolioDetailProject["photoCredit"]>> = {
+  "Ferrari F8": {
+    author: "Alexander Migl",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Ferrari_F8_Tributo_DSC_7013.jpg",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+  },
+  "Lamborghini Urus": {
+    author: "Dllu",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Lamborghini_Urus_oblique_view_dllu_01.jpg",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+  },
 };
 
 function getBrand(model: string) {
   if (model.startsWith("Mercedes")) return "Mercedes";
+  if (model.startsWith("Range Rover")) return "Land Rover";
   if (model.startsWith("Aston Martin")) return "Aston Martin";
   if (model.startsWith("Rolls-Royce")) return "Rolls-Royce";
   if (model.startsWith("Tesla")) return "Tesla";
@@ -142,11 +162,12 @@ function toDetailProject(work: (typeof works)[number]): PortfolioDetailProject {
     brandLogo: brandLogos[brand],
     field: work.service,
     image: work.img,
-    imageAlt: `${work.model} после работ в Dream Cars Studio`,
+    imageAlt: `${work.model}, внешний вид автомобиля`,
     request: work.desc,
     work: serviceSteps[work.tag] || ["Диагностика", work.service, "Финишный контроль"],
     result: `Автомобиль получил согласованный комплекс «${work.service}»: восстановленный внешний вид, защищённые поверхности и аккуратный результат, проверенный мастером перед выдачей.`,
     year: work.year,
+    photoCredit: photoCredits[work.model],
   };
 }
 
@@ -196,7 +217,7 @@ export default function PortfolioPage() {
     <main className="min-h-screen w-full overflow-x-clip bg-[#080808] text-white">
 
       {/* Hero */}
-      <section className="relative overflow-hidden pb-16 pt-40 md:pb-20">
+      <section className="relative overflow-hidden pb-6 pt-40 md:pb-20">
         <div className="absolute inset-0 bg-[#080808]" />
         <div className="performance-glow absolute top-1/2 right-0 w-[700px] h-[700px] bg-[#7C3AED]/10 rounded-full blur-[150px] translate-x-1/3 -translate-y-1/2 pointer-events-none" />
         <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
@@ -230,7 +251,7 @@ export default function PortfolioPage() {
                 onClick={() => setActiveFilter(f)}
                 className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
                   activeFilter === f
-                    ? "bg-[#7C3AED] text-white shadow-[0_0_16px_rgba(124,58,237,0.4)]"
+                    ? "bg-[#7C3AED] text-white"
                     : "bg-white/5 text-white/60 border border-white/10 hover:border-[#7C3AED]/40 hover:text-white"
                 }`}
               >
@@ -268,7 +289,7 @@ export default function PortfolioPage() {
 
                   <div aria-hidden="true" className={`portfolio-diagonal-divider pointer-events-none ${reversed ? "portfolio-diagonal-divider--reverse" : ""}`} />
 
-                  <div className={`relative z-10 flex min-h-0 flex-col bg-[radial-gradient(circle_at_18%_18%,rgba(196,153,255,0.3),transparent_40%),radial-gradient(circle_at_92%_86%,rgba(142,78,225,0.28),transparent_44%),linear-gradient(145deg,#321a47_0%,#4b2468_50%,#281237_100%)] p-4 text-white md:p-6 lg:py-9 xl:py-11 ${reversed ? "lg:order-1 lg:pr-20 lg:pl-10 xl:pr-24 xl:pl-12" : "lg:pr-10 lg:pl-20 xl:pr-12 xl:pl-24"}`}>
+                  <div className={`relative z-10 flex min-h-0 flex-col bg-[radial-gradient(circle_at_18%_18%,rgba(196,153,255,0.3),transparent_40%),radial-gradient(circle_at_92%_86%,rgba(142,78,225,0.28),transparent_44%),linear-gradient(145deg,#321a47_0%,#4b2468_50%,#281237_100%)] px-4 py-6 text-white md:p-6 lg:py-9 xl:py-11 ${reversed ? "lg:order-1 lg:pr-20 lg:pl-10 xl:pr-24 xl:pl-12" : "lg:pr-10 lg:pl-20 xl:pr-12 xl:pl-24"}`}>
                     <div className="flex items-center justify-between gap-4 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#cfb1f2]">
                       <span>{work.tag} · {work.year}</span>
                       <span className="flex shrink-0 items-center gap-2">
@@ -278,7 +299,7 @@ export default function PortfolioPage() {
                     </div>
                     <h2 className="mt-4 font-display text-3xl font-semibold tracking-[-0.05em] text-white md:text-4xl xl:text-5xl">{work.model}</h2>
                     <div className="mt-4">
-                      <span className="text-sm font-bold uppercase tracking-[0.12em] text-white md:text-[10px] md:font-semibold md:text-white/40">Задача</span>
+                      <span className="text-xs font-bold uppercase tracking-[0.13em] text-[#dec8f5] md:text-[10px] md:font-semibold md:text-white/40">Задача</span>
                       <p className="mt-2 max-w-2xl text-sm leading-6 text-white/70">{work.desc}</p>
                     </div>
                     <ul className="mt-4 grid gap-2 text-sm text-white/82 sm:grid-cols-2">
