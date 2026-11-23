@@ -1,7 +1,8 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Footer } from "@/components/sections/Footer";
+import { CtaBenefits } from "@/components/CtaBenefits";
 import { useBooking } from "@/contexts/BookingContext";
 import { OptimizedImage } from "@/components/ui/optimized-image";
 import { usePageMeta } from "@/hooks/use-page-meta";
@@ -16,7 +17,7 @@ const works = [
     year: "2024",
     service: "Восстановление + Керамика",
     tag: "Полировка",
-    desc: "Вернули кузову глубину цвета, удалили мелкие дефекты и защитили покрытие для повседневной эксплуатации.",
+    desc: "Вернуть кузову глубину цвета, убрать мелкие дефекты и защитить покрытие для повседневной эксплуатации.",
   },
   {
     img: `${import.meta.env.BASE_URL}cars/mercedes-s-class.webp`,
@@ -24,7 +25,7 @@ const works = [
     year: "2024",
     service: "Антигравийная плёнка",
     tag: "PPF",
-    desc: "Защитили наиболее уязвимые зоны кузова прозрачной плёнкой с аккуратной проработкой кромок.",
+    desc: "Защитить уязвимые зоны кузова прозрачной плёнкой, сохранив его внешний вид.",
   },
   {
     img: `${import.meta.env.BASE_URL}cars/range-rover-sport.webp`,
@@ -32,7 +33,7 @@ const works = [
     year: "2024",
     service: "Детейлинг интерьера",
     tag: "Химчистка",
-    desc: "Освежили салон, глубоко очистили материалы и сохранили естественную фактуру кожи и декоративных элементов.",
+    desc: "Освежить салон и глубоко очистить материалы, сохранив фактуру кожи и декоративных элементов.",
   },
   {
     img: `${import.meta.env.BASE_URL}cars/porsche-cayenne.webp`,
@@ -40,15 +41,15 @@ const works = [
     year: "2024",
     service: "Стёкла + Комплексный уход",
     tag: "Комплекс",
-    desc: "Подготовили автомобиль к поездкам в непогоду, улучшили обзор и выполнили финишный комплексный уход.",
+    desc: "Подготовить автомобиль к поездкам в непогоду, улучшить обзор и выполнить комплексный уход.",
   },
   {
-    img: `${import.meta.env.BASE_URL}car-aston-martin-db11.webp`,
+    img: `${import.meta.env.BASE_URL}car-bmw-m5.webp`,
     model: "BMW M5 Competition",
     year: "2022",
     service: "Полировка + Керамика",
     tag: "Полировка",
-    desc: "Двухшаговая абразивная полировка + нанесение Ceramic Pro 9H на весь кузов.",
+    desc: "Убрать мелкие дефекты лакокрасочного покрытия, усилить блеск и защитить кузов керамикой.",
   },
   {
     img: `${import.meta.env.BASE_URL}car-porsche-911-gt3.webp`,
@@ -56,7 +57,7 @@ const works = [
     year: "2021",
     service: "Химчистка + Антидождь",
     tag: "Химчистка",
-    desc: "Глубокая химчистка салона из алькантары, озонирование, антидождь на все стёкла.",
+    desc: "Очистить салон из алькантары, устранить запахи и улучшить обзор в дождь.",
   },
   {
     img: `${import.meta.env.BASE_URL}car-mercedes-amg-gt.webp`,
@@ -64,7 +65,7 @@ const works = [
     year: "2023",
     service: "Керамическое покрытие",
     tag: "Керамика",
-    desc: "Нанесение Gyeon Quartz Mohs+ на весь кузов, обработка дисков и стёкол.",
+    desc: "Защитить лакокрасочное покрытие, диски и стёкла долговечными составами.",
   },
   {
     img: `${import.meta.env.BASE_URL}car-lamborghini-urus.webp`,
@@ -72,7 +73,7 @@ const works = [
     year: "2023",
     service: "Полный детейлинг",
     tag: "Комплекс",
-    desc: "Полировка, PPF на зоны риска, керамика на кузов, химчистка кожаного салона.",
+    desc: "Освежить кузов и салон, защитить зоны риска плёнкой и сохранить блеск покрытия.",
   },
   {
     img: `${import.meta.env.BASE_URL}car-aston-martin-db11-new.webp`,
@@ -80,7 +81,7 @@ const works = [
     year: "2024",
     service: "PPF полный кузов",
     tag: "PPF",
-    desc: "Оклейка полного кузова матовой антигравийной плёнкой STEK с гарантией 5 лет.",
+    desc: "Защитить весь кузов матовой антигравийной плёнкой, сохранив аккуратный вид деталей.",
   },
   {
     img: `${import.meta.env.BASE_URL}car-ferrari-f8-new.webp`,
@@ -88,7 +89,7 @@ const works = [
     year: "2024",
     service: "Химчистка салона + Озон",
     tag: "Химчистка",
-    desc: "Полная химчистка интерьера с обработкой алькантары и карбоновых вставок. Озонация.",
+    desc: "Глубоко очистить интерьер, включая алькантару и карбоновые вставки, и устранить запахи.",
   },
   {
     img: `${import.meta.env.BASE_URL}car-rolls-royce-cullinan.webp`,
@@ -96,15 +97,15 @@ const works = [
     year: "2024",
     service: "Комплексный детейлинг",
     tag: "Комплекс",
-    desc: "Подготовка, полировка, Ceramic Pro Elite, PPF, химчистка кожи Nappa. 7 дней работ.",
+    desc: "Привести кузов и салон в безупречное состояние и защитить уязвимые поверхности.",
   },
   {
     img: `${import.meta.env.BASE_URL}car-tesla-model-s.webp`,
     model: "Tesla Model S Plaid",
     year: "2023",
-    service: "Полировка + Ceramiq",
+    service: "Полировка + Керамика",
     tag: "Полировка",
-    desc: "Однофазная полировка + нанесение IGL Coatings Kenzo на кузов. Детейлинг дисков.",
+    desc: "Убрать лёгкие дефекты покрытия, защитить кузов керамикой и привести диски в порядок.",
   },
 ];
 
@@ -255,32 +256,35 @@ export default function PortfolioPage() {
                   initial={mobileOptimized ? false : { opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: Math.min(i * 0.06, 0.3), duration: 0.5 }}
-                  className="portfolio-case-shape group relative grid min-h-[610px] w-full grid-rows-[240px_minmax(0,1fr)] overflow-hidden border border-white/10 text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8b5cf6] lg:min-h-[520px] lg:grid-cols-[0.99fr_1.01fr] lg:grid-rows-none"
+                  className="portfolio-case-shape group relative grid w-full grid-rows-[180px_auto] overflow-hidden border border-white/10 text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8b5cf6] md:grid-rows-[240px_auto] lg:min-h-[520px] lg:grid-cols-[0.99fr_1.01fr] lg:grid-rows-none"
                   aria-label={`Открыть проект ${work.model}`}
                 >
                   <div className={`portfolio-photo-panel relative z-10 min-h-0 overflow-hidden bg-[#0a080d] lg:min-h-full ${reversed ? "portfolio-photo-panel--reverse lg:order-2" : ""}`}>
                     <OptimizedImage src={work.img} alt={work.model} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]" width={1200} height={900} />
                     <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_46%_48%,transparent_24%,rgba(3,2,5,0.44)_100%)]" />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/[0.08] to-black/20" />
-                    <span className="absolute bottom-5 left-5 rounded-md border border-white/25 bg-black/30 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.15em] text-white backdrop-blur-[4px] md:bottom-7 md:left-7">{work.service}</span>
+                    <span className="absolute bottom-5 left-5 rounded-md bg-black/45 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.15em] text-white backdrop-blur-[4px] md:bottom-7 md:left-7 md:border md:border-white/25">{work.service}</span>
                   </div>
 
                   <div aria-hidden="true" className={`portfolio-diagonal-divider pointer-events-none ${reversed ? "portfolio-diagonal-divider--reverse" : ""}`} />
 
-                  <div className={`relative z-10 flex min-h-0 flex-col border-t border-white/15 bg-[radial-gradient(circle_at_18%_18%,rgba(196,153,255,0.3),transparent_40%),radial-gradient(circle_at_92%_86%,rgba(142,78,225,0.28),transparent_44%),linear-gradient(145deg,#321a47_0%,#4b2468_50%,#281237_100%)] p-6 text-white lg:border-t-0 lg:py-9 xl:py-11 ${reversed ? "lg:order-1 lg:pr-20 lg:pl-10 xl:pr-24 xl:pl-12" : "lg:pr-10 lg:pl-20 xl:pr-12 xl:pl-24"}`}>
+                  <div className={`relative z-10 flex min-h-0 flex-col bg-[radial-gradient(circle_at_18%_18%,rgba(196,153,255,0.3),transparent_40%),radial-gradient(circle_at_92%_86%,rgba(142,78,225,0.28),transparent_44%),linear-gradient(145deg,#321a47_0%,#4b2468_50%,#281237_100%)] p-4 text-white md:p-6 lg:py-9 xl:py-11 ${reversed ? "lg:order-1 lg:pr-20 lg:pl-10 xl:pr-24 xl:pl-12" : "lg:pr-10 lg:pl-20 xl:pr-12 xl:pl-24"}`}>
                     <div className="flex items-center justify-between gap-4 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#cfb1f2]">
                       <span>{work.tag} · {work.year}</span>
-                      {project.brandLogo ? <img src={project.brandLogo} alt="" aria-hidden="true" loading="lazy" className="h-10 w-14 object-contain drop-shadow-[0_7px_16px_rgba(0,0,0,0.3)]" /> : <span>{project.brand}</span>}
+                      <span className="flex shrink-0 items-center gap-2">
+                        {project.brandLogo ? <img src={project.brandLogo} alt="" aria-hidden="true" loading="lazy" className="h-10 w-14 object-contain drop-shadow-[0_7px_16px_rgba(0,0,0,0.3)]" /> : <span>{project.brand}</span>}
+                        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-white transition-colors group-hover:bg-white/30" aria-hidden="true"><ArrowUpRight className="h-5 w-5" strokeWidth={2} /></span>
+                      </span>
                     </div>
                     <h2 className="mt-4 font-display text-3xl font-semibold tracking-[-0.05em] text-white md:text-4xl xl:text-5xl">{work.model}</h2>
-                    <div className="mt-5 border-t border-white/10 pt-4">
-                      <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">Задача</span>
+                    <div className="mt-4">
+                      <span className="text-sm font-bold uppercase tracking-[0.12em] text-white md:text-[10px] md:font-semibold md:text-white/40">Задача</span>
                       <p className="mt-2 max-w-2xl text-sm leading-6 text-white/70">{work.desc}</p>
                     </div>
-                    <ul className="mt-5 grid gap-2 text-sm text-white/82 sm:grid-cols-2">
-                      {project.work.map((item) => <li key={item} className="flex items-start gap-2"><span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-white" />{item}</li>)}
+                    <ul className="mt-4 grid gap-2 text-sm text-white/82 sm:grid-cols-2">
+                      {project.work.map((item) => <li key={item} className="flex items-start gap-2"><span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/20 text-white" aria-hidden="true"><ArrowRight className="h-3 w-3" strokeWidth={2.5} /></span>{item}</li>)}
                     </ul>
-                    <div className="mt-auto border-t border-[#c49bf0]/30 pt-4">
+                    <div className="hidden md:mt-auto md:block md:border-t md:border-[#c49bf0]/30 md:pt-4">
                       <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#cfb1f2]">Результат</span>
                       <p className="mt-2 text-sm leading-6 text-white/70">{project.result}</p>
                     </div>
@@ -301,13 +305,9 @@ export default function PortfolioPage() {
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/25" />
         <div className="container relative z-10 mx-auto flex min-h-[600px] items-center px-4 py-20 md:min-h-[680px] md:px-6 md:py-24">
           <motion.div initial={mobileOptimized ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-2xl text-left">
-            <h2 className="font-display text-4xl font-black leading-[1.02] tracking-[-0.05em] text-white md:text-6xl">Ваш автомобиль — следующий</h2>
+            <h2 className="font-display text-[clamp(1.8rem,9vw,2.25rem)] font-black leading-[1.02] tracking-[-0.05em] text-white md:text-6xl"><span className="block">Ваш автомобиль</span><span className="block">— следующий</span></h2>
             <p className="mt-5 max-w-xl text-base leading-7 text-white/65 md:text-lg">Запишитесь уже сегодня и получите бесплатную диагностику состояния лака вашего автомобиля.</p>
-            <div className="my-10 flex flex-col items-start gap-3 text-xs font-medium text-white/65">
-              <span className="border-l border-[#a875ff] pl-3">Бесплатная консультация</span>
-              <span className="border-l border-[#a875ff] pl-3">Предварительный расчёт</span>
-              <span className="border-l border-[#a875ff] pl-3">Персональный план работ</span>
-            </div>
+            <CtaBenefits className="my-10" />
             <button
               onClick={open}
               className="premium-cta inline-flex min-h-14 items-center gap-5 bg-gradient-to-r from-[#8b5cf6] to-[#6d28d9] px-7 py-4 text-sm font-bold uppercase tracking-[0.1em] text-white transition-colors hover:from-[#9f75ff] hover:to-[#7c3aed]"

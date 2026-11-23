@@ -19,7 +19,7 @@ export function Testimonials() {
   const isInteracting = useRef(false);
   const pauseUntil = useRef(0);
   const [isVisible, setIsVisible] = useState(false);
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start" });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start", duration: 16, dragThreshold: 5 });
 
   const pauseAfterManualScroll = () => { pauseUntil.current = Date.now() + 7000; };
   const scrollPrev = useCallback(() => { pauseAfterManualScroll(); emblaApi?.scrollPrev(); }, [emblaApi]);
@@ -71,19 +71,19 @@ export function Testimonials() {
         </div>
 
         <motion.div initial={{ opacity: 0, y: reduceMotion ? 0 : 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: reduceMotion ? 0 : 0.7 }} ref={emblaRef} className="overflow-hidden" role="region" aria-roledescription="карусель" aria-label="Отзывы клиентов" aria-live="off">
-          <div className="flex gap-4 md:gap-5">
+          <div className="flex touch-pan-y gap-4 will-change-transform md:gap-5">
             {reviews.map((review, index) => (
               <div key={review.name} className="min-w-0 flex-[0_0_100%] md:flex-[0_0_calc(50%-10px)] xl:flex-[0_0_calc(33.333%-14px)]" role="group" aria-roledescription="слайд" aria-label={`${index + 1} из ${reviews.length}`}>
                 <article className="relative flex h-full min-h-[585px] flex-col overflow-hidden rounded-[24px] bg-[linear-gradient(160deg,#15111b,#0d0a10_58%,#070609)] p-7 shadow-[0_22px_55px_rgba(0,0,0,0.13)] md:p-8">
                   <img
                     src={`${base}cars/${review.photo}`}
                     alt={review.photoAlt}
-                    loading="lazy"
+                    loading={index < 2 ? "eager" : "lazy"}
                     decoding="async"
-                    className="pointer-events-none absolute left-0 top-1/2 h-auto w-full -translate-y-1/2 object-contain opacity-95 [mask-image:linear-gradient(to_bottom,transparent_0%,transparent_12%,black_32%,black_76%,transparent_97%,transparent_100%)]"
+                    className="pointer-events-none absolute left-0 top-1/2 h-auto w-full -translate-y-1/2 object-contain opacity-95 md:[mask-image:linear-gradient(to_bottom,transparent_0%,transparent_12%,black_32%,black_76%,transparent_97%,transparent_100%)]"
                     style={{ objectPosition: review.photoPosition }}
                   />
-                  <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_72%_58%_at_50%_58%,transparent_42%,rgba(4,3,7,0.24)_100%)] shadow-[inset_0_0_72px_rgba(0,0,0,0.18)]" />
+                  <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_72%_58%_at_50%_58%,transparent_42%,rgba(4,3,7,0.24)_100%)] md:shadow-[inset_0_0_72px_rgba(0,0,0,0.18)]" />
                   <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-[48%] bg-gradient-to-b from-[#1d1725] via-[#1b1522]/90 to-transparent" />
                   <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-[30%] bg-gradient-to-t from-[#100d15] via-[#100d15]/85 to-transparent" />
 

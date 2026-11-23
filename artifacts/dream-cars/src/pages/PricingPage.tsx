@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Check, HelpCircle, ArrowRight, ArrowUpRight, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Footer } from "@/components/sections/Footer";
+import { CtaBenefits } from "@/components/CtaBenefits";
 import { useBooking } from "@/contexts/BookingContext";
 import { usePageMeta } from "@/hooks/use-page-meta";
 
@@ -192,7 +193,7 @@ export default function PricingPage() {
       </section>
 
       {/* Plans */}
-      <section className="relative z-10 pb-24 pt-10">
+      <section className="relative z-10 pb-24 pt-24 md:pt-10">
         <div className="relative mx-auto w-full max-w-[1440px] px-4 md:px-6">
           <div className="mx-auto grid w-full max-w-[1325px] grid-cols-1 gap-5 md:grid-cols-3 md:gap-3 lg:gap-4">
             {plans.map((plan, i) => (
@@ -326,13 +327,9 @@ export default function PricingPage() {
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/25" />
         <div className="container relative z-10 mx-auto flex min-h-[600px] items-center px-4 py-20 md:min-h-[680px] md:px-6 md:py-24">
           <motion.div initial={mobileOptimized ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-2xl text-left">
-            <h2 className="font-display text-4xl font-black leading-[1.02] tracking-[-0.05em] text-white md:text-6xl">Не знаете что выбрать?</h2>
+            <h2 className="font-display text-[clamp(1.8rem,9vw,2.25rem)] font-black leading-[1.02] tracking-[-0.05em] text-white md:text-6xl"><span className="block">Не знаете</span><span className="block">что выбрать?</span></h2>
             <p className="mt-5 max-w-xl text-base leading-7 text-white/65 md:text-lg">Оставьте заявку — мы бесплатно проконсультируем и подберём услугу под ваш автомобиль и бюджет.</p>
-            <div className="my-10 flex flex-col items-start gap-3 text-xs font-medium text-white/65">
-              <span className="border-l border-[#a875ff] pl-3">Бесплатная консультация</span>
-              <span className="border-l border-[#a875ff] pl-3">Предварительный расчёт</span>
-              <span className="border-l border-[#a875ff] pl-3">Персональный план работ</span>
-            </div>
+            <CtaBenefits className="my-10" />
             <button
               onClick={open}
               className="premium-cta inline-flex min-h-14 items-center gap-5 bg-gradient-to-r from-[#8b5cf6] to-[#6d28d9] px-7 py-4 text-sm font-bold uppercase tracking-[0.1em] text-white transition-colors hover:from-[#9f75ff] hover:to-[#7c3aed]"

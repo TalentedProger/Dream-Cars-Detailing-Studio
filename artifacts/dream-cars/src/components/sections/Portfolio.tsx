@@ -152,7 +152,7 @@ export function Portfolio() {
 
                     <div aria-hidden="true" className="portfolio-diagonal-divider pointer-events-none" />
 
-                    <div className="relative z-10 flex flex-col border-t border-white/15 bg-[radial-gradient(circle_at_18%_18%,rgba(196,153,255,0.3),transparent_40%),radial-gradient(circle_at_92%_86%,rgba(142,78,225,0.28),transparent_44%),linear-gradient(145deg,#321a47_0%,#4b2468_50%,#281237_100%)] px-5 pb-3 pt-4 text-white backdrop-blur-[24px] sm:p-9 lg:border-t-0 lg:py-10 lg:pr-10 lg:pl-20 xl:py-12 xl:pr-12 xl:pl-24">
+                    <div className="relative z-10 flex flex-col bg-[radial-gradient(circle_at_18%_18%,rgba(196,153,255,0.3),transparent_40%),radial-gradient(circle_at_92%_86%,rgba(142,78,225,0.28),transparent_44%),linear-gradient(145deg,#321a47_0%,#4b2468_50%,#281237_100%)] px-5 pb-3 pt-4 text-white backdrop-blur-[24px] sm:border-t sm:border-white/15 sm:p-9 lg:border-t-0 lg:py-10 lg:pr-10 lg:pl-20 xl:py-12 xl:pr-12 xl:pl-24">
                       <div className="flex items-center justify-between gap-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#c6a4ec]">
                         <span className="min-w-0 truncate font-display text-[1.05rem] font-semibold normal-case tracking-[-0.035em] text-white sm:hidden">{project.model}</span>
                         <span className="hidden sm:inline">История проекта</span>
@@ -162,12 +162,12 @@ export function Portfolio() {
                       </div>
                       <h3 className="mt-3 hidden font-display text-3xl font-semibold tracking-[-0.05em] text-white sm:mt-6 sm:block sm:text-5xl">{project.model}</h3>
 
-                      <div className="mt-4 grid gap-1.5 border-t border-white/10 pt-3 sm:mt-7 sm:grid-cols-[115px_1fr] sm:gap-5 sm:pt-5">
-                        <span className="w-fit border-l-2 border-[#c9a4ee] pl-2 text-xs font-semibold uppercase tracking-[0.13em] text-[#dec8f5] sm:border-0 sm:pl-0 sm:text-white/40">Задача</span>
+                      <div className="mt-4 grid gap-1.5 sm:mt-7 sm:grid-cols-[115px_1fr] sm:gap-5 sm:border-t sm:border-white/10 sm:pt-5">
+                        <span className="w-fit text-xs font-semibold uppercase tracking-[0.13em] text-[#dec8f5] sm:text-white/40">Задача</span>
                         <p className="text-sm leading-relaxed text-white/[0.72]">{project.request}</p>
                       </div>
-                      <div className="mt-3 grid gap-1.5 border-t border-white/10 pt-3 sm:mt-5 sm:grid-cols-[115px_1fr] sm:gap-5 sm:pt-5">
-                        <span className="w-fit border-l-2 border-[#c9a4ee] pl-2 text-xs font-semibold uppercase tracking-[0.13em] text-[#dec8f5] sm:border-0 sm:pl-0 sm:text-white/40">Выполнено</span>
+                      <div className="mt-3 grid gap-1.5 sm:mt-5 sm:grid-cols-[115px_1fr] sm:gap-5 sm:border-t sm:border-white/10 sm:pt-5">
+                        <span className="w-fit text-xs font-semibold uppercase tracking-[0.13em] text-[#dec8f5] sm:text-white/40">Выполнено</span>
                         <ul className="space-y-2 text-sm text-white/85">
                           {project.work.map((item) => <li key={item} className="flex items-start gap-2"><span className="mt-2 h-1 w-1 shrink-0 rotate-45 bg-[#b78ae8]" />{item}</li>)}
                         </ul>

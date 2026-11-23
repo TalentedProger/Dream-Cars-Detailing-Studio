@@ -71,19 +71,19 @@ export function PortfolioDetailView({ project, onClose, theme = "light" }: Portf
       aria-modal="true"
       aria-label={`Проект ${project.model}`}
     >
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-black text-white">
+      <header className="sticky top-0 z-40 bg-black/75 text-white backdrop-blur-xl md:border-b md:border-white/10 md:bg-black md:backdrop-blur-none">
         <div className="container mx-auto grid min-h-16 grid-cols-[1fr_auto_1fr] items-center px-4 md:min-h-20 md:px-6">
-          <button type="button" onClick={onClose} className="inline-flex h-10 w-fit items-center justify-center justify-self-start rounded-[5px] border border-white/25 px-4 text-xs font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:border-white/55 hover:bg-white/8 md:h-11 md:px-5" aria-label="Вернуться к списку работ">
+          <button type="button" onClick={onClose} className="inline-flex h-10 w-fit items-center justify-center justify-self-start rounded-[5px] bg-white/15 px-4 text-xs font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:bg-white/25 md:h-11 md:border md:border-white/25 md:bg-transparent md:px-5" aria-label="Вернуться к списку работ">
             Назад
           </button>
 
           {project.brandLogo ? (
-            <span className="flex h-10 w-14 items-center justify-center justify-self-center rounded-[5px] bg-white p-1.5 md:h-12 md:w-20"><img src={project.brandLogo} alt={`Логотип ${project.brand}`} className="h-full w-full object-contain" /></span>
+            <span className="flex h-10 w-14 items-center justify-center justify-self-center p-1.5 md:h-12 md:w-20 md:rounded-[5px] md:bg-white"><img src={project.brandLogo} alt={`Логотип ${project.brand}`} className="h-full w-full object-contain" /></span>
           ) : (
             <span className="justify-self-center font-display text-sm font-semibold uppercase tracking-[0.18em] text-white">{project.brand}</span>
           )}
 
-          <button type="button" onClick={onClose} className="flex h-10 w-10 items-center justify-center justify-self-end rounded-[5px] border border-white/20 text-white transition-colors hover:border-white/55 hover:bg-white/8" aria-label="Закрыть страницу проекта">
+          <button type="button" onClick={onClose} className="flex h-10 w-10 items-center justify-center justify-self-end rounded-[5px] bg-white/15 text-white transition-colors hover:bg-white/25 md:border md:border-white/20 md:bg-transparent" aria-label="Закрыть страницу проекта">
             <X className="h-5 w-5" aria-hidden="true" />
           </button>
         </div>

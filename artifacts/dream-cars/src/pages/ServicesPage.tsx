@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Footer } from "@/components/sections/Footer";
+import { CtaBenefits } from "@/components/CtaBenefits";
 import { useBooking } from "@/contexts/BookingContext";
 import { usePageMeta } from "@/hooks/use-page-meta";
 
@@ -228,14 +229,10 @@ export default function ServicesPage() {
 
         <div className="container relative z-10 mx-auto flex min-h-[600px] items-center px-4 py-20 md:min-h-[680px] md:px-6 md:py-24">
           <motion.div initial={mobileOptimized ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-2xl text-left">
-            <h2 className="mb-5 font-display text-4xl font-black leading-[1.02] tracking-[-0.05em] text-white md:text-6xl">Готовы начать?</h2>
+            <h2 className="mb-5 font-display text-[clamp(1.8rem,9vw,2.25rem)] font-black leading-[1.02] tracking-[-0.05em] text-white md:text-6xl"><span className="block">Готовы</span><span className="block">начать?</span></h2>
             <p className="mb-8 max-w-xl text-base leading-7 text-white/65 md:text-lg">Запишитесь на бесплатную консультацию — оценим состояние автомобиля и подберём оптимальный набор работ без лишних услуг.</p>
 
-            <div className="mb-10 flex flex-col items-start gap-3 text-xs font-medium text-white/65">
-              <span className="border-l border-[#a875ff] pl-3">Бесплатная консультация</span>
-              <span className="border-l border-[#a875ff] pl-3">Предварительный расчёт</span>
-              <span className="border-l border-[#a875ff] pl-3">Персональный план работ</span>
-            </div>
+            <CtaBenefits className="mb-10" />
 
             <button
               onClick={open}

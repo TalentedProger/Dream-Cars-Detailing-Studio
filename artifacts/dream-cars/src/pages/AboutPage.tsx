@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Award, Clock, ShieldCheck, Star, Users } from "lucide-react";
 import { Footer } from "@/components/sections/Footer";
+import { CtaBenefits } from "@/components/CtaBenefits";
 import { useBooking } from "@/contexts/BookingContext";
 import { usePageMeta } from "@/hooks/use-page-meta";
 
@@ -256,7 +257,7 @@ export default function AboutPage() {
             </div>
           </motion.div>
 
-          <div ref={timelineScrollRef} onScroll={handleTimelineScroll} className="relative mt-10 touch-pan-x snap-x snap-mandatory overflow-x-auto overflow-y-hidden overscroll-x-contain pb-3 [scrollbar-width:none] md:mt-14 md:touch-auto md:snap-none [&::-webkit-scrollbar]:hidden">
+          <div ref={timelineScrollRef} onScroll={handleTimelineScroll} className="relative mt-10 touch-auto snap-x snap-mandatory overflow-x-auto overflow-y-hidden overscroll-x-contain pb-3 [scrollbar-width:none] md:mt-14 md:snap-none [&::-webkit-scrollbar]:hidden">
             <div className="pointer-events-none absolute left-0 right-0 top-[96px] z-0 h-12 opacity-55 [background-image:repeating-linear-gradient(90deg,transparent_0,transparent_14px,rgba(95,89,106,0.22)_14px,rgba(95,89,106,0.22)_15px)]" />
             <div className="relative z-10 flex w-full items-start md:min-w-max">
               {developmentPath.map((item, index) => {
@@ -314,13 +315,9 @@ export default function AboutPage() {
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20" />
         <div className="container relative z-10 mx-auto flex min-h-[558px] items-stretch px-4 py-16 md:min-h-[744px] md:px-6 md:py-24">
           <motion.div initial={mobileOptimized ? false : { opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="flex min-h-[360px] w-full flex-col text-left md:min-h-[430px]">
-            <h2 className="font-display text-4xl font-black leading-[1.02] tracking-[-0.05em] text-white md:text-6xl"><span className="block">Доверьте</span><span className="block">нам свой</span><span className="block">автомобиль</span></h2>
+            <h2 className="font-display text-[clamp(1.8rem,9vw,2.25rem)] font-black leading-[1.02] tracking-[-0.05em] text-white md:text-6xl"><span className="block">Доверьте нам</span><span className="block">свой автомобиль</span></h2>
             <p className="mt-4 max-w-xl text-base leading-7 text-white/65 md:text-lg">Запишитесь на бесплатную консультацию и убедитесь, что детейлинг мирового уровня — доступен.</p>
-            <div className="mt-8 flex flex-col items-start gap-3 text-xs font-medium text-white/65">
-              <span className="border-l border-[#a875ff] pl-3">Бесплатная консультация</span>
-              <span className="border-l border-[#a875ff] pl-3">Предварительный расчёт</span>
-              <span className="border-l border-[#a875ff] pl-3">Персональный план работ</span>
-            </div>
+            <CtaBenefits className="mt-8" />
             <button
               onClick={open}
               className="premium-cta mt-auto inline-flex w-fit self-center items-center gap-5 px-8 py-4 font-bold text-white text-sm uppercase tracking-wider transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_38px_-14px_rgba(124,58,237,0.65)]"

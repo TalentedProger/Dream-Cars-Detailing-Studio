@@ -92,13 +92,12 @@ export function WhyUs() {
 
             <motion.article variants={reveal} transition={{ duration: reduceMotion ? 0 : 0.65 }} className="relative flex min-h-[289px] flex-col overflow-hidden border border-white/15 bg-white/[0.12] p-6 backdrop-blur-xl lg:col-span-2 lg:min-h-0">
               <strong className="font-display text-4xl font-semibold tracking-[-0.05em] text-[#b78ae8] md:text-5xl">100%</strong>
-              <img src={qualityImage} alt="" aria-hidden="true" loading="lazy" className="pointer-events-none absolute left-1/2 top-1/2 h-[98px] w-[98px] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_12px_24px_rgba(67,120,255,0.22)]" />
+              <img src={qualityImage} alt="" aria-hidden="true" loading="lazy" className="pointer-events-none absolute left-1/2 top-1/2 h-[123px] w-[123px] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_12px_24px_rgba(67,120,255,0.22)] md:h-[98px] md:w-[98px]" />
               <p className="mt-auto text-sm font-semibold leading-snug text-white"><span className="block">Согласование</span><span className="block">до старта</span></p>
             </motion.article>
 
             <motion.article variants={reveal} transition={{ duration: reduceMotion ? 0 : 0.65 }} className="order-6 flex min-h-[289px] flex-col border border-black/10 bg-white p-6 text-[#17131d] shadow-[0_18px_50px_rgba(0,0,0,0.12)] md:order-none lg:col-span-4 lg:min-h-0">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#7138c7]">Мастерство и открытость</p>
-              <h3 className="mt-4 max-w-sm font-display text-2xl font-semibold leading-tight tracking-[-0.035em] text-[#17131d]">Руки, которым доверяют сложное</h3>
+              <h3 className="max-w-sm font-display text-2xl font-semibold leading-tight tracking-[-0.035em] text-[#17131d]">Руки, которым доверяют сложное</h3>
               <p className="mt-3 max-w-sm text-sm leading-6 text-[#17131d]/60">Подбираем технологию под состояние автомобиля и показываем, из чего складывается результат.</p>
               <div className="mt-auto flex items-center justify-between gap-4 pt-4">
                 <p className="text-xs font-semibold text-[#17131d]/70">Dream Cars Studio</p>
@@ -108,7 +107,7 @@ export function WhyUs() {
 
             <motion.article variants={reveal} transition={{ duration: reduceMotion ? 0 : 0.65 }} className="order-5 relative flex min-h-[289px] flex-col overflow-hidden bg-[linear-gradient(145deg,rgba(168,117,255,0.92),rgba(101,49,177,0.96))] p-6 md:order-none lg:col-span-2 lg:min-h-0">
               <strong className="max-w-[150px] font-display text-3xl font-semibold leading-[0.95] tracking-[-0.05em] text-white md:text-4xl">30 дней</strong>
-              <img src={agreementImage} alt="" aria-hidden="true" loading="lazy" className="pointer-events-none absolute left-1/2 top-1/2 h-[106px] w-[106px] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_12px_26px_rgba(36,88,255,0.28)]" />
+              <img src={agreementImage} alt="" aria-hidden="true" loading="lazy" className="pointer-events-none absolute left-1/2 top-1/2 h-[133px] w-[133px] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_12px_26px_rgba(36,88,255,0.28)] md:h-[106px] md:w-[106px]" />
               <p className="mt-auto text-sm font-semibold leading-snug text-white"><span className="block">Гарантия</span><span className="block">качества</span></p>
             </motion.article>
           </motion.div>
